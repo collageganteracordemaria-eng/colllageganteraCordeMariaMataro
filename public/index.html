@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="images/favicon.jpeg" type="image/jpeg">
+    <title>Colla Gegantera Cor de Maria - Inici</title>
+    <link href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/index.css">
+      <script src="js/proteger.js"></script>
+
+</head>
+<body>
+  <body style="background: #fff;">
+  <div id="app-root"></div>
+  <script>
+    // Bloqueo clic derecho
+    document.addEventListener('contextmenu', e => e.preventDefault(), true);
+    window.oncontextmenu = () => false;
+
+    // Bloqueo atajos de inspección
+    document.addEventListener('keydown', e => {
+      if (e.key === 'F12' || 
+          (e.ctrlKey && e.shiftKey && ['I','J','C','K'].includes(e.key.toUpperCase())) ||
+          (e.ctrlKey && ['U','S'].includes(e.key.toUpperCase()))
+      ) e.preventDefault();
+    }, true);
+
+    // Tu contenido solo en JS, así:
+    const appDiv = document.getElementById('app-root');
+    appDiv.innerHTML = `
+
+    `;
+  </script>
+</body>
+
+    <audio id="audio" loop muted>
+        <source src="images/bequetero.mp3" type="audio/mp3">
+        Tu navegador no soporta el elemento de audio.
+    </audio>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // 🎵 Reproduir àudio després de moure el ratolí
+      document.body.addEventListener("mousemove", function handler() {
+        const audio = document.getElementById("audio");
+        audio.play().then(() => {
+          audio.muted = false;
+        }).catch(error => {
+          console.log("Error al intentar reproduir el audio:", error);
+        });
+        document.body.removeEventListener("mousemove", handler);
+      });
+
+      // ⌨️ Redirigir amb la tecla Enter
+      document.addEventListener("keydown", event => {
+        if (event.key === "Enter") {
+          window.location.href = "http://localhost:3000/home";
+        }
+      });
+    });
+  </script>
+
+    <section class="intro">
+        <video autoplay muted loop id="background-video">
+            <source src="images/VID-20241123-WA0056_muted.mp4" type="video/mp4">
+        </video>
+        <div class="image-overlay"></div>
+        <div class="content">
+            <div class="text">
+                <p>Prem Enter per entrar</p>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
+  <!-- Connectar arxius CSS de Bootstrap -->
+  <link href="css/bootstrap.css" rel="stylesheet">
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/bootstrap-grid.css" rel="stylesheet">
+  <link href="css/bootstrap-grid.min.css" rel="stylesheet">
+  <link href="css/bootstrap-reboot.css" rel="stylesheet">
+  <link href="css/bootstrap-reboot.min.css" rel="stylesheet">
+
+  <!-- (Opcional) Connectar mapes de fonts (només per depuració) -->
+  <link href="css/bootstrap.css.map" rel="stylesheet" type="text/css" />
+  <link href="css/bootstrap.min.css.map" rel="stylesheet" type="text/css" />
+  <link href="css/bootstrap-grid.css.map" rel="stylesheet" type="text/css" />
+  <link href="css/bootstrap-grid.min.css.map" rel="stylesheet" type="text/css" />
+  <link href="css/bootstrap-reboot.css.map" rel="stylesheet" type="text/css" />
+  <link href="css/bootstrap-reboot.min.css.map" rel="stylesheet" type="text/css" />

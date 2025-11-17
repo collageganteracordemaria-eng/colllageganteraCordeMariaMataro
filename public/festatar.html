@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Festa de Tardor - Colla Gegantera Cor de Maria</title>    <link rel="icon" href="images/favicon.jpeg" type="image/jpeg">
+  <link rel="icon" href="images/favicon.jpeg" type="image/jpeg">
+  <script src="../src/js/proteger.js"></script>
+  <script src="js/search.js"></script>
+
+  <!-- Connectar arxius CSS de Bootstrap -->
+  <link href="css/bootstrap.css" rel="stylesheet">
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/bootstrap-grid.css" rel="stylesheet">
+  <link href="css/bootstrap-grid.min.css" rel="stylesheet">
+  <link href="css/bootstrap-reboot.css" rel="stylesheet">
+  <link href="css/bootstrap-reboot.min.css" rel="stylesheet">
+  <link href="css/search.css" rel="stylesheet">
+
+  <!-- (Opcional) Connectar mapes de fonts (només per depuració) -->
+  <link href="css/bootstrap.css.map" rel="stylesheet" type="text/css" />
+  <link href="css/bootstrap.min.css.map" rel="stylesheet" type="text/css" />
+  <link href="css/bootstrap-grid.css.map" rel="stylesheet" type="text/css" />
+  <link href="css/bootstrap-grid.min.css.map" rel="stylesheet" type="text/css" />
+  <link href="css/bootstrap-reboot.css.map" rel="stylesheet" type="text/css" />
+  <link href="css/bootstrap-reboot.min.css.map" rel="stylesheet" type="text/css" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f8f9fa;
+      color: #333;
+      overflow-x: hidden;
+
+    }
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      width: 100vw;
+      background-color: #ffffff;
+      z-index: 10;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+      display: flex;
+      justify-content: flex-start; /* Modificat per moure el contingut cap a l'esquerra */
+      align-items: center;
+      padding: 10px 0;
+      margin: 0;
+    }
+    
+    .navbar-nav {
+      display: flex;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    
+    .navbar-nav .nav-link {
+      color: #D52B1E;
+      font-size: 1.2rem;
+      font-weight: 700;
+      padding: 10px 20px;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+      margin: 0 10px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    
+    /* Eliminar la separació que crea la classe ms-auto i moure tot el menú a l'esquerra */
+    .navbar-nav.ms-auto {
+      margin-left: 0;
+    }
+    
+    .navbar-toggler {
+      margin-left: 0; /* Estableix el botó d'expansió de la navbar més a l'esquerra */
+    }
+    
+    .navbar-brand {
+      margin-left: 0; /* El logo també es mou més a l'esquerra */
+    }
+    
+    /* Ajusts per a la versió mòbil */
+    @media (max-width: 768px) {
+      .navbar-nav {
+        flex-direction: column;
+        align-items: flex-start; /* Canviem per a que estigui alineat a l'esquerra */
+      }
+    
+      .navbar-nav .nav-link {
+        width: 100%;
+        text-align: left; /* Text alineat a l'esquerra en mòbil */
+        padding: 15px 0;
+        white-space: normal;
+        overflow: visible;
+      }
+    }
+    
+    
+
+
+    header {
+      background-color: #d32f2f;
+      color: white;
+      margin-top: 100px; /* Baixar el títol */
+    }
+
+    footer {
+      background-color: #d32f2f;
+      color: white;
+      padding: 20px 0;
+    }
+
+    .video-container {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .video-container video {
+      max-width: 100%;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .comment {
+      font-style: italic;
+      color: #000000;
+      margin-top: 10px;
+    }
+
+    .cartell-container {
+      text-align: center;
+      margin-top: 50px;
+      margin-bottom: 50px;
+    }
+
+    .cartell-container h2 {
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: #d32f2f;
+      margin-bottom: 20px;
+    }
+
+    .cartell-container img {
+      max-width: 90%; /* Imatge més gran */
+      height: auto; /* Mantenir la relació d'aspecte */
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+   /* Estils per al títol de la secció de la galeria */
+.section-title {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  color: #D52B1E; /* Color vermell per al títol */
+  font-size: 2.5rem; /* Mida gran per a un títol destacat */
+  margin-bottom: 40px; /* Espai per a separar del contingut següent */
+}
+   
+    .scroll-anim {
+      opacity: 0;
+      transform: translateY(50px);
+      transition: all 0.6s ease-out;
+    }
+    
+    .scroll-anim.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }.main-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 3rem;
+      font-weight: 700;
+      color: #ffffff;
+    }
+@media (max-width: 768px) {
+  .navbar .container {
+    flex-direction: column;      /* todo en columna */
+    align-items: center;         /* centra los elementos */
+  }
+
+  .navbar-brand {
+    order: 1;                    /* logo primero */
+    margin-bottom: 10px;         /* separa del siguiente */
+  }
+
+  .search-bar {
+    order: 2;                    /* buscador después del logo */
+    width: 90%;                  /* ocupa casi todo el ancho */
+    margin-bottom: 10px;
+    left: 0 !important;          /* quitar cualquier desplazamiento previo */
+  }
+
+  .navbar-toggler {
+    order: 3;                    /* botón del menú abajo del buscador */
+    margin-bottom: 10px;
+  }
+
+  .collapse.navbar-collapse {
+    order: 4;                    /* menú desplegable al final */
+    width: 100%;
+  }
+
+  .navbar-nav {
+    flex-direction: column;       /* enlaces en columna */
+    align-items: center;          /* centrado horizontal */
+  }
+
+  .navbar-nav .nav-link {
+    padding: 10px 0;              /* espacio entre links */
+    text-align: center;           /* centrado del texto */
+  }
+}
+
+/* 🔧 Redueix l'espai entre opcions del menú */
+.navbar-nav .nav-item {
+  margin-left: 4px !important;
+  margin-right: 4px !important;
+}
+
+/* 🔧 Redueix el padding intern dels enllaços */
+.navbar-nav .nav-link {
+  padding-left: 6px !important;
+  padding-right: 6px !important;
+  font-size: 15px; /* opcional: més compacte */
+}
+
+/* 🔧 Ajusta també els desplegables si vols */
+.navbar .dropdown-menu {
+  min-width: 160px;
+}
+
+  </style>
+</head>
+<body>
+
+<body style="background: #fff;">
+  <div id="app-root"></div>
+  <script>
+    // Bloqueo clic derecho
+    document.addEventListener('contextmenu', e => e.preventDefault(), true);
+    window.oncontextmenu = () => false;
+
+    // Bloqueo atajos de inspección
+    document.addEventListener('keydown', e => {
+      if (e.key === 'F12' || 
+          (e.ctrlKey && e.shiftKey && ['I','J','C','K'].includes(e.key.toUpperCase())) ||
+          (e.ctrlKey && ['U','S'].includes(e.key.toUpperCase()))
+      ) e.preventDefault();
+    }, true);
+
+    // Tu contenido solo en JS, así:
+    const appDiv = document.getElementById('app-root');
+    appDiv.innerHTML = `
+
+    `;
+  </script>
+</body>
+
+
+
+<nav class="navbar navbar-expand-lg navbar-light fixed-top">
+  <div class="container d-flex align-items-center">
+    <form class="d-flex me-3 search-bar" role="search" onsubmit="return handleSearch(event)">
+      <input id="searchInput" class="form-control search-input" type="search" placeholder="Buscar..." aria-label="Buscar">
+    </form>
+
+    <a class="navbar-brand" href="https://www.cordemariamataro.cat/">
+      <img src="images/logo_corazon_de_maria.png" alt="Logo Cor de Maria" style="height: 60px;">
+    </a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link text-danger" href="http://localhost:3000/home">Inici</a></li>
+        <li class="nav-item"><a class="nav-link text-danger" href="http://localhost:3000/cercavila">Cercaviles</a></li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-danger" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Festes especials</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item text-danger" href="http://localhost:3000/carnaval">Rua Carnaval</a></li>
+            <li><a class="dropdown-item text-danger" href="http://localhost:3000/sant-jordi">Sant Jordi</a></li>
+            <li><a class="dropdown-item text-danger" href="http://localhost:3000/cursa">Cursa de l'escola</a></li>
+            <li><a class="dropdown-item text-danger" href="http://localhost:3000/festa-Major">Festa Major</a></li>
+            <li><a class="dropdown-item text-danger" href="http://localhost:3000/festa-tardor">Festa de Tardor</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-danger" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Colla</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item text-danger" href="http://localhost:3000/membres">Músics i portadors</a></li>
+            <li><a class="dropdown-item text-danger" href="http://localhost:3000/experiencies">Experiències dels membres</a></li>
+            <li><a class="dropdown-item text-danger" href="http://localhost:3000/uneixte">T'hi vols unir?</a></li>
+            <li><a class="dropdown-item text-danger" href="http://localhost:3000/chat">Chat i comentaris</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item"><a class="nav-link text-danger" href="http://localhost:3000/contacte">Contacte</a></li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-danger" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Socials</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item text-danger" href="https://www.instagram.com/collageganteracordemariamataro?igsh=eGhpazQyNHNqdnQx">Instagram</a></li>
+          </ul>
+        </li>
+      <li class="nav-item dropdown" id="user-menu">
+          <a class="nav-link dropdown-toggle text-danger" href="http://localhost:3000/perfil" role="button" data-bs-toggle="dropdown" aria-expanded="false" id="user-menu-link">
+            Login
+          </a>
+          <ul class="dropdown-menu" id="user-dropdown-menu">
+            <li><a class="dropdown-item text-danger" href="http://localhost:3000/perfil">Perfil</a></li>
+            <li><a class="dropdown-item text-danger" href="#" id="logout-link">Tancar Sessió</a></li>
+          </ul>
+        </li>
+
+
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', async () => {
+  const token = localStorage.getItem('authToken');
+  const userMenuLink = document.getElementById('user-menu-link');
+  const userDropdownMenu = document.getElementById('user-dropdown-menu');
+
+  // Si no hi ha token, mostra "Login"
+  if (!token) {
+    userMenuLink.textContent = 'Login';
+    userPerfil.textContent = 'Login';
+    const tancar = document.getElementById("logout-link").style.display = "none";
+    return;
+  }
+
+  try {
+    const res = await fetch('/api/profile', {
+      headers: { 'Authorization': `Bearer ${token}` }
+    });
+    const data = await res.json();
+
+    if (!data.success || !data.user) {
+      userMenuLink.textContent = 'Login';
+      return;
+    }
+
+    const user = data.user;
+    userMenuLink.textContent = user.username || 'Perfil';
+
+    // --- Afegim enllaços segons rol i validació ---
+    if (user.roleWeb === 'portador' && user.roleWebValidat === true) {
+      const li = document.createElement('li');
+      li.innerHTML = `<a class="dropdown-item text-danger" href="http://localhost:3000/seccio-portadors">Secció Portadors</a>`;
+      userDropdownMenu.insertBefore(li, document.getElementById('logout-link').parentElement);
+    }
+
+    if (user.roleWeb === 'music' && user.roleWebValidat === true) {
+      const li = document.createElement('li');
+      li.innerHTML = `<a class="dropdown-item text-danger" href="http://localhost:3000/seccio-musics">Secció Músics</a>`;
+      userDropdownMenu.insertBefore(li, document.getElementById('logout-link').parentElement);
+    }
+
+    // (opcional) Si vols que també surti per altres rols validats (ex: acompanyant):
+    // if (user.roleWeb === 'acompanyant' && user.roleWebValidat) { ... }
+
+  } catch (err) {
+    console.error('Error carregant perfil:', err);
+    userMenuLink.textContent = 'Login';
+  }
+});
+</script>
+
+<script>
+window.addEventListener('load', async () => {
+  const token = localStorage.getItem('authToken');
+  const username = localStorage.getItem('username');
+  const userMenuLink = document.getElementById('user-menu-link');
+
+  if (token && username) {
+    try {
+      const res = await fetch('/api/profile', {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      const data = await res.json();
+      console.log('Perfil carregat:', data);
+
+      if (data.success) {
+        const profileImg = data.user.image
+          ? `/uploads/${data.user.image}`
+          : '/images/default_profile.png';
+
+        userMenuLink.innerHTML = `
+          <img src="${profileImg}" 
+               alt="Perfil" 
+               style="width:32px;height:32px;border-radius:50%;object-fit:cover;margin-right:8px;">
+          ${username}
+        `;
+      } else {
+        userMenuLink.textContent = username;
+      }
+
+      // No mostrar el dropdown por defecto
+    } catch (err) {
+      console.error('Error carregant perfil:', err);
+      userMenuLink.textContent = username;
+    }
+  } else {
+    userMenuLink.textContent = 'Login';
+  }
+
+  const logoutLink = document.getElementById('logout-link');
+  if (logoutLink) {
+    logoutLink.addEventListener('click', () => {
+      localStorage.removeItem('authToken');
+      localStorage.removeItem('username');
+      window.location.href = '/';
+    });
+  }
+});
+
+</script>
+
+  
+
+
+    <!-- Connectar arxius CSS de Bootstrap -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap-grid.css" rel="stylesheet">
+    <link href="css/bootstrap-grid.min.css" rel="stylesheet">
+    <link href="css/bootstrap-reboot.css" rel="stylesheet">
+    <link href="css/bootstrap-reboot.min.css" rel="stylesheet">
+  
+    <!-- (Opcional) Connectar mapes de fonts (només per depuració) -->
+    <link href="css/bootstrap.css.map" rel="stylesheet" type="text/css" />
+    <link href="css/bootstrap.min.css.map" rel="stylesheet" type="text/css" />
+    <link href="css/bootstrap-grid.css.map" rel="stylesheet" type="text/css" />
+    <link href="css/bootstrap-grid.min.css.map" rel="stylesheet" type="text/css" />
+    <link href="css/bootstrap-reboot.css.map" rel="stylesheet" type="text/css" />
+    <link href="css/bootstrap-reboot.min.css.map" rel="stylesheet" type="text/css" />
+  
+  <link href="css/bot.css" rel="stylesheet">
+<!-- Botó d'icona de Pau -->
+<div id="bot-icon" class="bot-icon" onclick="toggleChat()">
+  <img src="images/pau.png" alt="Pau" class="pau-img"/>
+</div>
+
+<!-- Caixa de xat -->
+<div id="chat-box" class="chat-box">
+  <div id="close-btn" class="close-btn">X</div> <!-- Botó per tancar -->
+  <div id="chat-log" class="chat-log">
+      <!-- Missatges del xat aquí -->
+  </div>
+  <input type="text" id="user-input" class="user-input" placeholder="Escriu un missatge..." />
+  <button id="send-btn" class="send-btn">Enviar</button>
+</div>
+
+<script src="js/bot.js"></script>
+    
+
+    <header id="home" class="bg-red text-white text-center py-5">
+      <h1 class="main-title">FESTA DE TARDOR - COLLA GEGANTERA COR DE MARIA</h1>
+      <p class="lead">Vine a gaudir de la nostra Festa de Tardor amb els gegants i capgrossos!</p>
+    </header>
+
+    <!-- Secció dels vídeos -->
+    <section class="videos py-5 scroll-anim">
+      <h1 class="main-title">Festa de Tardor - Colla Gegantera Cor de Maria</h1>
+      <h2 class="section-title text-center">2024-2025</h2>
+
+      <div class="row">
+        <!-- Vídeo 1 -->
+        <div class="col-lg-4 col-md-6 mb-4 scroll-anim">
+          <div class="video-container">
+            <video controls class="img-fluid">
+              <source src="images/VID-20241123-WA0056 (1).mp4" type="video/mp4">
+              El teu navegador no suporta el vídeo.
+            </video>
+            <p class="comment">El moment mes esperat de la festa de tardor, els musics junt als portadors, toquen i vallen, el Cor de la Maria alegre!</p>
+          </div>
+        </div>
+        <!-- Vídeo 2 -->
+        <div class="col-lg-4 col-md-6 mb-4 scroll-anim">
+          <div class="video-container">
+            <video controls class="img-fluid">
+              <source src="images/VID-20241123-WA0064.mp4" type="video/mp4">
+              El teu navegador no suporta el vídeo.
+            </video>
+            <p class="comment">Un moment de la cercavila en que els músics toquen, el bequetero!</p>
+          </div>
+        </div>
+        <!-- Vídeo 3 -->
+        <div class="col-lg-4 col-md-6 mb-4 scroll-anim">
+          <div class="video-container">
+            <video controls class="img-fluid">
+              <source src="images/VID-20241123-WA0067.mp4" type="video/mp4">
+              El teu navegador no suporta el vídeo.
+            </video>
+            <p class="comment">El inici de cercavila, iniciem amb Circ!</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="videos py-5 scroll-anim">
+      <div class="row">
+        <!-- Vídeo 4 -->
+        <div class="col-lg-4 col-md-6 mb-4 scroll-anim">
+          <div class="video-container">
+            <video controls class="img-fluid">
+              <source src="images/VID-20241123-WA0055.mp4" type="video/mp4">
+              El teu navegador no suporta el vídeo.
+            </video>
+            <p class="comment">Segona canço en cercavila! Toquem el pasdoble de Sant Joan!</p>
+          </div>
+        </div>
+        <!-- Vídeo 5 -->
+        <div class="col-lg-4 col-md-6 mb-4 scroll-anim">
+          <div class="video-container">
+            <video controls class="img-fluid">
+              <source src="images/VID-20241123-WA0057.mp4" type="video/mp4">
+              El teu navegador no suporta el vídeo.
+            </video>
+            <p class="comment">Anant de baixada, animem el carrer tocant Polca! A petar-ho!</p>
+          </div>
+        </div>
+        <!-- Vídeo 6 -->
+        <div class="col-lg-4 col-md-6 mb-4 scroll-anim">
+          <div class="video-container">
+            <video controls class="img-fluid">
+              <source src="images/VID-20241123-WA0063.mp4" type="video/mp4">
+              El teu navegador no suporta el vídeo.
+            </video>
+            <p class="comment">Toquem Fira!</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="videos py-5 scroll-anim">
+      <div class="row">
+        <!-- Vídeo 7 -->
+        <div class="col-lg-4 col-md-6 mb-4 scroll-anim">
+          <div class="video-container">
+            <video controls class="img-fluid">
+              <source src="images/VID-20241123-WA0069.mp4" type="video/mp4">
+              El teu navegador no suporta el vídeo.
+            </video>
+            <p class="comment">Un moment molt bonic en que el antic cap de colla, obre el regal fet entre tots i fa l'acomiadament de cap!</p>
+          </div>
+        </div>
+        <!-- Vídeo 8 -->
+        <div class="col-lg-4 col-md-6 mb-4 scroll-anim">
+          <div class="video-container">
+            <video controls class="img-fluid">
+              <source src="images/VID-20241123-WA0070.mp4" type="video/mp4">
+              El teu navegador no suporta el vídeo.
+            </video>
+            <p class="comment">El Carles un gran graller de la colla, fa la presentació al regal del Jaume!</p>
+          </div>
+        </div>
+        <!-- Vídeo 9 -->
+        <div class="col-lg-4 col-md-6 mb-4 scroll-anim">
+          <div class="video-container">
+            <video controls class="img-fluid">
+              <source src="images/VID-20241124-WA0020.mp4" type="video/mp4">
+              El teu navegador no suporta el vídeo.
+            </video>
+            <p class="comment">Fem patir al cap de colla, fent-lo ballant Gironella!</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Secció amb el cartell de la festa -->
+    <section class="cartell-container">
+      <h2 class="section-title">Cartell de la Festa de Tardor</h2>
+      <p class="comment">El nostre músic, en Carles Rigat fa el bonic cartell de la festa de tardor del curs 2024-2025!</p>
+      <img src="images/portador.jpg" alt="Cartell de la Festa de Tardor">
+    </section>
+
+    <footer class="footer text-center py-3">
+      <p>&copy; 2025 Colla Gegantera Cor de Maria. Tots els drets reservats.</p>
+    </footer>
+  </div><script>
+    const elements = document.querySelectorAll('.scroll-anim');
+  
+    function toggleVisibility() {
+      const triggerBottom = window.innerHeight * 0.85;
+  
+      elements.forEach(el => {
+        const boxTop = el.getBoundingClientRect().top;
+  
+        if (boxTop < triggerBottom) {
+          el.classList.add('visible');
+        } else {
+          el.classList.remove('visible');
+        }
+      });
+    }
+  
+    window.addEventListener('scroll', toggleVisibility);
+    window.addEventListener('load', toggleVisibility);
+  </script>
+  
+
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+</body>
+</html>

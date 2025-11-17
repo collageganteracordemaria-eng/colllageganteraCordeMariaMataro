@@ -1,0 +1,76 @@
+{
+    "musics": [
+      {
+        "nom": "Jaume Tomé",
+        "imatge": "images/jaume.jpg",
+        "descripcio": "Cap de músics i graller excepcional i antic cap de colla!",
+        "instrument": "Gralla",
+        "relacio": "Pare d'un alumne de l'escola",
+        "carrec": "Cap de músics"
+      },
+      {
+        "nom": "Carles Rigat",
+        "imatge": "images/Screenshot_20250306_170100_Gallery.jpg",
+        "descripcio": "Antic portador i actual graller animat sempre a donar el màxim!",
+        "instrument": "Gralla",
+        "relacio": "Antic alumne",
+        "carrec": "Músic"
+      },
+      {
+        "nom": "Jaume (Fill Jaume Tomé)",
+        "imatge": "images/Screenshot_20250306_165819_Gallery.jpg",
+        "descripcio": "Un gran graller avançat amb poca edat i molt animat!",
+        "instrument": "Gralla",
+        "relacio": "Actual alumne",
+        "carrec": "Músic"
+      },
+      {
+        "nom": "Mariona",
+        "imatge": "images/Screenshot_20250306_165929_Gallery.jpg",
+        "descripcio": "Una grallera i actual alumne amb diferents coneixements en instruments musicals",
+        "instrument": "Gralla",
+        "relacio": "Alumne actual",
+        "carrec": "Músic"
+      },
+      {
+        "nom": "Laia",
+        "imatge": "images/Screenshot_20250306_170152_Gallery.jpg",
+        "descripcio": "Una grallera i actual alumne amb anims per tocar sempre millor!",
+        "instrument": "Gralla",
+        "relacio": "Alumne actual",
+        "carrec": "Músic"
+      },
+      {
+        "nom": "Aniol Rodríguez",
+        "imatge": "images/IMG-20240820-WA0021 (1).jpg",
+        "descripcio": "Un tabaler creatiu i desenvolupador de la web de la colla gegantera!",
+        "instrument": "Tabal",
+        "relacio": "Antic Alumne",
+        "carrec": "Músic"
+      }
+    ],
+    "portadors": [
+      {
+        "nom": "Pedro Matallana",
+        "imatge": "images/pedro - copia.jpg",
+        "descripcio": "Cap de colla i portador de gegants, gran fan de bela ciao!",
+        "relacio": "Pare d'un nen de l'escola",
+        "carrec": "Cap de colla"
+      },
+      {
+        "nom": "Aleix Gironès",
+        "imatge": "images/Screenshot_20250306_010844_Gallery - copia.jpg",
+        "descripcio": "Cap de portadors i portador de gegants, animat a portar un gegant sempre en cercavila!",
+        "relacio": "Pare d'un nen de l'escola",
+        "carrec": "Cap de portadors"
+      },
+      {
+        "nom": "Marc Ruiz",
+        "imatge": "images/portador3.jpg",
+        "descripcio": "Amb gran força i dedicació, Marc és un dels membres més veterans del nostre grup de portadors.",
+        "relacio": "Alumne antic",
+        "carrec": "Portador Secundari"
+      }
+    ]
+  }
+  

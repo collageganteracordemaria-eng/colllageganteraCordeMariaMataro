@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>404 — Página no encontrada</title>
+  <script src="js/proteger.js"></script>
+
+  <style>
+    :root{ --red:#c8102e; --white:#ffffff; --dark:#8a0f23 }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial}
+    body{
+      background: linear-gradient(180deg,var(--white) 0%, var(--white) 55%, var(--red) 55%);
+      color:var(--dark);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:32px;
+    }
+    .card{
+      width:100%;
+      max-width:980px;
+      background:var(--white);
+      border-radius:18px;
+      box-shadow:0 12px 30px rgba(0,0,0,0.12);
+      overflow:hidden;
+      display:flex;
+      align-items:stretch;
+    }
+    .left{
+      flex:1 1 60%;
+      padding:48px 40px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      gap:18px;
+    }
+    h1{
+      font-size:110px;
+      line-height:0.9;
+      margin:0;
+      color:var(--red);
+      letter-spacing:-4px;
+    }
+    p.lead{
+      margin:0;font-size:20px;color:#333;
+    }
+    a.home-btn{
+      display:inline-block;margin-top:18px;padding:12px 20px;border-radius:10px;background:var(--red);color:var(--white);text-decoration:none;font-weight:600;
+      box-shadow:0 6px 18px rgba(200,16,46,0.25);
+    }
+    .right{
+      width:320px;
+      background:var(--red);
+      color:var(--white);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:28px;
+      flex-direction:column;
+      gap:18px;
+    }
+    .logo{
+      max-width:220px;max-height:140px;object-fit:contain;display:block;
+      filter:drop-shadow(0 8px 20px rgba(0,0,0,0.2));
+    }
+    .img-illustration{
+      width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:64px;color:rgba(255,255,255,0.9)
+    }
+    @media (max-width:800px){
+      .card{flex-direction:column}
+      .right{width:100%;order:-1;border-radius:0 0 18px 18px}
+      h1{font-size:72px}
+    }
+  </style>
+</head>
+<body>
+
+<body style="background: #fff;">
+  <div id="app-root"></div>
+  <script>
+    // Bloqueo clic derecho
+    document.addEventListener('contextmenu', e => e.preventDefault(), true);
+    window.oncontextmenu = () => false;
+
+    // Bloqueo atajos de inspección
+    document.addEventListener('keydown', e => {
+      if (e.key === 'F12' || 
+          (e.ctrlKey && e.shiftKey && ['I','J','C','K'].includes(e.key.toUpperCase())) ||
+          (e.ctrlKey && ['U','S'].includes(e.key.toUpperCase()))
+      ) e.preventDefault();
+    }, true);
+
+    // Tu contenido solo en JS, así:
+    const appDiv = document.getElementById('app-root');
+    appDiv.innerHTML = `
+
+    `;
+  </script>
+</body>
+
+
+  <main class="card" role="main">
+    <section class="left">
+      <h1>404</h1>
+      <p class="lead">Lo sentimos — la página que buscas no existe o ha sido movida.</p>
+      <p style="margin:0;color:#666">Comprueba la URL o vuelve al inicio para continuar navegando.</p>
+      <a class="home-btn" href="/">Volver al inicio</a>
+    </section>
+
+    <aside class="right" aria-hidden="false">
+      <!-- Sustituye "logo.png" por el nombre de tu logo. Colócalo en la carpeta pública (por ejemplo /public/logo.png) -->
+      <img class="logo" src="images/logo_corazon_de_maria.png" alt="Logo de la web">
+
+      <!-- Imagen/ilustración alternativa si quieres un icono grande -->
+      <div class="img-illustration">✘</div>
+
+      <div style="text-align:center;max-width:220px;font-size:14px;opacity:0.95">Si crees que esto es un error, contacta con el administrador.</div>
+    </aside>
+  </main>
+</body>
+</html>

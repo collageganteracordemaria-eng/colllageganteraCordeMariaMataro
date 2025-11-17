@@ -1,0 +1,1489 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <link rel="stylesheet" href="css/search.css">
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chat de la Colla Gegantera</title>
+  <link rel="icon" href="images/favicon.jpeg" type="image/jpeg">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+  <script src="js/proteger.js"></script>
+  <script src="js/search.js"></script>
+
+  <style>
+    .body {
+          overflow-x: hidden;
+
+    }
+/* Modificar la navbar per a alinear a l'esquerra */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100vw;
+  background-color: #ffffff;
+  z-index: 10;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: flex-start; /* Modificat per moure el contingut cap a l'esquerra */
+  align-items: center;
+  padding: 10px 0;
+  margin: 0;
+}
+
+.navbar-nav {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar-nav .nav-link {
+  color: #D52B1E;
+  font-size: 1.2rem;
+  font-weight: 700;
+  padding: 10px 20px;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+  margin: 0 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Eliminar la separació que crea la classe ms-auto i moure tot el menú a l'esquerra */
+.navbar-nav.ms-auto {
+  margin-left: 0;
+}
+
+.navbar-toggler {
+  margin-left: 0; /* Estableix el botó d'expansió de la navbar més a l'esquerra */
+}
+
+.navbar-brand {
+  margin-left: 0; /* El logo també es mou més a l'esquerra */
+}
+
+/* Ajusts per a la versió mòbil */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 6px 10px !important; /* Navbar més baixa */
+  }
+
+  .navbar-brand img {
+    height: 45px !important; /* Redueix el logo */
+  }
+
+  .navbar-nav {
+    height: auto !important; /* ✨ Ajust automàtic de l’alçada */
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 5px 10px !important;
+  }
+
+  .navbar-nav .nav-link {
+    width: 100%;
+    height: auto !important;
+    text-align: left;
+    padding: 8px 0 !important;
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.4;
+  }
+
+  .navbar-toggler {
+    padding: 4px 6px !important;
+    border: none !important;
+  }
+
+  .emoji-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+  }
+
+  .emoji {
+    font-size: 25px;
+    cursor: pointer;
+    transition: transform 0.3s;
+  }
+
+  .emoji:hover {
+    transform: scale(1.2);
+  }
+}
+
+.message {
+      margin: 10px 0;
+      padding: 10px;
+      background-color: #e9e9e9;
+      border-radius: 5px;
+      border: 1px solid #ddd;
+    }
+    .message .user {
+      font-weight: bold;
+      color: #D52B1E;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      padding: 0;
+      margin: 0;
+      height: 100%;
+    }
+  
+    h1 {
+      text-align: center;
+      color: #D52B1E;
+      margin-top: 200px; /* Augmenta el marge superior per desplaçar el títol més avall */
+      font-size: 3rem;
+    }
+    
+    .chat-container {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background-color: #ffffff;
+      padding: 20px;
+      border-top: 2px solid #ddd;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      display: none;
+    }
+    #messages {
+      max-height: 300px;
+      overflow-y: scroll;
+      margin-bottom: 10px;
+      background-color: #f9f9f9;
+      padding: 15px;
+      border-radius: 10px;
+      border: 1px solid #ddd;
+    }
+    #chat-input {
+      width: 100%;
+      padding: 12px;
+      margin-top: 10px;
+      font-size: 16px;
+      border-radius: 5px;
+      border: 1px solid #ddd;
+    }
+    #send-btn {
+      background-color: #D52B1E;
+      color: white;
+      padding: 12px 15px;
+      border-radius: 5px;
+      border: none;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+  
+
+ /* Loader full screen */
+ #loader {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  z-index: 9999;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+/* L'spinner animat */
+.spinner {
+  width: 60px;
+  height: 60px;
+  border: 6px solid #d32f2f;
+  border-top: 6px solid transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+/* Título casi fuera de vista cuando se abre el chat */
+.chat-open-title {
+    position: relative;  /* Necesario para usar top */
+    top: -150px !important;         /* Mueve el título 150px hacia arriba */
+    font-size: 2rem;     /* Opcional: reducir tamaño */
+    transition: top 0.5s ease, font-size 0.5s ease;
+}
+
+#chat-title {
+  position: relative;   /* o absolute si quieres que esté sobre todo */
+  top: -80px;          /* ajusta el valor hasta que quede donde quieras */
+  text-align: center;
+  font-size: 2rem;
+  color: #D52B1E;
+  margin: 0;
+  padding: 0;
+}
+
+
+/* Animació de gir */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.file-upload-wrapper {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.file-btn {
+  cursor: pointer;
+  padding: 8px 12px;
+}
+.chat-controls {
+  display: flex !important;
+  gap: 10px !important;
+  margin-top: 10px !important;
+  justify-content: flex-start !important;
+  align-items: center !important; /* centra verticalment tots els fills */
+}
+
+.chat-btn {
+  width: 100px !important;        /* ample fixe */
+  height: 35px !important;        /* alçada fixa */
+  background-color: #D52B1E !important;
+  color: #fff !important;
+  border: none !important;
+  border-radius: 5px !important;
+  cursor: pointer !important;
+  font-weight: 600 !important;
+  font-size: 0.85rem !important;
+  display: flex !important;
+  justify-content: center !important; /* centra text horitzontal */
+  align-items: center !important;     /* centra text vertical */
+  padding: 0 !important;              /* elimina padding que desalineja */
+  margin: 0 !important;               /* elimina marges */
+  line-height: 1 !important;          /* força line-height uniforme */
+  box-sizing: border-box !important;
+  white-space: nowrap !important;
+}
+
+.chat-btn:hover {
+  background-color: #b02118 !important;
+}
+
+/* 🔧 Redueix l'espai entre opcions del menú */
+.navbar-nav .nav-item {
+  margin-left: 4px !important;
+  margin-right: 4px !important;
+}
+
+/* 🔧 Redueix el padding intern dels enllaços */
+.navbar-nav .nav-link {
+  padding-left: 6px !important;
+  padding-right: 6px !important;
+  font-size: 15px; /* opcional: més compacte */
+}
+
+/* 🔧 Ajusta també els desplegables si vols */
+.navbar .dropdown-menu {
+  min-width: 160px;
+}
+#auth-section {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.password-container {
+  position: relative;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.password-container input {
+  width: 100%;
+  padding-right: 40px; /* espacio para el icono del ojo */
+  box-sizing: border-box;
+}
+
+.toggle-password {
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #6c757d;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.toggle-password svg {
+  width: 22px;
+  height: 22px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+}
+
+.toggle-password:hover {
+  color: #000;
+}
+#login-btn,
+#register-btn {
+  margin: 0 6px; /* espacio lateral entre botones */
+}
+
+@media (max-width: 576px) {
+  /* En móvil se apilan con separación vertical */
+  #login-btn, #register-btn {
+    margin: 6px 0;
+  }
+}
+.chat-avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ccc;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+/* 🧱 Contenidor general del xat */
+#messages {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 22px;
+  background: #f8f9fa;
+  border-radius: 12px;
+  height: 70vh;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+  border: 1px solid #ddd;
+  font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* 💬 Cada missatge */
+.message-bubble {
+  display: flex;
+  align-items: flex-end;
+  max-width: 75%;
+  gap: 10px;
+  animation: fadeIn 0.3s ease-in-out;
+  line-height: 1.5;
+}
+
+/* 🧍 Missatge propi (a la dreta) */
+.message-bubble.own {
+  align-self: flex-end;
+  flex-direction: row-reverse;
+}
+
+/* 🖼️ Avatar */
+.chat-avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ccc;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+/* 💭 Contenidor del missatge */
+.message-content {
+  background: #ffffff;
+  padding: 12px 16px;
+  border-radius: 14px;
+  position: relative;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.06);
+  transition: background 0.3s ease;
+}
+
+/* 💙 Missatges propis */
+.message-bubble.own .message-content {
+  background: #dcf4ff;
+  border: 1px solid #bfe8ff;
+}
+
+/* 🧾 Nom d’usuari */
+.message-user {
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: 5px;
+  font-size: 15px;
+  letter-spacing: 0.2px;
+}
+
+/* 📝 Text del missatge */
+.message-text {
+  color: #222;
+  font-size: 15.5px;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+  letter-spacing: 0.1px;
+}
+
+/* 📅 Data del missatge */
+.message-time {
+  font-size: 12.5px;
+  color: #777;
+  text-align: right;
+  margin-top: 6px;
+  font-style: italic;
+}
+
+/* 📎 Fitxers adjunts */
+.file-link {
+  color: #007bff;
+  font-size: 14px;
+  text-decoration: none;
+  display: inline-block;
+  margin-top: 5px;
+}
+.file-link:hover {
+  text-decoration: underline;
+}
+
+/* ✨ Animació d’aparició */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Scrollbar suau */
+#messages::-webkit-scrollbar {
+  width: 8px;
+}
+#messages::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 4px;
+}
+#messages::-webkit-scrollbar-thumb:hover {
+  background: #999;
+}
+
+
+  </style>
+</head>
+
+
+<body style="background: #fff;">
+  <div id="app-root"></div>
+  <script>
+    // Bloqueo clic derecho
+    document.addEventListener('contextmenu', e => e.preventDefault(), true);
+    window.oncontextmenu = () => false;
+
+    // Bloqueo atajos de inspección
+    document.addEventListener('keydown', e => {
+      if (e.key === 'F12' || 
+          (e.ctrlKey && e.shiftKey && ['I','J','C','K'].includes(e.key.toUpperCase())) ||
+          (e.ctrlKey && ['U','S'].includes(e.key.toUpperCase()))
+      ) e.preventDefault();
+    }, true);
+
+    // Tu contenido solo en JS, así:
+    const appDiv = document.getElementById('app-root');
+    appDiv.innerHTML = `
+
+    `;
+    // Cuando se muestra el chat
+// Al mostrar el chat
+window.addEventListener("DOMContentLoaded", () => {
+  const chatContainer = document.getElementById('chat-container');
+  const chatInfo = document.getElementById('chat-info');
+  const chatTitle = document.getElementById('chat-title');
+
+  if (chatContainer && chatInfo && chatTitle) {
+    chatContainer.style.display = 'block';
+    chatInfo.style.display = 'none';
+    chatTitle.style.top = '-100px';
+  }
+});
+
+
+
+  </script>
+</body>
+
+
+
+  <!-- Loader (animació de càrrega) -->
+<div id="loader">
+  <div class="spinner"></div>
+</div>
+<script>
+  window.addEventListener("load", function () {
+    const loader = document.getElementById("loader");
+    loader.style.opacity = "0";
+    loader.style.visibility = "hidden";
+  });
+  // Comprovar si ja hi ha un token
+window.addEventListener('load', () => {
+  const token = localStorage.getItem('authToken');
+  const username = localStorage.getItem('username');
+
+  if(token && username){
+    // Ja hi ha sessió, mostrar xat directament
+    document.getElementById('username-section').style.display = 'none';
+    document.getElementById('chat-container').style.display = 'block';
+    document.getElementById('chat-info').style.display = 'none';
+  } else {
+    // Mostrar formulari
+    document.getElementById('username-section').style.display = 'block';
+    document.getElementById('chat-container').style.display = 'none';
+    document.getElementById('chat-info').style.display = 'block';
+  }
+});
+
+
+</script>
+
+
+<script>
+const TOKEN_KEY = "authToken";
+const USER_KEY = "userData";
+
+// ✅ Quan la pàgina es carrega
+window.addEventListener("DOMContentLoaded", checkSession);
+
+async function checkSession() {
+  const token = localStorage.getItem(TOKEN_KEY);
+  const userData = JSON.parse(localStorage.getItem(USER_KEY) || "{}");
+
+  const usernameSection = document.getElementById("username-section");
+  const chatContainer = document.getElementById("chat-container");
+  const chatInfo = document.getElementById("chat-info");
+
+  if (token && userData.username) {
+    usernameSection.style.display = "none";
+    chatContainer.style.display = "block";
+    chatInfo.style.display = "none";
+    await updateNavbar(userData); // ✅ forcem actualització amb dades locals
+  } else {
+    usernameSection.style.display = "block";
+    chatContainer.style.display = "none";
+    chatInfo.style.display = "block";
+    updateNavbar(null, true);
+  }
+}
+
+// ✅ Actualitza la navbar (sense necessitat de reload)
+async function updateNavbar(localUser = null, forceLogout = false) {
+  const userMenuLink = document.getElementById("user-menu-link");
+
+  if (forceLogout) {
+    userMenuLink.textContent = "Login";
+    return;
+  }
+
+  const token = localStorage.getItem(TOKEN_KEY);
+  let user = localUser || JSON.parse(localStorage.getItem(USER_KEY) || "{}");
+
+  // Mostrem immediatament la imatge local si n’hi ha
+  if (user && user.username) {
+    const imgSrc = user.image
+      ? `/uploads/${user.image}`
+      : "/images/default_profile.png";
+
+    userMenuLink.innerHTML = `
+      <img src="${imgSrc}" 
+           alt="Perfil" 
+           style="width:32px;height:32px;border-radius:50%;object-fit:cover;margin-right:8px;">
+      ${user.username}
+    `;
+  }
+
+  // Després (en segon pla), demanem la versió actualitzada al servidor
+  try {
+    const res = await fetch("/api/profile", {
+      headers: { Authorization: "Bearer " + token },
+    });
+    const data = await res.json();
+
+    if (data.success && data.user) {
+      localStorage.setItem(USER_KEY, JSON.stringify(data.user));
+
+      const imgSrc = data.user.image
+        ? `/uploads/${data.user.image}`
+        : "/images/default_profile.png";
+
+      userMenuLink.innerHTML = `
+        <img src="${imgSrc}" 
+             alt="Perfil" 
+             style="width:32px;height:32px;border-radius:50%;object-fit:cover;margin-right:8px;">
+        ${data.user.username}
+      `;
+    }
+  } catch (err) {
+    console.error("Error actualitzant navbar:", err);
+  }
+}
+
+document.addEventListener("DOMContentLoaded", async () => {
+  const userMenuLink = document.getElementById("user-menu-link");
+  const userDropdownMenu = document.getElementById("user-dropdown-menu");
+  const authSection = document.getElementById("auth-section");
+  const profileSection = document.getElementById("profile-section");
+
+  // --- Funció per actualitzar el menú ---
+  async function updateUserMenu() {
+    const token = localStorage.getItem("authToken");
+  if (!token) {
+    userMenuLink.textContent = 'Login';
+    userPerfil.textContent = 'Login';
+    const tancar = document.getElementById("logout-link").style.display = "none";
+      return;
+    }
+
+    try {
+      const res = await fetch("/api/profile", {
+        headers: { "Authorization": `Bearer ${token}` }
+      });
+      const data = await res.json();
+
+      if (!data.success || !data.user) {
+        localStorage.removeItem("authToken");
+        localStorage.removeItem("username");
+        userMenuLink.textContent = "Login";
+        return;
+      }
+
+      const user = data.user;
+      const profileImg = user.image ? `/uploads/${user.image}` : "/images/default_profile.png";
+
+      // 🧩 Actualitza el menú navbar instantàniament
+      userMenuLink.innerHTML = `
+        <img src="${profileImg}" alt="Perfil"
+             style="width:32px;height:32px;border-radius:50%;object-fit:cover;margin-right:6px;">
+        ${user.username}
+      `;
+
+      userDropdownMenu.innerHTML = `
+        <li><a class="dropdown-item text-danger" href="http://localhost:3000/perfil">Perfil</a></li>
+        ${user.roleWeb === 'portador' && user.roleWebValidat ? `<li><a class="dropdown-item text-danger" href="http://localhost:3000/seccio-portadors">Secció Portadors</a></li>` : ''}
+        ${user.roleWeb === 'music' && user.roleWebValidat ? `<li><a class="dropdown-item text-danger" href="http://localhost:3000/seccio-musics">Secció Músics</a></li>` : ''}
+        <li><a class="dropdown-item text-danger" href="#" id="logout-link">Tancar Sessió</a></li>
+      `;
+
+      // 🔴 Logout immediat
+      document.getElementById("logout-link").addEventListener("click", (e) => {
+        e.preventDefault();
+        localStorage.removeItem("authToken");
+        localStorage.removeItem("username");
+        authSection.style.display = "block";
+        profileSection.style.display = "none";
+        updateUserMenu();
+      });
+
+    } catch (err) {
+      console.error("Error carregant perfil:", err);
+      userMenuLink.textContent = "Login";
+    }
+  }
+
+  // --- Funció login ---
+  async function handleLogin(e) {
+    e.preventDefault();
+    const username = document.getElementById("username").value.trim();
+    const password = document.getElementById("password").value;
+
+    if (!username || !password) {
+      alert("Nom d’usuari i contrasenya són obligatoris");
+      return;
+    }
+
+    try {
+      const res = await fetch("/api/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, password })
+      });
+
+      const data = await res.json();
+      if (data.success) {
+        // Desa la sessió
+        localStorage.setItem("authToken", data.token);
+        localStorage.setItem("username", data.user.username);
+
+        // 🔥 Actualitza menú immediatament
+        await updateUserMenu();
+
+        // Mostra secció perfil sense recarregar
+        authSection.style.display = "none";
+        profileSection.style.display = "flex";
+
+      } else {
+        alert(data.message || "Usuari o contrasenya incorrectes");
+      }
+    } catch (err) {
+    }
+  }
+
+  // --- Assignar listeners ---
+  const loginBtn = document.getElementById("login-btn");
+  if (loginBtn) loginBtn.addEventListener("click", handleLogin);
+
+  // --- Comprovar sessió existent ---
+  await updateUserMenu();
+  const token = localStorage.getItem("authToken");
+  if (token) {
+    authSection.style.display = "none";
+    profileSection.style.display = "flex";
+  } else {
+    authSection.style.display = "block";
+    profileSection.style.display = "none";
+  }
+});
+
+// ✅ LOGOUT
+function logout() {
+  localStorage.removeItem(TOKEN_KEY);
+  localStorage.removeItem(USER_KEY);
+  alert("Sessió tancada correctament.");
+  checkSession();
+}
+
+document.getElementById("logout-btn").addEventListener("click", logout);
+document.getElementById("logout-link").addEventListener("click", logout);
+
+// 🔹 Sincronització entre pestanyes
+window.addEventListener("storage", (event) => {
+  if (event.key === "sessionSync") {
+    checkSession();
+  }
+});
+
+// 🔹 Enviament de missatges
+document.getElementById("send-btn").addEventListener("click", async () => {
+  const message = document.getElementById("chat-input").value.trim();
+  const userData = JSON.parse(localStorage.getItem(USER_KEY) || "{}");
+  const fileInput = document.getElementById("file-upload");
+  const file = fileInput.files[0];
+
+  if (!message && !file) {
+    alert("El missatge o fitxer no pot estar buit.");
+    return;
+  }
+
+  const formData = new FormData();
+  formData.append("message", message);
+  formData.append("username", userData.username);
+  if (file) formData.append("file", file);
+
+  try {
+    const response = await fetch("/send-message", {
+      method: "POST",
+      body: formData,
+    });
+
+    const data = await response.json();
+    if (data.success) {
+      loadMessages();
+      document.getElementById("chat-input").value = "";
+      fileInput.value = "";
+      document.getElementById("file-name").textContent = "";
+    } else {
+      console.error("Error enviant el missatge:", data.message);
+    }
+  } catch (error) {
+    console.error("Error de connexió:", error);
+  }
+});
+
+async function loadMessages() {
+  const messagesContainer = document.getElementById("messages");
+  messagesContainer.innerHTML = "";
+
+  try {
+    const res = await fetch("/get-messages");
+    const data = await res.json();
+
+    if (!data.success) {
+      console.error("Error carregant missatges");
+      return;
+    }
+
+    data.messages.forEach(msg => {
+      const avatar = msg.image || "/images/default_profile.png";
+      const fileHTML = msg.file
+        ? `<br><a href="/uploads/${msg.file}" target="_blank">📎 Fitxer adjunt</a>`
+        : "";
+
+      const div = document.createElement("div");
+      div.classList.add("message");
+
+      div.innerHTML = `
+        <div class="message-header" style="display: flex; align-items: center; gap: 8px;">
+          <img src="${avatar}" class="chat-avatar" alt="Perfil de ${msg.username}" onerror="this.src='/images/default_profile.png'">
+          <span class="user">${msg.username || "Usuari"}</span>
+        </div>
+        <div class="message-body">${msg.message || ""} ${fileHTML}</div>
+        <div class="message-time">${new Date(msg.timestamp).toLocaleString("ca-ES")}</div>
+      `;
+
+      messagesContainer.appendChild(div);
+    });
+
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+  } catch (err) {
+    console.error("Error carregant missatges:", err);
+  }
+}
+
+
+
+</script>
+
+<nav class="navbar navbar-expand-lg navbar-light fixed-top">
+  <div class="container d-flex align-items-center">
+    <form class="d-flex me-3 search-bar" role="search" onsubmit="return handleSearch(event)">
+      <input id="searchInput" class="form-control search-input" type="search" placeholder="Buscar..." aria-label="Buscar">
+    </form>
+
+    <a class="navbar-brand" href="https://www.cordemariamataro.cat/">
+      <img src="images/logo_corazon_de_maria.png" alt="Logo Cor de Maria" style="height: 60px;">
+    </a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link text-danger" href="http://localhost:3000/home">Inici</a></li>
+        <li class="nav-item"><a class="nav-link text-danger" href="http://localhost:3000/cercavila">Cercaviles</a></li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-danger" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Festes especials</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item text-danger" href="http://localhost:3000/carnaval">Rua Carnaval</a></li>
+            <li><a class="dropdown-item text-danger" href="http://localhost:3000/sant-jordi">Sant Jordi</a></li>
+            <li><a class="dropdown-item text-danger" href="http://localhost:3000/cursa">Cursa de l'escola</a></li>
+            <li><a class="dropdown-item text-danger" href="http://localhost:3000/festa-Major">Festa Major</a></li>
+            <li><a class="dropdown-item text-danger" href="http://localhost:3000/festa-tardor">Festa de Tardor</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-danger" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Colla</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item text-danger" href="http://localhost:3000/membres">Músics i portadors</a></li>
+            <li><a class="dropdown-item text-danger" href="http://localhost:3000/experiencies">Experiències dels membres</a></li>
+            <li><a class="dropdown-item text-danger" href="http://localhost:3000/uneixte">T'hi vols unir?</a></li>
+            <li><a class="dropdown-item text-danger" href="http://localhost:3000/chat">Chat i comentaris</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item"><a class="nav-link text-danger" href="http://localhost:3000/contacte">Contacte</a></li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-danger" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Socials</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item text-danger" href="https://www.instagram.com/collageganteracordemariamataro?igsh=eGhpazQyNHNqdnQx">Instagram</a></li>
+          </ul>
+        </li>
+      <li class="nav-item dropdown" id="user-menu">
+          <a class="nav-link dropdown-toggle text-danger" href="http://localhost:3000/perfil" role="button" data-bs-toggle="dropdown" aria-expanded="false" id="user-menu-link">
+            Login
+          </a>
+          <ul class="dropdown-menu" id="user-dropdown-menu">
+            <li><a class="dropdown-item text-danger" href="http://localhost:3000/perfil">Perfil</a></li>
+            <li><a class="dropdown-item text-danger" href="#" id="logout-link">Tancar Sessió</a></li>
+          </ul>
+        </li>
+
+
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', async () => {
+  const token = localStorage.getItem('authToken');
+  const userMenuLink = document.getElementById('user-menu-link');
+  const userDropdownMenu = document.getElementById('user-dropdown-menu');
+
+  // Si no hi ha token, mostra "Login"
+  if (!token) {
+    userMenuLink.textContent = 'Login';
+    return;
+  }
+
+  try {
+    const res = await fetch('/api/profile', {
+      headers: { 'Authorization': `Bearer ${token}` }
+    });
+    const data = await res.json();
+
+    if (!data.success || !data.user) {
+      userMenuLink.textContent = 'Login';
+      return;
+    }
+
+    const user = data.user;
+    userMenuLink.textContent = user.username || 'Perfil';
+
+    // --- Afegim enllaços segons rol i validació ---
+    if (user.roleWeb === 'portador' && user.roleWebValidat === true) {
+      const li = document.createElement('li');
+      li.innerHTML = `<a class="dropdown-item text-danger" href="http://localhost:3000/seccio-portadors">Secció Portadors</a>`;
+      userDropdownMenu.insertBefore(li, document.getElementById('logout-link').parentElement);
+    }
+    // (opcional) Si vols que també surti per altres rols validats (ex: acompanyant):
+    // if (user.roleWeb === 'acompanyant' && user.roleWebValidat) { ... }
+
+  } catch (err) {
+    console.error('Error carregant perfil:', err);
+    userMenuLink.textContent = 'Login';
+  }
+});
+</script>
+
+<script>
+window.addEventListener('load', async () => {
+  const token = localStorage.getItem('authToken');
+  const username = localStorage.getItem('username');
+  const userMenuLink = document.getElementById('user-menu-link');
+
+  if (token && username) {
+    try {
+      const res = await fetch('/api/profile', {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      const data = await res.json();
+      console.log('Perfil carregat:', data);
+
+      if (data.success) {
+        const profileImg = data.user.image
+          ? `/uploads/${data.user.image}`
+          : '/images/default_profile.png';
+
+        userMenuLink.innerHTML = `
+          <img src="${profileImg}" 
+               alt="Perfil" 
+               style="width:32px;height:32px;border-radius:50%;object-fit:cover;margin-right:8px;">
+          ${username}
+        `;
+      } else {
+        userMenuLink.textContent = username;
+      }
+
+      // No mostrar el dropdown por defecto
+    } catch (err) {
+      console.error('Error carregant perfil:', err);
+      userMenuLink.textContent = username;
+    }
+  } else {
+    userMenuLink.textContent = 'Login';
+  }
+
+  const logoutLink = document.getElementById('logout-link');
+  if (logoutLink) {
+    logoutLink.addEventListener('click', () => {
+      localStorage.removeItem('authToken');
+      localStorage.removeItem('username');
+      window.location.href = '/';
+    });
+  }
+});
+
+</script>
+
+  
+
+
+    <!-- Connectar arxius CSS de Bootstrap -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap-grid.css" rel="stylesheet">
+    <link href="css/bootstrap-grid.min.css" rel="stylesheet">
+    <link href="css/bootstrap-reboot.css" rel="stylesheet">
+    <link href="css/bootstrap-reboot.min.css" rel="stylesheet">
+  
+    <!-- (Opcional) Connectar mapes de fonts (només per depuració) -->
+    <link href="css/bootstrap-grid.css.map" rel="stylesheet" type="text/css" />
+    <link href="css/bootstrap-grid.min.css.map" rel="stylesheet" type="text/css" />
+    <link href="css/bootstrap-reboot.css.map" rel="stylesheet" type="text/css" />
+  
+  <link href="css/bot.css" rel="stylesheet">
+<!-- Botó d'icona de Pau -->
+<div id="bot-icon" class="bot-icon" onclick="toggleChat()">
+  <img src="images/pau.png" alt="Pau" class="pau-img"/>
+</div>
+
+<!-- Caixa de xat -->
+<div id="chat-box" class="chat-box">
+  <div id="close-btn" class="close-btn">X</div> <!-- Botó per tancar -->
+  <div id="chat-log" class="chat-log">
+      <!-- Missatges del xat aquí -->
+  </div>
+  <input type="text" id="user-input" class="user-input" placeholder="Escriu un missatge..." />
+
+
+</div>
+
+  
+<style>
+
+</style>
+
+<script src="js/bot.js"></script>
+<div class="container" style="margin-top: 200px;">
+<h1 id="chat-title">Chat de la Colla Gegantera</h1>
+    <p id="chat-info">El chat és per parlar amb la gent, fer preguntes, donar idees de reptes, consells, entre altres.</p>
+
+    <!-- Form de login/registre -->
+    <div id="username-section">
+      <h3>Per començar, introdueix el teu nom d'usuari i contrasenya:</h3>
+      <input type="text" id="username" class="form-control" placeholder="Nom d'usuari" />
+      <input type="email" id="email" class="form-control mt-2" placeholder="Correu" />
+  <div class="password-container" style="padding-top: 10px !important;">
+    <input type="password" id="password" class="form-control" placeholder="Contrasenya">
+    <button type="button" style="padding-top: 9px !important;" class="toggle-password" onclick="togglePassword('password', this)">
+      <!-- OJO ABIERTO -->
+      <svg viewBox="0 0 24 24">
+        <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/>
+        <circle cx="12" cy="12" r="3"/>
+      </svg>
+    </button>
+  </div>
+
+  <div class="password-container">
+    <input type="password" id="confirm-password" class="form-control" placeholder="Confirmar contrasenya">
+    <button type="button" class="toggle-password" onclick="togglePassword('confirm-password', this)">
+      <svg viewBox="0 0 24 24">
+        <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/>
+        <circle cx="12" cy="12" r="3"/>
+      </svg>
+    </button>
+  </div>
+  <style>
+
+</style>
+
+    <div class="d-flex gap-4 mt-3">
+      <button id="login-btn" class="btn btn-primary flex-fill">Iniciar Sessió</button>
+      <button id="register-btn" class="btn btn-secondary flex-fill" style="padding-left: 5px I !important;">Registrar-se</button>
+    </div>
+
+      <!-- Afegir sota dels inputs de contrasenya -->
+  <p class="mt-2">
+    <a href="#" id="forgot-password-link">Has oblidat la contrasenya?</a>
+  </p>
+<script>
+function togglePassword(id, btn) {
+  const input = document.getElementById(id);
+  const isPassword = input.type === 'password';
+  input.type = isPassword ? 'text' : 'password';
+
+  // Cambia entre ojo abierto y cerrado (SVG)
+  btn.innerHTML = isPassword
+    ? `<svg viewBox="0 0 24 24">
+         <path d="M17.94 17.94A10.94 10.94 0 0 1 12 19c-7 0-11-7-11-7a20.26 20.26 0 0 1 5.17-5.88M1 1l22 22"/>
+         <path d="M9.53 9.53A3.5 3.5 0 0 0 12 15.5 3.5 3.5 0 0 0 15.5 12c0-.83-.3-1.6-.79-2.19"/>
+       </svg>`
+    : `<svg viewBox="0 0 24 24">
+         <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/>
+         <circle cx="12" cy="12" r="3"/>
+       </svg>`;
+}
+</script>
+<script>
+  function generarRutaAleatoria(longitud = 12) {
+    const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    let resultat = '';
+    for (let i = 0; i < longitud; i++) {
+      resultat += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return resultat;
+  }
+
+  // Quan fan clic a "Has oblidat la contrasenya?"
+  document.getElementById('forgot-password-link').addEventListener('click', (event) => {
+    event.preventDefault(); // Evitem que el link actuï com a #.
+    const ruta = '/recuperar/' + generarRutaAleatoria();
+    window.location.href = ruta; // Redirigim cap a la ruta aleatòria
+  });
+</script>
+
+
+<script>
+document.getElementById("register-btn").addEventListener("click", (e) => {
+  e.preventDefault();
+
+  // Neteja errors
+  document.getElementById("username-error").textContent = "";
+  document.getElementById("email-error").textContent = "";
+  document.getElementById("password-error").textContent = "";
+  document.getElementById("confirm-password-error").textContent = "";
+
+  const username = document.getElementById("username").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value;
+  const confirmPassword = document.getElementById("confirm-password").value;
+
+  let valid = true;
+
+  // Validar nom d'usuari: mínim 4 caràcters, només lletres i números
+  if (!/^[a-zA-Z0-9]{4,}$/.test(username)) {
+    document.getElementById("username-error").textContent = "El nom d'usuari ha de tenir mínim 4 caràcters i només lletres o números.";
+    valid = false;
+  }
+
+  // Validar correu
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    document.getElementById("email-error").textContent = "Introdueix un correu vàlid.";
+    valid = false;
+  }
+
+  // Validar contrasenya: mínim 8 caràcters, inclou majúscula, minúscula i número
+  if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/.test(password)) {
+    document.getElementById("password-error").textContent = "La contrasenya ha de tenir mínim 8 caràcters, incloure majúscula, minúscula i número.";
+    valid = false;
+  }
+
+  // Validar coincidència contrasenya
+  if (password !== confirmPassword) {
+    document.getElementById("confirm-password-error").textContent = "Les contrasenyes no coincideixen.";
+    valid = false;
+  }
+
+  if (valid) {
+    // Si tot és correcte, enviar dades al servidor
+    console.log("Formulari vàlid:", { username, email, password });
+    alert("Registrat correctament!");
+    // Aquí pots cridar el fetch per enviar al backend
+  }
+});
+</script>
+
+
+    </div>
+</div>
+
+
+    <!-- Xat -->
+<div id="chat-container" class="chat-container">
+  <div id="messages"></div>
+  <input type="text" id="chat-input" placeholder="Escriu un missatge..." />
+  <div class="file-upload-wrapper">
+    <label for="file-upload" class="btn btn-outline-secondary file-btn">Adjuntar archivo</label>
+    <input type="file" id="file-upload" style="display:none" />
+    <span id="file-name" style="margin-left:10px; font-style: italic;"></span>
+  </div>
+    <!-- Contenedor botones -->
+<div class="chat-controls">
+  <button id="send-btn" class="chat-btn">Enviar</button>
+  <button id="logout-btn" class="chat-btn">Tancar Sessió</button>
+</div>
+
+
+</div>
+
+    </div>
+    <div id="typing-message" style="display: none; font-style: italic; color: #D52B1E;">
+      <span id="typing-user"></span> està escrivint...
+    <!-- Mensaje de usuario escribiendo -->
+
+</div>
+
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+
+  <script>
+    // Event handler per al registre
+  // Event handler per al registre
+  
+document.getElementById('register-btn').addEventListener('click', async () => {
+  const username = document.getElementById('username').value;
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
+  const confirmPassword = document.getElementById('confirm-password').value;
+
+  if (password !== confirmPassword) {
+    alert('Les contrasenyes no coincideixen.');
+    return;
+  }
+
+  const response = await fetch('/register', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ username, email, password, confirmPassword })
+  });
+  
+
+  const data = await response.json();
+  if (data.success) {
+    alert('Usuari creat correctament!');
+  } else {
+    alert(data.message);
+  }
+});
+
+document.getElementById('login-btn').addEventListener('click', async () => {
+  const username = document.getElementById('username').value.trim();
+  const password = document.getElementById('password').value.trim();
+
+  if (!username || !password) {
+    alert("Nom d'usuari i contrasenya són obligatoris.");
+    return;
+  }
+
+  try {
+    const response = await fetch('/api/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username, password })
+    });
+
+    if (!response.ok) {
+      alert('Error del servidor: ' + response.status);
+      return;
+    }
+
+    const data = await response.json();
+    console.log("🔹 Resposta login:", data);
+
+    if (data.success && data.user) {
+      // ✅ Funció que assegura una imatge vàlida
+      function getUserProfileImage(user) {
+        if (!user) return '/images/default_profile.png';
+        const img = user.image || user.userImage || '';
+        if (!img) return '/images/default_profile.png';
+        if (img.startsWith('http')) return img;
+        if (img.startsWith('/uploads')) return img;
+        return `/uploads/${img}`;
+      }
+
+      const userImage = getUserProfileImage(data.user);
+      console.log("🖼️ Imatge de perfil processada:", userImage);
+
+      // ✅ Desa al localStorage
+      localStorage.setItem('authToken', data.token);
+      localStorage.setItem('username', data.user.username);
+      localStorage.setItem('userImage', userImage);
+
+      // ✅ Actualitza la navbar amb JS (sense innerHTML directe)
+      const userMenuLink = document.getElementById('user-menu-link');
+      userMenuLink.textContent = ''; // neteja contingut anterior
+
+      const img = document.createElement('img');
+      img.src = userImage;
+      img.alt = 'Perfil';
+      img.className = 'chat-avatar';
+      img.style.cssText = 'width:32px;height:32px;border-radius:50%;object-fit:cover;margin-right:8px;';
+
+      // 🔒 Si hi ha error carregant la imatge, mostra la per defecte
+      img.addEventListener('error', () => {
+        console.warn("⚠️ No s'ha pogut carregar la imatge, posant per defecte.");
+        img.src = '/images/default_profile.png';
+      });
+
+      userMenuLink.appendChild(img);
+      userMenuLink.appendChild(document.createTextNode(data.user.username));
+
+      // ✅ Mostra el xat i amaga el login
+      document.getElementById('username-section').style.display = 'none';
+      document.getElementById('chat-info').style.display = 'none';
+      document.getElementById('chat-container').style.display = 'block';
+
+      alert('Has iniciat sessió correctament!');
+    } else {
+      alert('Error: ' + (data.message || 'Resposta no vàlida del servidor.'));
+    }
+
+  } catch (error) {
+    console.error('❌ Error al iniciar sessió:', error);
+    alert('Hi ha hagut un problema amb el servidor.');
+  }
+});
+document.addEventListener('DOMContentLoaded', () => {
+  const username = localStorage.getItem('username');
+  const image = localStorage.getItem('userImage');
+
+  if (username) {
+    // Actualitza navbar
+    const userMenuLink = document.getElementById('user-menu-link');
+    userMenuLink.innerHTML = `
+      <img src="${image || '/images/default_profile.png'}"
+           alt="Perfil"
+           style="width:32px;height:32px;border-radius:50%;object-fit:cover;margin-right:8px;">
+      ${username}
+    `;
+
+    // Mostra xat, oculta login
+    document.getElementById('username-section').style.display = 'none';
+    document.getElementById('chat-info').style.display = 'none';
+    document.getElementById('chat-container').style.display = 'block';
+  }
+});
+
+// ✅ Funció per obtenir la imatge de perfil segura i consistent
+function getUserProfileImage(user) {
+  if (!user) return '/images/default_profile.png';
+
+  const img = user.image || user.userImage || user.avatar || '';
+  if (!img) return '/images/default_profile.png';
+
+  // Si la imatge ja és una URL completa
+  if (img.startsWith('http')) return img;
+
+  // Si comença amb /uploads ja és correcte
+  if (img.startsWith('/uploads')) return img;
+
+  // Si només és el nom del fitxer
+  return `/uploads/${img}`;
+}
+
+document.getElementById('logout-btn').addEventListener('click', () => {
+  localStorage.removeItem('authToken'); // Elimina el token de sesión
+  window.location.href = "http://localhost:3000/home"; // Redirige al home
+});
+
+
+
+
+
+
+let typingTimeout;
+document.getElementById('chat-input').addEventListener('input', () => {
+  const username = document.getElementById('username').value;
+  const typingMessage = document.getElementById('typing-message');
+  const typingUser = document.getElementById('typing-user');
+
+  if (username && document.getElementById('chat-input').value.trim() !== '') {
+    typingUser.textContent = username;
+    typingMessage.style.display = 'block';
+
+    // Limpiar el temporizador anterior si está corriendo
+    clearTimeout(typingTimeout);
+
+    // Ocultar el mensaje después de 2 segundos de inactividad
+    typingTimeout = setTimeout(() => {
+      typingMessage.style.display = 'none';
+    }, 2000); // 2 segundos de espera
+  } else {
+    typingMessage.style.display = 'none';
+  }
+});
+const fileInput = document.getElementById('file-upload');
+const fileNameSpan = document.getElementById('file-name');
+
+fileInput.addEventListener('change', () => {
+  if(fileInput.files.length > 0){
+    fileNameSpan.textContent = fileInput.files[0].name;
+  } else {
+    fileNameSpan.textContent = '';
+  }
+});
+
+document.getElementById('send-btn').addEventListener('click', async () => {
+  const message = document.getElementById('chat-input').value.trim();
+  const username = localStorage.getItem('username'); // ← agafa l'usuari guardat
+  const fileInput = document.getElementById('file-upload');
+  const file = fileInput.files[0];
+
+  if (!message && !file) {
+    alert("El missatge o fitxer no pot estar buit.");
+    return;
+  }
+
+  const formData = new FormData();
+  formData.append('message', message);
+  formData.append('username', username); // ← envia el nom d’usuari
+  if (file) formData.append('file', file);
+
+  try {
+    const response = await fetch('/send-message', {
+      method: 'POST',
+      body: formData
+    });
+
+    const data = await response.json();
+    if (data.success) {
+      loadMessages();
+      document.getElementById('chat-input').value = '';
+      fileInput.value = '';
+      document.getElementById('file-name').textContent = '';
+    } else {
+      console.error('Error en l\'enviament del missatge: ', data.message);
+    }
+  } catch (error) {
+    console.error('Error de connexió:', error);
+  }
+});
+
+async function loadMessages() {
+  const messagesContainer = document.getElementById("messages");
+  messagesContainer.innerHTML = "";
+
+  try {
+    const res = await fetch("/get-messages");
+    const data = await res.json();
+
+    if (!data.success) {
+      console.error("Error carregant missatges");
+      return;
+    }
+
+    data.messages.forEach(msg => {
+      const avatar = msg.image && msg.image.trim() !== ""
+        ? msg.image
+        : "/uploads/defaultuser.png";
+      const username = msg.username || "Usuari";
+      const fileHTML = msg.file
+        ? `<br><a href="/uploads/${msg.file}" target="_blank">📎 Fitxer adjunt</a>`
+        : "";
+
+      const div = document.createElement("div");
+      div.classList.add("message");
+
+      div.innerHTML = `
+        <div class="message-header">
+          <img src="${avatar}" class="chat-avatar" alt="${username}" onerror="this.src='/images/default_profile.png'">
+          <span class="user">${username}</span>
+        </div>
+        <div class="message-body">${msg.message || ""} ${fileHTML}</div>
+        <div class="message-time">${new Date(msg.timestamp).toLocaleString("ca-ES")}</div>
+      `;
+
+      messagesContainer.appendChild(div);
+    });
+
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+  } catch (err) {
+    console.error("Error carregant missatges:", err);
+  }
+}
+
+
+
+
+loadMessages(); // Cargar los mensajes inicialmente
+$(document).ready(function() {
+  $("#chat-input").emojioneArea({
+    pickerPosition: "bottom",  // Posició del selector d'emojis
+    filtersPosition: "top",    // Posició del filtre per categoria
+    tones: false               // Desactivar tons d'emojis
+  });
+});
+
+
+  </script>
+
+
+</body>
+</html>

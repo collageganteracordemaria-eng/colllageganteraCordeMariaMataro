@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contacte - Cor de Maria</title>
+  <link rel="icon" href="images/favicon.jpeg" type="image/jpeg">
+  <script src="js/proteger.js"></script>
+  <script src="js/search.js"></script>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+  <link href="css/search.css" rel="stylesheet">
+
+  <style>
+    body {
+      padding-top: 80px;
+      font-family: 'Poppins', sans-serif;
+      overflow-x: hidden;
+
+    }
+    #message {
+      margin-top: 20px;
+      padding: 10px;
+      border-radius: 5px;
+      font-size: 1.2rem;
+      text-align: center;
+      display: none; /* Inicialment ocults */
+    }
+    
+    .message-success {
+      background-color: #28a745;  /* Verd exitós */
+      color: white;
+    }
+    
+    .message-error {
+      background-color: #dc3545;  /* Vermell d'error */
+      color: white;
+    }
+    
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      width: 100vw;
+      background-color: #ffffff;
+      z-index: 10;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+      display: flex;
+      justify-content: flex-start; /* Contingut alineat a l'esquerra */
+      align-items: center;
+      padding: 10px 0;
+      margin: 0;
+    }
+    
+    .navbar-nav {
+      display: flex;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    
+    .navbar-nav .nav-link {
+      color: #D52B1E; /* Color vermell fort */
+      font-size: 1.2rem;
+      font-weight: 700;
+      padding: 10px 20px;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+      margin: 0 10px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    
+    /* Eliminar separació i alineació cap a la dreta */
+    .navbar-nav.ms-auto {
+      margin-left: 0;
+    }
+    
+    .navbar-toggler {
+      margin-left: 0;
+    }
+    
+    .navbar-brand {
+      margin-left: 0;
+    }
+    
+    /* Estils adaptatius per a mòbils */
+    @media (max-width: 768px) {
+      .navbar-nav {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    
+      .navbar-nav .nav-link {
+        width: 100%;
+        text-align: left;
+        padding: 15px 0;
+        white-space: normal;
+        overflow: visible;
+      }
+    }
+    
+  
+
+/* === Sección de contacto moderna === */
+.contact-section {
+  background: linear-gradient(135deg, #fff 40%, #ffecec 100%);
+  padding: 80px 20px;
+  text-align: center;
+}
+
+.contact-section h2 {
+  font-size: 2.3rem;
+  font-weight: 700;
+  color: #D52B1E;
+  margin-bottom: 40px;
+  position: relative;
+  display: inline-block;
+}
+
+.contact-section h2::after {
+  content: "";
+  display: block;
+  width: 60%;
+  height: 3px;
+  background: #D52B1E;
+  margin: 10px auto 0;
+  border-radius: 10px;
+}
+
+/* === Tarjeta del formulario === */
+.contact-form {
+  max-width: 650px;
+  margin: 0 auto;
+  background: #ffffff;
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.contact-form:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+}
+
+/* === Campos del formulario === */
+.form-control {
+  background-color: #fafafa;
+  border: 2px solid #ddd;
+  border-radius: 10px;
+  padding: 15px;
+  font-size: 1rem;
+  color: #333;
+  transition: all 0.3s ease;
+}
+
+.form-control:focus {
+  border-color: #D52B1E;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(213, 43, 30, 0.3);
+  transform: scale(1.01);
+}
+
+/* === Etiquetas === */
+.form-label {
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 8px;
+  display: block;
+  text-align: left;
+}
+
+/* === Botón principal === */
+.btn-contact {
+  display: inline-block;
+  background-color: #D52B1E;
+  color: white;
+  font-weight: 600;
+  padding: 14px 35px;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1.1rem;
+  letter-spacing: 0.5px;
+}
+
+.btn-contact:hover {
+  background-color: #b30000;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(213, 43, 30, 0.4);
+}
+
+.btn-contact:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+/* === Animación del mensaje === */
+#message {
+  margin-top: 25px;
+  padding: 15px;
+  border-radius: 10px;
+  font-size: 1rem;
+  display: none;
+  animation: fadeIn 0.5s ease forwards;
+}
+
+.message-success {
+  background-color: #28a745;
+  color: white;
+}
+
+.message-error {
+  background-color: #dc3545;
+  color: white;
+}
+
+/* === Responsive === */
+@media (max-width: 768px) {
+  .contact-form {
+    padding: 30px 20px;
+  }
+
+  .contact-section h2 {
+    font-size: 2rem;
+  }
+
+  .btn-contact {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .contact-section {
+    padding: 60px 15px;
+  }
+
+  .contact-form {
+    padding: 25px 15px;
+  }
+
+  .form-control {
+    font-size: 0.95rem;
+  }
+
+  .contact-section h2 {
+    font-size: 1.8rem;
+  }
+}
+
+/* === Efecto fadeIn === */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+    /* Separació del text i estilització del peu de pàgina */
+    .footer {
+      background-color: #D52B1E;
+      color: white;
+      padding: 30px 0;
+      text-align: center;
+      font-size: 1rem;
+    }
+
+    header {
+      background-color: #D52B1E;
+      color: white;
+      padding: 120px 0 60px 0;
+      margin-top: 100px;
+      text-align: center;
+      border-bottom: 5px solid #D52B1E;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    header h1 {
+      font-family: 'Russo One', sans-serif;
+      font-size: 4rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    }
+   /* Efecto de transición de opacidad */
+.fade-enter {
+  opacity: 0;
+}
+
+.fade-enter-active {
+  opacity: 1;
+  transition: opacity 300ms ease-in-out;
+}
+
+.fade-exit {
+  opacity: 1;
+}
+
+.fade-exit-active {
+  opacity: 0;
+  transition: opacity 300ms ease-in-out;
+}
+.loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+    
+   /* Loader full screen */
+#loader {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  z-index: 9999;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+/* L'spinner animat */
+.spinner {
+  width: 60px;
+  height: 60px;
+  border: 6px solid #d32f2f;
+  border-top: 6px solid transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+/* Animació de gir */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.main-title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 3rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+@media (max-width: 768px) {
+  .navbar .container {
+    flex-direction: column;      /* todo en columna */
+    align-items: center;         /* centra los elementos */
+  }
+
+  .navbar-brand {
+    order: 1;                    /* logo primero */
+    margin-bottom: 10px;         /* separa del siguiente */
+  }
+
+  .search-bar {
+    order: 2;                    /* buscador después del logo */
+    width: 90%;                  /* ocupa casi todo el ancho */
+    margin-bottom: 10px;
+    left: 0 !important;          /* quitar cualquier desplazamiento previo */
+  }
+
+  .navbar-toggler {
+    order: 3;                    /* botón del menú abajo del buscador */
+    margin-bottom: 10px;
+  }
+
+  .collapse.navbar-collapse {
+    order: 4;                    /* menú desplegable al final */
+    width: 100%;
+  }
+
+  .navbar-nav {
+    flex-direction: column;       /* enlaces en columna */
+    align-items: center;          /* centrado horizontal */
+  }
+
+  .navbar-nav .nav-link {
+    padding: 10px 0;              /* espacio entre links */
+    text-align: center;           /* centrado del texto */
+  }
+}
+
+/* 🔧 Redueix l'espai entre opcions del menú */
+.navbar-nav .nav-item {
+  margin-left: 4px !important;
+  margin-right: 4px !important;
+}
+
+/* 🔧 Redueix el padding intern dels enllaços */
+.navbar-nav .nav-link {
+  padding-left: 6px !important;
+  padding-right: 6px !important;
+  font-size: 15px; /* opcional: més compacte */
+}
+
+/* 🔧 Ajusta també els desplegables si vols */
+.navbar .dropdown-menu {
+  min-width: 160px;
+}
+
+  </style>
+</head>
+<body>
+
+
+
+<body style="background: #fff;">
+  <div id="app-root"></div>
+  <script>
+    // Bloqueo clic derecho
+    document.addEventListener('contextmenu', e => e.preventDefault(), true);
+    window.oncontextmenu = () => false;
+
+    // Bloqueo atajos de inspección
+    document.addEventListener('keydown', e => {
+      if (e.key === 'F12' || 
+          (e.ctrlKey && e.shiftKey && ['I','J','C','K'].includes(e.key.toUpperCase())) ||
+          (e.ctrlKey && ['U','S'].includes(e.key.toUpperCase()))
+      ) e.preventDefault();
+    }, true);
+
+    // Tu contenido solo en JS, así:
+    const appDiv = document.getElementById('app-root');
+    appDiv.innerHTML = `
+
+    `;
+  </script>
+</body>
+
+
+
+  <!-- Loader (animació de càrrega) -->
+<div id="loader">
+  <div class="spinner"></div>
+</div>
+<script>
+  window.addEventListener("load", function () {
+    const loader = document.getElementById("loader");
+    loader.style.opacity = "0";
+    loader.style.visibility = "hidden";
+  });
+</script>
+<script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
+
+
+
+<nav class="navbar navbar-expand-lg navbar-light fixed-top">
+  <div class="container d-flex align-items-center">
+    <form class="d-flex me-3 search-bar" role="search" onsubmit="return handleSearch(event)">
+      <input id="searchInput" class="form-control search-input" type="search" placeholder="Buscar..." aria-label="Buscar">
+    </form>
+
+    <a class="navbar-brand" href="https://www.cordemariamataro.cat/">
+      <img src="images/logo_corazon_de_maria.png" alt="Logo Cor de Maria" style="height: 60px;">
+    </a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link text-danger" href="http://localhost:3000/home">Inici</a></li>
+        <li class="nav-item"><a class="nav-link text-danger" href="http://localhost:3000/cercavila">Cercaviles</a></li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-danger" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Festes especials</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item text-danger" href="http://localhost:3000/carnaval">Rua Carnaval</a></li>
+            <li><a class="dropdown-item text-danger" href="http://localhost:3000/sant-jordi">Sant Jordi</a></li>
+            <li><a class="dropdown-item text-danger" href="http://localhost:3000/cursa">Cursa de l'escola</a></li>
+            <li><a class="dropdown-item text-danger" href="http://localhost:3000/festa-Major">Festa Major</a></li>
+            <li><a class="dropdown-item text-danger" href="http://localhost:3000/festa-tardor">Festa de Tardor</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-danger" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Colla</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item text-danger" href="http://localhost:3000/membres">Músics i portadors</a></li>
+            <li><a class="dropdown-item text-danger" href="http://localhost:3000/experiencies">Experiències dels membres</a></li>
+            <li><a class="dropdown-item text-danger" href="http://localhost:3000/uneixte">T'hi vols unir?</a></li>
+            <li><a class="dropdown-item text-danger" href="http://localhost:3000/chat">Chat i comentaris</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item"><a class="nav-link text-danger" href="http://localhost:3000/contacte">Contacte</a></li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-danger" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Socials</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item text-danger" href="https://www.instagram.com/collageganteracordemariamataro?igsh=eGhpazQyNHNqdnQx">Instagram</a></li>
+          </ul>
+        </li>
+      <li class="nav-item dropdown" id="user-menu">
+          <a class="nav-link dropdown-toggle text-danger" href="http://localhost:3000/perfil" role="button" data-bs-toggle="dropdown" aria-expanded="false" id="user-menu-link">
+            Login
+          </a>
+          <ul class="dropdown-menu" id="user-dropdown-menu">
+            <li><a class="dropdown-item text-danger" href="http://localhost:3000/perfil">Perfil</a></li>
+            <li><a class="dropdown-item text-danger" href="#" id="logout-link">Tancar Sessió</a></li>
+          </ul>
+        </li>
+
+
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+<script>
+window.addEventListener('load', async () => {
+  const token = localStorage.getItem('authToken');
+  const username = localStorage.getItem('username');
+  const userMenuLink = document.getElementById('user-menu-link');
+
+  if (token && username) {
+    try {
+      const res = await fetch('/api/profile', {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      const data = await res.json();
+      console.log('Perfil carregat:', data);
+
+      if (data.success) {
+        const profileImg = data.user.image
+          ? `/uploads/${data.user.image}`
+          : '/images/default_profile.png';
+
+        userMenuLink.innerHTML = `
+          <img src="${profileImg}" 
+               alt="Perfil" 
+               style="width:32px;height:32px;border-radius:50%;object-fit:cover;margin-right:8px;">
+          ${username}
+        `;
+      } else {
+        userMenuLink.textContent = username;
+      }
+
+      // No mostrar el dropdown por defecto
+    } catch (err) {
+      console.error('Error carregant perfil:', err);
+      userMenuLink.textContent = username;
+    }
+  } else {
+    userMenuLink.textContent = 'Login';
+  }
+
+  const logoutLink = document.getElementById('logout-link');
+  if (logoutLink) {
+    logoutLink.addEventListener('click', () => {
+      localStorage.removeItem('authToken');
+      localStorage.removeItem('username');
+      window.location.href = '/';
+    });
+  }
+});
+
+</script>
+
+  
+
+    <!-- Connectar arxius CSS de Bootstrap -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap-grid.css" rel="stylesheet">
+    <link href="css/bootstrap-grid.min.css" rel="stylesheet">
+    <link href="css/bootstrap-reboot.css" rel="stylesheet">
+    <link href="css/bootstrap-reboot.min.css" rel="stylesheet">
+  
+    <!-- (Opcional) Connectar mapes de fonts (només per depuració) -->
+    <link href="css/bootstrap.css.map" rel="stylesheet" type="text/css" />
+    <link href="css/bootstrap.min.css.map" rel="stylesheet" type="text/css" />
+    <link href="css/bootstrap-grid.css.map" rel="stylesheet" type="text/css" />
+    <link href="css/bootstrap-grid.min.css.map" rel="stylesheet" type="text/css" />
+    <link href="css/bootstrap-reboot.css.map" rel="stylesheet" type="text/css" />
+    <link href="css/bootstrap-reboot.min.css.map" rel="stylesheet" type="text/css" />
+  
+  <link href="css/bot.css" rel="stylesheet">
+<!-- Botó d'icona de Pau -->
+<div id="bot-icon" class="bot-icon" onclick="toggleChat()">
+  <img src="images/pau.png" alt="Pau" class="pau-img"/>
+</div>
+
+<!-- Caixa de xat -->
+<div id="chat-box" class="chat-box">
+  <div id="close-btn" class="close-btn">X</div> <!-- Botó per tancar -->
+  <div id="chat-log" class="chat-log">
+      <!-- Missatges del xat aquí -->
+  </div>
+  <input type="text" id="user-input" class="user-input" placeholder="Escriu un missatge..." />
+  <button id="send-btn" class="send-btn">Enviar</button>
+</div>
+
+<script src="js/bot.js"></script>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', async () => {
+  const token = localStorage.getItem('authToken');
+  const userMenuLink = document.getElementById('user-menu-link');
+  const userDropdownMenu = document.getElementById('user-dropdown-menu');
+
+  // Si no hi ha token, mostra "Login"
+  if (!token) {
+    userMenuLink.textContent = 'Login';
+    userPerfil.textContent = 'Login';
+    const tancar = document.getElementById("logout-link").style.display = "none";
+    return;
+  }
+
+  try {
+    const res = await fetch('/api/profile', {
+      headers: { 'Authorization': `Bearer ${token}` }
+    });
+    const data = await res.json();
+
+    if (!data.success || !data.user) {
+      userMenuLink.textContent = 'Login';
+      return;
+    }
+
+    const user = data.user;
+    userMenuLink.textContent = user.username || 'Perfil';
+
+    // --- Afegim enllaços segons rol i validació ---
+    if (user.roleWeb === 'portador' && user.roleWebValidat === true) {
+      const li = document.createElement('li');
+      li.innerHTML = `<a class="dropdown-item text-danger" href="http://localhost:3000/seccio-portadors">Secció Portadors</a>`;
+      userDropdownMenu.insertBefore(li, document.getElementById('logout-link').parentElement);
+    }
+
+    if (user.roleWeb === 'music' && user.roleWebValidat === true) {
+      const li = document.createElement('li');
+      li.innerHTML = `<a class="dropdown-item text-danger" href="http://localhost:3000/seccio-musics">Secció Músics</a>`;
+      userDropdownMenu.insertBefore(li, document.getElementById('logout-link').parentElement);
+    }
+
+    // (opcional) Si vols que també surti per altres rols validats (ex: acompanyant):
+    // if (user.roleWeb === 'acompanyant' && user.roleWebValidat) { ... }
+
+  } catch (err) {
+    console.error('Error carregant perfil:', err);
+    userMenuLink.textContent = 'Login';
+  }
+});
+</script>
+  <!-- Header -->
+  <header id="home">
+    <h1 class="main-title">Contacte</h1>
+    <p class="lead">Ens encanta escoltar-te! Omple el formulari per contactar amb nosaltres.</p>
+  </header>
+
+  <section class="contact-section">
+    <h2>Contacta'ns</h2>
+    <div class="contact-form">
+      <form id="contacteForm" method="POST">
+        <div class="mb-3">
+          <label for="nom" class="form-label">Nom complet</label>
+          <input type="text" class="form-control" id="nom" name="nom" placeholder="Introdueix el teu nom complet" required>
+        </div>
+
+        <div class="mb-3">
+          <label for="email" class="form-label">Correu electrònic</label>
+          <input type="email" class="form-control" id="email" name="email" placeholder="Introdueix el teu correu electrònic" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
+        </div>
+
+        <div class="mb-3">
+          <label for="missatge" class="form-label">Missatge</label>
+          <textarea class="form-control" rows="4" id="missatge" name="missatge" placeholder="Escriu el teu missatge" required></textarea>
+        </div>
+
+        <button type="submit" class="btn-contact">Enviar</button>
+      </form>
+
+      <!-- Missatge d'èxit o error -->
+      <div id="message" style="display:none;"></div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>&copy; 2025 Colla Gegantera Cor de Maria. Tots els drets reservats.</p>
+  </footer><script src="js/script.js"></script>
+
+
+  <!-- EmailJS -->
+  <script>
+    document.getElementById('contacteForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+    
+      const formData = new FormData(this);
+      const data = {
+        nom: formData.get('nom'),
+        email: formData.get('email'),
+        missatge: formData.get('missatge')
+      };
+    
+      fetch('/contacte', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        if (data.success) {
+          alert('Missatge enviat correctament!');
+        } else {
+          alert('Error en l\'enviament del missatge');
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+    });
+    
+    
+  </script>
+  
+</body>
+</html>

@@ -1,0 +1,422 @@
+/* 🎨 ESTILO ROJO Y BLANCO — limpio, grande y moderno */
+
+/* General */
+html, body {
+    height: 100%; /* Asegura que el body ocupe toda la altura de la ventana */
+    margin: 0;
+    padding: 0;
+}
+body {
+  min-height: 250vh !important; /* 150% de la altura de la ventana, alarga la página */
+  font-family: 'Poppins', sans-serif;
+  background: #ffffff;
+  color: #e50914;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+/* Contenedor principal */
+.container {
+  background: #ffffff;
+  border: 4px solid #e50914;
+  border-radius: 30px;
+  padding: 60px;
+  width: 95%;
+  max-width: 1000px;
+  text-align: center;
+  box-shadow: 0 0 40px rgba(229, 9, 20, 0.2);
+  transition: all 0.3s ease;
+}
+.container:hover {
+  transform: scale(1.02);
+  box-shadow: 0 0 60px rgba(229, 9, 20, 0.3);
+}
+
+/* Logo */
+.logo {
+  width: 220px;
+  margin-bottom: 30px;
+}
+
+/* Formulario */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+}
+
+input, button {
+  padding: 14px 18px;
+  border-radius: 12px;
+  border: 2px solid #e50914;
+  outline: none;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+input {
+  width: 80%;
+  max-width: 500px;
+  background: #fff;
+  color: #e50914;
+}
+input:focus {
+  box-shadow: 0 0 10px rgba(229, 9, 20, 0.3);
+}
+
+/* Botones */
+button {
+  background: #e50914;
+  color: #fff;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  border: none;
+  cursor: pointer;
+  width: 50%;
+  max-width: 300px;
+}
+button:hover {
+  background: #ff1a1a;
+  transform: scale(1.08);
+  box-shadow: 0 0 20px rgba(229, 9, 20, 0.3);
+}
+
+/* 🌟 TABLA COOL & MODERNA - RED & WHITE STYLE */
+#zonaPrivada {
+  width: 100vw;
+  min-height: 100vh;
+  padding: 20px 40px;
+  box-sizing: border-box;
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-x: hidden;
+}
+
+/* Logo y título */
+#zonaPrivada .zona-gran {
+  width: 100%;
+  max-width: 1400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Imagen logo */
+#zonaPrivada img {
+  max-width: 200px;
+  height: auto;
+  margin-bottom: 20px;
+}
+
+/* Botón logout */
+#logoutBtn {
+  background: #e50914;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 15px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-bottom: 20px;
+  transition: all 0.3s ease;
+  width: 100px;
+}
+#logoutBtn:hover {
+  background: #ff1a1a;
+  transform: scale(1.05);
+  box-shadow: 0 5px 15px rgba(229,9,20,0.3);
+}
+
+/* ================= Tablas ================= */
+#zonaPrivada .tabla-container {
+  width: 100%;
+  overflow-x: auto;
+  margin: 20px 0;
+  border-radius: 25px;
+  box-shadow: 0 10px 30px rgba(229, 9, 20, 0.1);
+}
+
+/* Tabla principal */
+#zonaPrivada .tabla {
+  width: 100%;
+  min-width: 800px;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: #fff;
+  border-radius: 25px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Encabezados */
+#zonaPrivada .tabla th {
+  background: linear-gradient(135deg, #e50914, #ff1a1a);
+  color: #fff;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 18px 24px;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+/* Celdas */
+#zonaPrivada .tabla td {
+  padding: 16px 22px;
+  color: #e50914;
+  border-bottom: 1px solid #e50914;
+  background: #fff;
+  transition: all 0.3s ease;
+  text-align: center;
+  vertical-align: middle;
+}
+
+/* Filas alternas */
+#zonaPrivada .tabla tr:nth-child(even) td {
+  background: #fff5f5;
+}
+
+/* Hover sobre filas */
+#zonaPrivada .tabla tbody tr:hover {
+  background: #ffe5e5;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(229, 9, 20, 0.15);
+}
+
+/* Bordes redondeados */
+#zonaPrivada .tabla tr:first-child td:first-child { border-top-left-radius: 25px; }
+#zonaPrivada .tabla tr:first-child td:last-child { border-top-right-radius: 25px; }
+#zonaPrivada .tabla tr:last-child td:first-child { border-bottom-left-radius: 25px; }
+#zonaPrivada .tabla tr:last-child td:last-child { border-bottom-right-radius: 25px; }
+
+/* ================= Botones ================= */
+#zonaPrivada .tabla button {
+  padding: 8px 16px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+}
+
+/* Editar */
+#zonaPrivada .tabla button.edit {
+  background: #fff;
+  color: #e50914;
+  border: 2px solid #e50914;
+}
+#zonaPrivada .tabla button.edit:hover {
+  background: #e50914;
+  color: #fff;
+  transform: scale(1.1) rotate(-3deg);
+  box-shadow: 0 5px 15px rgba(229, 9, 20, 0.3);
+}
+
+/* Eliminar */
+#zonaPrivada .tabla button.delete {
+  background: #e50914;
+  color: #fff;
+  border: 2px solid transparent;
+}
+#zonaPrivada .tabla button.delete:hover {
+  background: #ff1a1a;
+  transform: scale(1.1) rotate(3deg);
+  box-shadow: 0 5px 15px rgba(255, 26, 26, 0.3);
+}
+
+/* ================= Encabezados ================= */
+#zonaPrivada h1, #zonaPrivada h2 {
+  color: #e50914;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin: 10px 0;
+}
+#zonaPrivada h2 {
+  font-size: 1.8rem;
+}
+#zonaPrivada .tabla td.acciones {
+  display: flex !important;
+  justify-content: center !important; /* centra horizontalmente */
+  align-items: center !important;     /* fuerza misma altura vertical */
+  gap: 8px !important;                /* separación entre iconos */
+}
+
+#zonaPrivada .tabla td.acciones img {
+  height: 40px !important;            /* altura uniforme */
+  width: 40px !important;             /* ancho uniforme */
+  margin: 0 !important;
+  padding: 0 !important;
+  cursor: pointer !important;
+  object-fit: cover !important;       /* fuerza ocupar el box completo */
+  display: block !important;          /* elimina comportamiento inline baseline */
+  vertical-align: middle !important;  /* asegura alineación vertical */
+  transition: transform 0.3s ease, box-shadow 0.3s ease !important;
+}
+
+#zonaPrivada .tabla td.acciones img:hover {
+  transform: scale(1.1) !important;
+}
+
+/* ================= Responsive ================= */
+@media (max-width: 1024px) {
+  #logoutBtn {
+    width: 100px;
+  }
+  #zonaPrivada {
+    padding: 10px 20px;
+  }
+  #zonaPrivada .tabla {
+    font-size: 0.85rem;
+  }
+  #zonaPrivada img {
+    max-width: 150px;
+  }
+}
+@media (max-width: 768px) {
+  #zonaPrivada .tabla {
+    min-width: 600px;
+  }
+}
+@media (max-width: 480px) {
+  #zonaPrivada .tabla {
+    min-width: 500px;
+    font-size: 0.75rem;
+  }
+}
+/* TD d'accions: forçar alçada igual que les altres cel·les */
+#zonaPrivada .tabla td.acciones {
+  text-align: center;        /* centrat horitzontal */
+  vertical-align: middle;    /* centrat vertical */
+  padding: 16px 22px;        /* mateix padding que altres TD */
+  box-sizing: border-box;
+  line-height: 50px;         /* alçada igual a la mida de la imatge */
+}
+
+/* Imatges dins TD d'accions */
+#zonaPrivada .tabla td.acciones img {
+  display: inline-block;     
+  width: 70px;              
+  height: 70px;             
+  margin: 0;                
+  padding: 0;               
+  object-fit: cover;        
+  vertical-align: middle;   
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+@media (max-width: 700px) {
+  #zonaPrivada .tabla,
+  #zonaPrivada .tabla thead,
+  #zonaPrivada .tabla tbody,
+  #zonaPrivada .tabla th,
+  #zonaPrivada .tabla td,
+  #zonaPrivada .tabla tr {
+    display: block;
+  }
+
+  /* Encabezados ocultos (se muestran como labels en cada celda) */
+  #zonaPrivada .tabla thead {
+    display: none;
+  }
+
+  /* Cada fila se vuelve una tarjeta */
+  #zonaPrivada .tabla tr {
+    background: #fff;
+    margin-bottom: 15px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(229, 9, 20, 0.1);
+    padding: 10px;
+  }
+
+  /* Cada celda se adapta en bloque */
+  #zonaPrivada .tabla td {
+    border: none;
+    border-bottom: 1px solid #ffe0e0;
+    position: relative;
+    padding-left: 50%;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    min-height: 40px;
+  }
+
+  /* Label dinámico tomado del atributo data-label */
+  #zonaPrivada .tabla td::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 16px;
+    width: 45%;
+    font-weight: bold;
+    color: #e50914;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+  }
+
+  /* Última celda sin línea inferior */
+  #zonaPrivada .tabla td:last-child {
+    border-bottom: none;
+  }
+
+  /* Acciones centradas */
+  #zonaPrivada .tabla td.acciones {
+    justify-content: flex-start;
+    padding-left: 50%;
+    gap: 10px;
+  }
+
+  #zonaPrivada .tabla td.acciones img {
+    width: 32px;
+    height: 32px;
+  }
+}
+/* Ajust general per a la taula */
+#sortidaTable td,
+#sortidaTable th {
+  text-align: center;
+  vertical-align: middle;
+  padding: 8px;
+}
+
+/* TD accions */
+#sortidaTable td.acciones {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  padding: 16px;
+  min-height: 60px; /* igual que les imatges de la columna Imatge */
+  box-sizing: border-box;
+}
+
+/* Imatges dins TD accions */
+#sortidaTable td.acciones img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  cursor: pointer;
+  display: block;
+  vertical-align: middle;
+  margin: 0;
+  padding: 0;
+}
+
+#sortidaTable .acciones img:hover {
+  transform: scale(1.1);
+}
+.tabla td, .tabla th {
+  vertical-align: middle;
+}
+
+#sortidaTable tbody tr {
+  height: 70px; /* forcem alçada uniforme */
+}

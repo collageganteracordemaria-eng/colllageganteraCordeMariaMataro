@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Formulari de Pagament</title>
+<link rel="icon" href="images/favicon.jpeg" type="image/jpeg">
+
+<script src="https://js.stripe.com/v3/"></script>
+</head>
+<style>
+  body {
+    background: #f0f0f0;
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+  }
+
+  .payment-container {
+    background: #ffffff;
+    width: 420px;
+    padding: 30px;
+    border-radius: 18px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+  }
+
+  .card-preview {
+    width: 92%;
+    height: 200px;
+    background: linear-gradient(135deg, #a80000, #e40000);
+    border-radius: 16px;
+    padding: 20px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-bottom: 25px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    font-family: monospace;
+  }
+
+  .card-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+
+  .field {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #333;
+  }
+
+  input, select {
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    width: 100%;
+  }
+
+  button {
+    width: 100%;
+    padding: 14px;
+    background: #d10000;
+    color: white;
+    font-size: 18px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background 0.3s ease;
+  }
+
+  button:hover {
+    background: #b30000;
+  }
+
+  .message {
+    margin-top: 15px;
+    padding: 10px;
+    border-radius: 8px;
+  }
+
+  .message.success { background-color: #d4edda; color: #155724; }
+  .message.error { background-color: #f8d7da; color: #721c24; }
+</style>
+</head>
+<body>
+
+<div class="payment-container">
+
+  <!-- Targeta visual -->
+  <div class="card-preview" id="card">
+    <div>
+      <div>Número Targeta</div>
+      <div id="pCardNumber">•••• •••• •••• ••••</div>
+    </div>
+    <div class="card-row">
+      <div>
+        <div>Nom</div>
+        <div id="pName">NOM COGNOM</div>
+      </div>
+      <div>
+        <div>Expiració</div>
+        <div id="pExp">MM/YY</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Formulari de pagament -->
+  <form id="paymentForm">
+    <div class="field">
+      <label>Número de Targeta</label>
+      <input type="text" id="cardNumber" maxlength="19" placeholder="1234 5678 9012 3456" required />
+    </div>
+
+    <div class="field">
+      <label>Nom de la targeta</label>
+      <input type="text" id="cardName" placeholder="El teu nom" required />
+    </div>
+
+    <div class="field">
+      <label>Expiració (MM/YY)</label>
+      <input type="text" id="cardExp" maxlength="5" placeholder="MM/YY" required />
+    </div>
+
+    <div class="field">
+      <label>CVV</label>
+      <input type="text" id="cardCVV" maxlength="4" placeholder="123" required />
+    </div>
+
+    <div class="field">
+      <label>País</label>
+      <select id="cardCountry" required>
+        <option value="">Selecciona el teu país</option>
+        <option value="ES">Espanya</option>
+        <option value="PT">Portugal</option>
+        <option value="FR">França</option>
+        <option value="IT">Itàlia</option>
+        <option value="DE">Alemanya</option>
+        <option value="US">Estats Units</option>
+      </select>
+    </div>
+
+    <button type="submit" id="submitBtn">Enviar Pagament</button>
+    <div id="msg" class="message" style="display:none;"></div>
+  </form>
+</div>
+<!-- BLOQUEIG click dret-->
+
+<script>
+// BLOQUEIG CLIC DRET
+window.addEventListener("contextmenu", function(e) {
+    e.preventDefault();
+    return false;
+}, true);
+
+// BLOQUEIG F12, INSPECCIÓ, GUARDAR, IMPRIMIR, SOURCES, ETC.
+window.addEventListener("keydown", function(e) {
+    const key = e.key.toUpperCase();
+
+    // BLOQUEIG F12
+    if (e.key === "F12") {
+        e.preventDefault();
+        e.stopPropagation();
+        return false;
+    }
+
+    // CTRL + SHIFT + (I J C K M)
+    if (e.ctrlKey && e.shiftKey && ["I","J","C","K","M"].includes(key)) {
+        e.preventDefault();
+        e.stopPropagation();
+        return false;
+    }
+
+    // CTRL + U
+    if (e.ctrlKey && key === "U") {
+        e.preventDefault();
+        e.stopPropagation();
+        return false;
+    }
+
+    // CTRL + S
+    if (e.ctrlKey && key === "S") {
+        e.preventDefault();
+        e.stopPropagation();
+        return false;
+    }
+
+    // CTRL + P
+    if (e.ctrlKey && key === "P") {
+        e.preventDefault();
+        e.stopPropagation();
+        return false;
+    }
+
+    // SHIFT + F10 (context menu)
+    if (e.shiftKey && e.key === "F10") {
+        e.preventDefault();
+        e.stopPropagation();
+        return false;
+    }
+}, true);
+
+// ALGUNS NAVEGADORS NOMÉS BLOQUEGEN EN keyup
+window.addEventListener("keyup", function(e) {
+    if (e.key === "F12") {
+        e.preventDefault();
+        return false;
+    }
+}, true);
+</script>
+
+
+
+<script>
+const numInput = document.getElementById('cardNumber');
+const nameInput = document.getElementById('cardName');
+const expInput = document.getElementById('cardExp');
+
+numInput.addEventListener('input', () => {
+  let v = numInput.value.replace(/[^0-9]/g, '');
+  v = v.replace(/(.{4})/g, '$1 ').trim();
+  numInput.value = v;
+  document.getElementById('pCardNumber').textContent = v || '•••• •••• •••• ••••';
+});
+
+nameInput.addEventListener('input', () => {
+  document.getElementById('pName').textContent = nameInput.value || 'NOM COGNOM';
+});
+
+expInput.addEventListener('input', () => {
+  let v = expInput.value.replace(/[^0-9]/g, '');
+  if(v.length >= 3) v = v.slice(0,2)+'/'+v.slice(2,4);
+  expInput.value = v;
+  document.getElementById('pExp').textContent = v || 'MM/YY';
+});
+
+// === Integració Stripe Test ===
+const stripe = Stripe('pk_test_XXXXXXXXXXXXXXXXXXXXXXXX'); // Posa la teva clau pública de prova
+
+document.getElementById('paymentForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = true;
+  const msgDiv = document.getElementById('msg');
+  msgDiv.style.display = 'none';
+
+  const cardNumber = numInput.value.replace(/\s/g,'');
+  const exp = expInput.value.split('/');
+  const cardName = nameInput.value;
+  const cvv = document.getElementById('cardCVV').value;
+  const country = document.getElementById('cardCountry').value;
+
+  if(!cardNumber || !exp[0] || !exp[1] || !cardName || !cvv || !country){
+    msgDiv.textContent = 'Si us plau, completa tots els camps.';
+    msgDiv.className = 'message error';
+    msgDiv.style.display = 'block';
+    btn.disabled = false;
+    return;
+  }
+
+  // Crear token amb Stripe
+  stripe.createToken('card', {
+    number: cardNumber,
+    exp_month: parseInt(exp[0]),
+    exp_year: 2000 + parseInt(exp[1]),
+    cvc: cvv,
+    name: cardName,
+    address_country: country
+  }).then((result) => {
+    if(result.error){
+      msgDiv.textContent = result.error.message;
+      msgDiv.className = 'message error';
+    } else {
+      msgDiv.textContent = 'Pagament completat amb èxit! Token: '+result.token.id;
+      msgDiv.className = 'message success';
+      // Aquí pots enviar result.token.id al teu servidor per processar el pagament real
+    }
+    msgDiv.style.display = 'block';
+    btn.disabled = false;
+  });
+});
+</script>
+<script>
+// Si la ruta és aleatòria (no és arrel i no acaba en .html),
+// carregar pagament.html dins aquesta ruta invisible
+if (location.pathname !== "/" && !location.pathname.endsWith(".html")) {
+  fetch("/pagament.html")
+    .then(r => r.text())
+    .then(html => {
+      document.open();
+      document.write(html);
+      document.close();
+    });
+}
+</script>
+
+<script src="https://js.stripe.com/v3/"></script>
+
+<script>
+const elements = stripe.elements();
+
+// DEFINIM ELEMENTS SOBRE ELS TEUS INPUTS
+const cardNumber = elements.create("cardNumber", { style: { base: { fontSize: "16px" } } });
+cardNumber.mount("#cardNumber");
+
+const cardExpiry = elements.create("cardExpiry", { style: { base: { fontSize: "16px" } } });
+cardExpiry.mount("#cardExp");
+
+const cardCvc = elements.create("cardCvc", { style: { base: { fontSize: "16px" } } });
+cardCvc.mount("#cardCVV");
+
+// MANEGAR EL FORMULARI
+document.getElementById("paymentForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const msg = document.getElementById("msg");
+    msg.style.display = "none";
+
+    // 1️⃣ Crear el mètode de pagament amb Stripe
+    const { paymentMethod, error } = await stripe.createPaymentMethod({
+        type: "card",
+        card: cardNumber,
+        billing_details: {
+            name: document.getElementById("cardName").value,
+        },
+    });
+
+    if (error) {
+        msg.textContent = error.message;
+        msg.className = "message error";
+        msg.style.display = "block";
+        return;
+    }
+
+    // 2️⃣ Enviar al servidor per cobrar
+    const response = await fetch("/api/pagar", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ paymentMethodId: paymentMethod.id }),
+    });
+
+    const result = await response.json();
+
+    if (!result.success) {
+        msg.textContent = result.error;
+        msg.className = "message error";
+        msg.style.display = "block";
+        return;
+    }
+
+    // PAGAMENT REALITZAT AMB ÈXIT
+    msg.textContent = "Pagament realitzat correctament!";
+    msg.className = "message success";
+    msg.style.display = "block";
+});
+</script>
+
+
+
+
+</body>
+</html>

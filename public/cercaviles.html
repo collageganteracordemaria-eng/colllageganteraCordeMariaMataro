@@ -1,0 +1,1254 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cercaviles - Colla Gegantera Cor de Maria</title>
+  <link rel="icon" href="images/favicon.jpeg" type="image/jpeg">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/cercavila.css" rel="stylesheet">
+  <link href="css/menu.css" rel="stylesheet">
+  <link href="css/search.css" rel="stylesheet">
+  <script src="js/proteger.js"></script>
+  <script src="js/search.js"></script>
+  <script src="js/sortida.js"></script>
+
+  <script>
+    
+  </script>
+  <style>
+    body {
+      padding-top: 100px; /* O incrementa el valor si cal */
+      overflow-x: hidden;
+
+    }
+    /* Mobile */
+@media (max-width: 768px) {
+  .navbar .container {
+    flex-direction: column;      /* todo en columna */
+    align-items: center;         /* centra los elementos */
+  }
+
+  .navbar-brand {
+    order: 1;                    /* logo primero */
+    margin-bottom: 10px;         /* separa del siguiente */
+  }
+
+  .search-bar {
+    order: 2;                    /* buscador después del logo */
+    width: 90%;                  /* ocupa casi todo el ancho */
+    margin-bottom: 10px;
+    left: 0 !important;          /* quitar cualquier desplazamiento previo */
+  }
+
+  .navbar-toggler {
+    order: 3;                    /* botón del menú abajo del buscador */
+    margin-bottom: 10px;
+  }
+
+  .collapse.navbar-collapse {
+    order: 4;                    /* menú desplegable al final */
+    width: 100%;
+  }
+
+  .navbar-nav {
+    flex-direction: column;       /* enlaces en columna */
+    align-items: center;          /* centrado horizontal */
+  }
+
+  .navbar-nav .nav-link {
+    padding: 10px 0;              /* espacio entre links */
+    text-align: center;           /* centrado del texto */
+  }
+}
+
+
+/* Estils generals per a les imatges de la galeria */
+.gallery .img-container {
+  position: relative;
+  overflow: hidden; /* Perquè les imatges que es redimensionin no sobrepassin els límits */
+  border-radius: 10px; /* Bordes arrodonits per a un aspecte més suau */
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1); /* Sombra suau per donar profunditat */
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Efecte de transició per a transformació i ombra */
+  width: 100%; /* Ample 100% per ocupar tot l'espai del contenidor */
+  height: 250px; /* Altura fixa per a totes les imatges (ajusta a la teva necessitat) */
+}
+
+.gallery .img-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Assegura que les imatges cobreixin completament el contenidor sense deformar-se */
+  transition: transform 0.3s ease-in-out;
+  border-radius: 10px; /* Bordes arrodonits per les imatges també */
+}
+
+/* Efecte de hover per a les imatges */
+.gallery .img-container:hover img {
+  transform: scale(1.05); /* Augmenta una mica la mida de la imatge quan s'hi passa el ratolí */
+}
+
+/* Efecte de hover per a la caixa del contenidor */
+.gallery .img-container:hover {
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2); /* Augmenta la sombra per a més profunditat */
+}
+
+/* Estils per al títol de la secció de la galeria */
+.section-title {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  color: #D52B1E; /* Color vermell per al títol */
+  font-size: 2.5rem; /* Mida gran per a un títol destacat */
+  margin-bottom: 40px; /* Espai per a separar del contingut següent */
+}
+
+/* Estils per a l'espai entre les imatges en pantalles grans */
+@media (min-width: 992px) {
+  .gallery .col-lg-3 {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+}
+
+/* Estils per a la galeria en dispositius més petits */
+@media (max-width: 768px) {
+  .gallery .col-lg-3,
+  .gallery .col-md-4,
+  .gallery .col-sm-6 {
+    margin-bottom: 15px; /* Espai addicional entre les imatges per evitar que estiguin massa a prop */
+  }
+
+  .section-title {
+    font-size: 2rem; /* Mida més petita per al títol en mòbils */
+  }
+}
+.future-events {
+  background-color: #f9f9f9;
+  padding: 40px 0;
+}
+
+.future-events h2 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #D52B1E;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.event-item {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.event-item:hover {
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+  transform: translateY(-5px);
+}
+
+.event-item h3 {
+  font-size: 1.8rem;
+  color: #D52B1E;
+}
+
+.event-item p {
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.event-item .date-time {
+  font-weight: bold;
+  color: #333;
+}/* Iniciar els elements com invisibles i afegir transicions */
+/* Inicialitzar els elements invisibles */
+/* Afegim un efecte de fade-in per quan els elements es facin visibles */
+.fade-in {
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.fade-in.visible {
+  opacity: 1;
+}
+
+/* Inicialitza els elements invisibles */
+.event-item {
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+/* Quan es fa visible, canvia l'opacitat */
+.event-item.visible {
+  opacity: 1;
+}
+
+ /* Loader full screen */
+ #loader {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  z-index: 9999;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+/* L'spinner animat */
+.spinner {
+  width: 60px;
+  height: 60px;
+  border: 6px solid #d32f2f;
+  border-top: 6px solid transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+/* Animació de gir */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.main-title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 3rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+}
+
+.calendar-day {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.calendar-day:hover {
+  background-color: #f8d7da;
+  transform: scale(1.05);
+}
+
+.calendar-day.has-sortida {
+  background-color: #f8d7da;
+  border-color: #dc3545;
+  font-weight: bold;
+}
+
+.calendar-day.selected {
+  background-color: #dc3545 !important;
+  color: white;
+}
+
+.calendar-weekdays div {
+  font-weight: bold;
+  color: #dc3545;
+}
+/* ✨ Animació de càrrega suau */
+.fade-in {
+  opacity: 0;
+  transform: scale(0.97);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+.fade-in.show {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* ✨ Animació a la caixa d'informació */
+#sortida-info {
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  opacity: 0;
+  transform: translateY(10px);
+}
+#sortida-info.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 🖼️ --- GALERIA DE FOTOS --- */
+.gallery {
+  background: linear-gradient(180deg, #fff, #f8f8f8);
+  padding: 80px 0;
+}
+
+.gallery .section-title {
+  font-size: 3rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #D52B1E;
+  margin-bottom: 60px;
+  position: relative;
+}
+
+.gallery .section-title::after {
+  content: "";
+  width: 80px;
+  height: 4px;
+  background-color: #D52B1E;
+  position: absolute;
+  bottom: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 4px;
+}
+
+/* Contenidor visualment més gran i estilitzat */
+.gallery .img-container {
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  height: 320px; /* més gran */
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.gallery .img-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.gallery .img-container:hover {
+  transform: scale(1.02);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.25);
+}
+
+.gallery .img-container:hover img {
+  transform: scale(1.1);
+}
+
+/* Efecte de zoom suau amb fons */
+.gallery .img-container::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.15);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.gallery .img-container:hover::after {
+  opacity: 1;
+}
+
+
+.calendar-container:hover {
+  transform: scale(1.02);
+}
+
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.calendar-header h3 {
+  color: #D52B1E;
+  font-weight: 700;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 10px;
+}
+
+.calendar-day {
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 15px 10px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  font-weight: 500;
+  background-color: #fafafa;
+}
+.calendar-day:hover {
+  background-color: #ffe6e6;
+  transform: scale(1.07);
+}
+
+.calendar-day.has-sortida {
+  background-color: #f8d7da;
+  border-color: #dc3545;
+  font-weight: bold;
+}
+
+.calendar-day.selected {
+  background-color: #dc3545 !important;
+  color: #fff;
+}
+
+/* 🔍 Línia separadora bonica entre seccions */
+.future-events {
+  background: linear-gradient(180deg, #fff, #fdf3f3);
+  padding: 80px 0;
+  border-top: 4px solid #D52B1E;
+  border-bottom: 4px solid #D52B1E;
+}
+
+/* 🎥 --- SECCIÓ DE VÍDEOS --- */
+.videos {
+  background: linear-gradient(180deg, #f8f8f8, #fff);
+  padding: 80px 0;
+}
+
+.videos .section-title {
+  font-size: 3rem;
+  color: #D52B1E;
+  margin-bottom: 60px;
+  position: relative;
+}
+
+.videos .section-title::after {
+  content: "";
+  width: 80px;
+  height: 4px;
+  background-color: #D52B1E;
+  position: absolute;
+  bottom: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 4px;
+}
+
+.video-container {
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  background: #000;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.video-container video {
+  width: 100%;
+  height: 100%;
+  border-radius: 16px;
+}
+
+.video-container:hover {
+  transform: scale(1.03);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+}
+
+/* Adaptació per mòbils */
+@media (max-width: 768px) {
+  .gallery .img-container {
+    height: 220px;
+  }
+  .calendar-container {
+    padding: 20px;
+  }
+  .videos .section-title, .gallery .section-title {
+    font-size: 2.2rem;
+  }
+}
+.gallery .img-container {
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.gallery .img-container:hover {
+  transform: scale(1.03);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+}
+.gallery .img-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+.gallery .img-container:hover img {
+  transform: scale(1.08);
+}
+.video-container {
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.video-container:hover {
+  transform: scale(1.02);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.25);
+}
+/* 🖼️ GALERIA MILLORADA */
+.img-container.enhanced {
+  position: relative;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.img-container.enhanced img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.img-container.enhanced:hover {
+  transform: scale(1.05);
+  box-shadow: 0 12px 35px rgba(0,0,0,0.25);
+}
+
+.img-container.enhanced:hover img {
+  transform: scale(1.1);
+}
+
+/* Efecte d'overlay amb text */
+.img-container.enhanced .overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  opacity: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.4s ease;
+}
+
+.img-container.enhanced:hover .overlay {
+  opacity: 1;
+}
+
+.overlay-text {
+  color: #fff;
+  font-weight: 600;
+  font-size: 1.3rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* 🎥 VIDEOS MILLORATS */
+.video-card {
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.video-card:hover {
+  transform: translateY(-5px);
+}
+
+.video-container {
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.video-container:hover {
+  transform: scale(1.03);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+}
+
+.video-title {
+  color: #D52B1E;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+/* 🔧 Redueix l'espai entre opcions del menú */
+.navbar-nav .nav-item {
+  margin-left: 4px !important;
+  margin-right: 4px !important;
+}
+
+/* 🔧 Redueix el padding intern dels enllaços */
+.navbar-nav .nav-link {
+  padding-left: 6px !important;
+  padding-right: 6px !important;
+  font-size: 15px; /* opcional: més compacte */
+}
+
+/* 🔧 Ajusta també els desplegables si vols */
+.navbar .dropdown-menu {
+  min-width: 160px;
+}
+.search-bar{
+  border-radius: 20px !important;
+}
+
+/* 🔍 Estils del cercador del calendari */
+#calendar-search {
+  border-radius: 20px !important;
+  outline: none !important;
+  padding: 6px 15px;
+  max-width: 280px;
+  transition: all 0.3s ease;
+}
+
+.search-input{
+  width: 330px !important;
+}
+
+.calendar-filter {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.calendar-grid {
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+}
+/* Calendar ben centrat i mogut cap a l'esquerra */
+.calendar-container {
+  width: 1200px !important;
+  max-width: 2000px !important;
+  margin: 0 auto;            /* centre real */
+  transform: translateX(-290px) !important; /* mou cap a l'esquerra SENSE desquadrar */
+  
+  background: #fff;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+
+  /* altura fixa si la vols: */
+  min-height: 700px;         /* → AIXÒ ÉS EL QUE NO ET ANAVA */
+}
+
+/* 📌 Tamaño grande del calendario */
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+  margin-top: 15px;
+}
+
+/* 📅 Cajas de los días más grandes */
+.calendar-day {
+  background: #ffffff;
+  border: 2px solid #ddd;
+  padding: 25px 0;           /* 🔥 más altura */
+  font-size: 1.6rem;         /* 🔥 números MUCHO más grandes */
+  border-radius: 12px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.calendar-day:hover {
+  background: #ffe6e6;
+  border-color: #ff4d4d;
+}
+
+/* Dia seleccionado */
+.calendar-day.selected {
+  background: #dc3545;
+  color: white;
+  border-color: #dc3545;
+}
+
+/* Días con sortida */
+.calendar-day.has-sortida {
+  border-color: #dc3545;
+  font-weight: bold;
+}
+
+/* Dia actual */
+.calendar-day.today {
+  font-size: 1.7rem;     /* aún más grande */
+}
+
+/* 🔴 Filtro con borde rojo */
+.calendar-filter input {
+  border: 2px solid #dc3545 !important;
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 12px;
+}
+#calendar-info-btn {
+  position: absolute;
+  top: 17px !important;       /* 🔽 más abajo */
+  right: 60px;     /* 🔥 lo mueve a la izquierda */
+  transform: translateX(-20px); /* Ajuste fino */
+  width: 27px;     /* 🔽 más pequeño */
+  height: 28px;
+  border-radius: 50%;
+  font-size: 1.1rem;
+  font-weight: bold;
+  background-color: #dc3545;
+  color: #fff;
+  border: 2px solid #fff;
+  cursor: pointer;
+  z-index: 99;
+}
+
+#sortida-info {
+  display: none;
+  width: 100%;              /* ocupa tot l'ample disponible */
+  max-width: 900px;         /* més ample */
+  background-color: #fff;
+  border-radius: 16px;      /* cantons rodons */
+  box-shadow: 0 12px 30px rgba(0,0,0,0.25); /* ombra elegant */
+  padding: 25px 30px;       /* padding més generós */
+  margin: 20px auto;        /* centrat horitzontalment */
+  transition: all 0.3s ease;
+  opacity: 0;
+  display: flex;
+  flex-direction: row;      /* text a l'esquerra, imatge a la dreta */
+  gap: 25px;                /* espai entre text i imatge */
+  align-items: flex-start;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#sortida-info.visible {
+  opacity: 1;
+}
+
+#sortida-info .content-text {
+  flex: 2;
+}
+
+#sortida-info img {
+  flex: 1;
+  max-width: 300px;         /* limitar la imatge */
+  width: 100%;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+#sortida-info h3 {
+  margin-top: 0;
+  color: #dc3545;
+  font-size: 1.8rem;
+  margin-bottom: 12px;
+}
+
+#sortida-info p {
+  margin-bottom: 8px;
+  line-height: 1.5;
+  color: #333;
+}
+
+#sortida-info button#close-info {
+  position: absolute;
+  top: 12px;
+  right: 15px;
+  border: none;
+  background: transparent;
+  font-size: 1.3rem;
+  color: #dc3545;
+  cursor: pointer;
+  font-weight: bold;
+  transition: transform 0.2s ease;
+}
+
+#sortida-info button#close-info:hover {
+  transform: rotate(90deg);
+}
+
+/* Dies amb sortida */
+.calendar-day.has-sortida {
+  background-color: #ffe6e6;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.calendar-day.has-sortida:hover {
+  background-color: #ffcccc;
+}
+
+.calendar-day.selected {
+  border: 2px solid #dc3545;
+}
+
+
+  </style>
+</head>
+<body>
+
+<body style="background: #fff;">
+  <div id="app-root"></div>
+  
+  <script>
+    // Bloqueo clic derecho
+    document.addEventListener('contextmenu', e => e.preventDefault(), true);
+    window.oncontextmenu = () => false;
+
+    // Bloqueo atajos de inspección
+    document.addEventListener('keydown', e => {
+      if (e.key === 'F12' || 
+          (e.ctrlKey && e.shiftKey && ['I','J','C','K'].includes(e.key.toUpperCase())) ||
+          (e.ctrlKey && ['U','S'].includes(e.key.toUpperCase()))
+      ) e.preventDefault();
+    }, true);
+
+    // Tu contenido solo en JS, así:
+    const appDiv = document.getElementById('app-root');
+    appDiv.innerHTML = `
+
+    `;
+     const galleryImages = document.querySelectorAll('.img-container.enhanced img');
+  const modal = document.getElementById('imageModal');
+  const modalImage = document.getElementById('modalImage');
+
+  galleryImages.forEach(img => {
+    img.addEventListener('click', () => {
+      modalImage.src = img.src;
+      new bootstrap.Modal(modal).show();
+    });
+  });
+  </script>
+</body>
+
+
+
+  <!-- Loader (animació de càrrega) -->
+<div id="loader">
+  <div class="spinner"></div>
+</div>
+<script>
+  window.addEventListener("load", function () {
+    const loader = document.getElementById("loader");
+    loader.style.opacity = "0";
+    loader.style.visibility = "hidden";
+  });
+</script>
+
+
+
+
+<nav class="navbar navbar-expand-lg navbar-light fixed-top">
+  <div class="container d-flex align-items-center">
+    <form class="d-flex me-3 search-bar" role="search" onsubmit="return handleSearch(event)">
+      <input id="searchInput" class="form-control search-input" type="search" placeholder="Buscar..." aria-label="Buscar">
+    </form>
+
+    <a class="navbar-brand" href="https://www.cordemariamataro.cat/">
+      <img src="images/logo_corazon_de_maria.png" alt="Logo Cor de Maria" style="height: 60px;">
+    </a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link text-danger" href="http://localhost:3000/home">Inici</a></li>
+        <li class="nav-item"><a class="nav-link text-danger" href="http://localhost:3000/cercavila">Cercaviles</a></li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-danger" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Festes especials</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item text-danger" href="http://localhost:3000/carnaval">Rua Carnaval</a></li>
+            <li><a class="dropdown-item text-danger" href="http://localhost:3000/sant-jordi">Sant Jordi</a></li>
+            <li><a class="dropdown-item text-danger" href="http://localhost:3000/cursa">Cursa de l'escola</a></li>
+            <li><a class="dropdown-item text-danger" href="http://localhost:3000/festa-Major">Festa Major</a></li>
+            <li><a class="dropdown-item text-danger" href="http://localhost:3000/festa-tardor">Festa de Tardor</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-danger" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Colla</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item text-danger" href="http://localhost:3000/membres">Músics i portadors</a></li>
+            <li><a class="dropdown-item text-danger" href="http://localhost:3000/experiencies">Experiències dels membres</a></li>
+            <li><a class="dropdown-item text-danger" href="http://localhost:3000/uneixte">T'hi vols unir?</a></li>
+            <li><a class="dropdown-item text-danger" href="http://localhost:3000/chat">Chat i comentaris</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item"><a class="nav-link text-danger" href="http://localhost:3000/contacte">Contacte</a></li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-danger" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Socials</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item text-danger" href="https://www.instagram.com/collageganteracordemariamataro?igsh=eGhpazQyNHNqdnQx">Instagram</a></li>
+          </ul>
+        </li>
+      <li class="nav-item dropdown" id="user-menu">
+          <a class="nav-link dropdown-toggle text-danger" href="http://localhost:3000/perfil" role="button" data-bs-toggle="dropdown" aria-expanded="false" id="user-menu-link">
+            Login
+          </a>
+          <ul class="dropdown-menu" id="user-dropdown-menu">
+            <li><a class="dropdown-item text-danger" href="http://localhost:3000/perfil">Perfil</a></li>
+            <li><a class="dropdown-item text-danger" href="#" id="logout-link">Tancar Sessió</a></li>
+          </ul>
+        </li>
+
+
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+<script>
+window.addEventListener('load', async () => {
+  const token = localStorage.getItem('authToken');
+  const username = localStorage.getItem('username');
+  const userMenuLink = document.getElementById('user-menu-link');
+
+  if (token && username) {
+    try {
+      const res = await fetch('/api/profile', {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      const data = await res.json();
+      console.log('Perfil carregat:', data);
+
+      if (data.success) {
+        const profileImg = data.user.image
+          ? `/uploads/${data.user.image}`
+          : '/images/default_profile.png';
+
+        userMenuLink.innerHTML = `
+          <img src="${profileImg}" 
+               alt="Perfil" 
+               style="width:32px;height:32px;border-radius:50%;object-fit:cover;margin-right:8px;">
+          ${username}
+        `;
+      } else {
+        userMenuLink.textContent = username;
+      }
+
+      // No mostrar el dropdown por defecto
+    } catch (err) {
+      console.error('Error carregant perfil:', err);
+      userMenuLink.textContent = username;
+    }
+  } else {
+    userMenuLink.textContent = 'Login';
+  }
+
+  const logoutLink = document.getElementById('logout-link');
+  if (logoutLink) {
+    logoutLink.addEventListener('click', () => {
+      localStorage.removeItem('authToken');
+      localStorage.removeItem('username');
+      window.location.href = '/';
+    });
+  }
+});
+
+</script>
+
+  
+
+    <!-- Connectar arxius CSS de Bootstrap -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap-grid.css" rel="stylesheet">
+    <link href="css/bootstrap-grid.min.css" rel="stylesheet">
+    <link href="css/bootstrap-reboot.css" rel="stylesheet">
+    <link href="css/bootstrap-reboot.min.css" rel="stylesheet">
+  
+
+  <link href="css/bot.css" rel="stylesheet">
+  <!-- Botó d'icona de Pau -->
+  <div id="bot-icon" class="bot-icon" onclick="toggleChat()">
+    <img src="images/pau.png" alt="Pau" class="pau-img"/>
+  </div>
+  
+  <!-- Caixa de xat -->
+  <div id="chat-box" class="chat-box">
+    <div id="close-btn" class="close-btn">X</div> <!-- Botó per tancar -->
+    <div id="chat-log" class="chat-log">
+        <!-- Missatges del xat aquí -->
+    </div>
+    <input type="text" id="user-input" class="user-input" placeholder="Escriu un missatge..." />
+    <button id="send-btn" class="send-btn">Enviar</button>
+  </div>
+  
+<script src="js/bot.js"></script>
+    
+  <header id="home" class="bg-red text-white text-center py-5" data-aos="fade-up">
+    <h1 class="main-title">Cercaviles - Colla Gegantera Cor de Maria</h1>
+    <p class="lead" data-aos="fade-up" data-aos-delay="300">Acompanyem a les nostres festes populars amb els gegants i capgrossos. Gaudeix dels nostres moments màgics!</p>
+  </header>
+
+<section class="future-events py-5">
+<div class="container text-center" style="position: relative; max-width: 700px;">
+  <!-- Contenidor del calendari -->
+  <div id="calendar-container" class="calendar-container mx-auto">
+    <!-- Aquí va el calendari real -->
+    <div class="calendar-grid">
+      <!-- dies del calendari -->
+    </div>
+  </div>
+
+  <!-- Botó “i” flotant -->
+  <button id="calendar-info-btn" style="
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    font-weight: bold;
+    background-color: #dc3545;
+    color: #fff;
+    border: 2px solid #fff;
+    cursor: pointer;
+  ">i</button>
+</div>
+
+<!-- Informació oculta -->
+<!-- 🪟 Pantalla flotant d'informació -->
+<div id="sortida-info" class="info-modal">
+  <div class="info-content">
+    <button class="info-close">✕</button>
+
+    <p class="info-text">
+      Busca les nostres <strong>futures sortides</strong> i informa’t de 
+      <strong>quan i on sortim</strong> per poder-nos seguir.
+    </p>
+  </div>
+</div>
+
+<script>
+  const calendarBtn = document.getElementById('calendar-info-btn');
+  const sortidaInfo = document.getElementById('sortida-info');
+
+  calendarBtn.addEventListener('click', () => {
+    sortidaInfo.style.display = (sortidaInfo.style.display === 'none' || sortidaInfo.style.display === '') ? 'block' : 'none';
+  });
+</script>
+
+
+
+
+<script>
+document.addEventListener('DOMContentLoaded', async () => {
+  const token = localStorage.getItem('authToken');
+  const userMenuLink = document.getElementById('user-menu-link');
+  const userDropdownMenu = document.getElementById('user-dropdown-menu');
+
+  // Si no hi ha token, mostra "Login"
+  if (!token) {
+    userMenuLink.textContent = 'Login';
+    userPerfil.textContent = 'Login';
+    const tancar = document.getElementById("logout-link").style.display = "none";
+    return;
+  }
+
+  try {
+    const res = await fetch('/api/profile', {
+      headers: { 'Authorization': `Bearer ${token}` }
+    });
+    const data = await res.json();
+
+    if (!data.success || !data.user) {
+      userMenuLink.textContent = 'Login';
+      return;
+    }
+
+    const user = data.user;
+    userMenuLink.textContent = user.username || 'Perfil';
+
+    // --- Afegim enllaços segons rol i validació ---
+    if (user.roleWeb === 'portador' && user.roleWebValidat === true) {
+      const li = document.createElement('li');
+      li.innerHTML = `<a class="dropdown-item text-danger" href="http://localhost:3000/seccio-portadors">Secció Portadors</a>`;
+      userDropdownMenu.insertBefore(li, document.getElementById('logout-link').parentElement);
+    }
+
+    if (user.roleWeb === 'music' && user.roleWebValidat === true) {
+      const li = document.createElement('li');
+      li.innerHTML = `<a class="dropdown-item text-danger" href="http://localhost:3000/seccio-musics">Secció Músics</a>`;
+      userDropdownMenu.insertBefore(li, document.getElementById('logout-link').parentElement);
+    }
+
+    // (opcional) Si vols que també surti per altres rols validats (ex: acompanyant):
+    // if (user.roleWeb === 'acompanyant' && user.roleWebValidat) { ... }
+
+  } catch (err) {
+    console.error('Error carregant perfil:', err);
+    userMenuLink.textContent = 'Login';
+  }
+});
+</script>
+    <h2 class="section-title mb-4 text-danger" style="margin-top: 20px !important;">Galeria de imatges i videos!!</h2>
+<p style="
+  color: #000000;
+  font-weight: 700;
+  font-size: 1.4rem;
+  line-height: 1.7;
+  text-align: center;
+  max-width: 850px;
+  margin: 0 auto;
+" 
+data-aos="fade-up" 
+data-aos-delay="300">
+  Observa cada una de les <strong>nostres sortides</strong> nomes i anteriors <strong>amb videos i imatges</strong> per poder saber mes de nosaltres, disfruta del contingut!
+</p>
+  <!-- Galeria d'imatges -->
+  <!-- Galeria d'imatges -->
+<!-- 🖼️ Galeria d'imatges -->
+<!-- 🖼️ Galeria millorada -->
+<section class="gallery py-5">
+  <div class="container">
+    <h2 class="section-title text-center">Galeria de Fotos</h2>
+    <div class="row g-4 justify-content-center">
+
+      <!-- Cada imatge -->
+      <div class="col-lg-3 col-md-4 col-sm-6">
+        <div class="img-container enhanced">
+          <img src="images/IMG-20241020-WA0038.jpg" alt="Cercavila 1" loading="lazy">
+          <div class="overlay">
+            <span class="overlay-text">Cercavila 1</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-3 col-md-4 col-sm-6">
+        <div class="img-container enhanced">
+          <img src="images/IMG-20241116-WA0041.jpg" alt="Cercavila 2" loading="lazy">
+          <div class="overlay">
+            <span class="overlay-text">Cercavila 2</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-3 col-md-4 col-sm-6">
+        <div class="img-container enhanced">
+          <img src="images/IMG-20241215-WA0035.jpg" alt="Cercavila 3" loading="lazy">
+          <div class="overlay">
+            <span class="overlay-text">Cercavila 3</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-3 col-md-4 col-sm-6">
+        <div class="img-container enhanced">
+          <img src="images/IMG-20241116-WA0043.jpg" alt="Cercavila 4" loading="lazy">
+          <div class="overlay">
+            <span class="overlay-text">Cercavila 4</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 🎥 Vídeos millorats -->
+<section class="videos py-5">
+  <div class="container">
+    <h2 class="section-title text-center">Vídeos de les nostres cercaviles</h2>
+    <div class="row g-4 justify-content-center">
+      
+      <div class="col-lg-4 col-md-6">
+        <div class="video-card">
+          <div class="video-container ratio ratio-16x9">
+            <video controls preload="none" poster="images/thumbnail1.jpg">
+              <source src="images/VID-20241123-WA0064.mp4" type="video/mp4">
+            </video>
+          </div>
+          <h5 class="video-title mt-3">Cercavila de Tardor</h5>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-6">
+        <div class="video-card">
+          <div class="video-container ratio ratio-16x9">
+            <video controls preload="none" poster="images/thumbnail2.jpg">
+              <source src="images/VID-20241123-WA0067.mp4" type="video/mp4">
+            </video>
+          </div>
+          <h5 class="video-title mt-3">Festa Major 2024</h5>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-6">
+        <div class="video-card">
+          <div class="video-container ratio ratio-16x9">
+            <video controls preload="none" poster="images/thumbnail3.jpg">
+              <source src="images/VID-20241123-WA0067.mp4" type="video/mp4">
+            </video>
+          </div>
+          <h5 class="video-title mt-3">Sortida de Nadal</h5>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  
+
+    <footer class="footer text-center py-3">
+      <p>&copy; 2025 Colla Gegantera Cor de Maria. Tots els drets reservats.</p>
+    </footer>
+  </div>
+  <script>
+    // Funció per comprovar quan els elements arriben a la finestra
+    window.onscroll = function () {
+      // Comprovar els elements amb classe 'fade-in'
+      var fadeElements = document.querySelectorAll('.fade-in');
+      fadeElements.forEach(function (element) {
+        var position = element.getBoundingClientRect(); // Posició de l'element dins de la finestra del navegador
+        if (position.top < window.innerHeight && position.bottom >= 0) {
+          element.classList.add('visible'); // Si l'element és visible, afegeix la classe 'visible'
+        } else {
+          element.classList.remove('visible'); // Si no és visible, elimina la classe 'visible'
+        }
+      });
+  
+      // Comprovar els elements amb classe 'event-item' (si els tens per altres seccions)
+      var eventItems = document.querySelectorAll('.event-item');
+      eventItems.forEach(function (element) {
+        var position = element.getBoundingClientRect();
+        if (position.top < window.innerHeight && position.bottom >= 0) {
+          element.classList.add('visible');
+        } else {
+          element.classList.remove('visible');
+        }
+      });
+    };
+  
+    // Afegir la classe visible quan la pàgina es carrega per primera vegada
+    window.onload = function () {
+      window.onscroll(); // Invocar la funció per assegurar que els elements es mostrin correctament quan es carrega la pàgina
+    };
+  </script>
+  
+  
+  
+ <!-- Carrega AOS -->
+<link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+
+<script>
+  // Inicialitza AOS
+  AOS.init();
+</script>
+
+  
+</body>
+</html>

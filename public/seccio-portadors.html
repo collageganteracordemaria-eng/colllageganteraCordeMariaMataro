@@ -1,0 +1,1382 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <link rel="stylesheet" href="css/search.css">
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Seccio Portadors Colla gegantera</title>
+  <link rel="icon" href="images/favicon.jpeg" type="image/jpeg">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+  <script src="js/proteger.js"></script>
+  <script src="js/search.js"></script>
+
+  <style>
+    .body {
+          overflow-x: hidden;
+
+    }
+/* Modificar la navbar per a alinear a l'esquerra */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100vw;
+  background-color: #ffffff;
+  z-index: 10;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: flex-start; /* Modificat per moure el contingut cap a l'esquerra */
+  align-items: center;
+  padding: 10px 0;
+  margin: 0;
+}
+
+.navbar-nav {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar-nav .nav-link {
+  color: #D52B1E;
+  font-size: 1.2rem;
+  font-weight: 700;
+  padding: 10px 20px;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+  margin: 0 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Eliminar la separació que crea la classe ms-auto i moure tot el menú a l'esquerra */
+.navbar-nav.ms-auto {
+  margin-left: 0;
+}
+
+.navbar-toggler {
+  margin-left: 0; /* Estableix el botó d'expansió de la navbar més a l'esquerra */
+}
+
+.navbar-brand {
+  margin-left: 0; /* El logo també es mou més a l'esquerra */
+}
+
+/* Ajusts per a la versió mòbil */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 6px 10px !important; /* Navbar més baixa */
+  }
+
+  .navbar-brand img {
+    height: 45px !important; /* Redueix el logo */
+  }
+
+  .navbar-nav {
+    height: auto !important; /* ✨ Ajust automàtic de l’alçada */
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 5px 10px !important;
+  }
+
+  .navbar-nav .nav-link {
+    width: 100%;
+    height: auto !important;
+    text-align: left;
+    padding: 8px 0 !important;
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.4;
+  }
+
+  .navbar-toggler {
+    padding: 4px 6px !important;
+    border: none !important;
+  }
+}
+  
+
+ /* Loader full screen */
+ #loader {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  z-index: 9999;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+/* L'spinner animat */
+.spinner {
+  width: 60px;
+  height: 60px;
+  border: 6px solid #d32f2f;
+  border-top: 6px solid transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+
+/* Animació de gir */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+/* 🔧 Redueix l'espai entre opcions del menú */
+.navbar-nav .nav-item {
+  margin-left: 4px !important;
+  margin-right: 4px !important;
+}
+
+/* 🔧 Redueix el padding intern dels enllaços */
+.navbar-nav .nav-link {
+  padding-left: 6px !important;
+  padding-right: 6px !important;
+  font-size: 15px; /* opcional: més compacte */
+}
+
+/* 🔧 Ajusta també els desplegables si vols */
+.navbar .dropdown-menu {
+  min-width: 160px;
+}
+ .upload-card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      padding: 20px;
+    }
+    .file-item {
+      background: #fff;
+      border-radius: 10px;
+      padding: 15px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      margin-bottom: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .file-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .preview-img {
+      width: 70px;
+      height: 70px;
+      border-radius: 8px;
+      object-fit: cover;
+    }
+/* === BOTONES DE ACCIÓN CIRCULARES === */
+.btn-action {
+  width: 38px;
+  height: 38px;
+  border: none;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  color: white;
+  transition: all 0.25s ease;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+/* 🔴 Eliminar */
+.btn-action.delete {
+  background-color: #e63946;
+}
+.btn-action.delete:hover {
+  background-color: #c91827;
+  transform: scale(1.1);
+}
+
+/* 🟡 Editar */
+.btn-action.edit {
+  background-color: #f4c430;
+  color: #333;
+}
+.btn-action.edit:hover {
+  background-color: #d4a50c;
+  transform: scale(1.1);
+}
+
+/* 👁️ Ver (opcional, azul) */
+.btn-action.view {
+  background-color: #007bff;
+}
+.btn-action.view:hover {
+  background-color: #0062cc;
+  transform: scale(1.1);
+}
+
+/* --- Targetes principals --- */
+.card {
+  border: none;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+  padding: 24px;
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.1);
+}
+
+/* --- Llistats d’arxius, vídeos, etc. --- */
+.file-card, .video-card, .task-card, .note-card, .practice-card {
+  border: none;
+  background: #fff;
+  border-radius: 12px;
+  padding: 15px 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  margin-bottom: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.2s ease;
+}
+
+.file-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff;
+  padding: 16px 20px;
+  margin-bottom: 12px;
+  border-radius: 14px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.file-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+.preview-img {
+  width: 64px;
+  height: 64px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+.empty-state {
+  text-align: center;
+  color: #aaa;
+  font-style: italic;
+  padding: 1rem;
+}
+
+
+.file-card:hover, .video-card:hover, .task-card:hover, .note-card:hover, .practice-card:hover {
+  background: #fff5f5;
+  transform: translateY(-2px);
+}
+
+/* --- Icones i imatges de previsualització --- */
+.preview-img {
+  width: 70px;
+  height: 70px;
+  border-radius: 10px;
+  object-fit: cover;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.file-card i, .video-card i {
+  font-size: 1.8rem;
+  color: #d52b1e;
+}
+
+/* --- Botons d’acció --- */
+.btn {
+  border-radius: 10px !important;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.btn-danger {
+  background-color: #d52b1e !important;
+  border: none;
+}
+
+.btn-danger:hover {
+  background-color: #a71d12 !important;
+  transform: translateY(-1px);
+}
+
+/* --- Formularis --- */
+form input, form textarea, form select {
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  padding: 10px;
+  transition: border 0.2s;
+}
+
+form input:focus, form textarea:focus, form select:focus {
+  border-color: #d52b1e;
+  box-shadow: 0 0 0 3px rgba(213,43,30,0.15);
+}
+
+/* --- Estat buit --- */
+.empty-state {
+  text-align: center;
+  color: #999;
+  padding: 20px;
+  font-style: italic;
+}
+
+/* --- Responsivitat --- */
+@media (max-width: 768px) {
+  .card { padding: 15px; }
+  .file-card, .video-card, .task-card, .note-card, .practice-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+/* === GALERIA MODERNA === */
+/* === MILLORA ESTÈTICA DE TARGETES DE MULTIMÈDIA === */
+.media-card {
+  border: none;
+  border-radius: 18px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  transition: all 0.25s ease;
+  position: relative;
+}
+.media-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 26px rgba(0,0,0,0.12);
+}
+
+/* Botons d'acció flotants */
+.media-actions {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  gap: 6px;
+  z-index: 5;
+}
+
+.media-actions button {
+  border: none;
+  background: rgba(255,255,255,0.92);
+  border-radius: 50%;
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #d52b1e;
+  font-size: 1.2rem;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  transition: all 0.2s ease;
+}
+.media-actions button:hover {
+  background: #d52b1e;
+  color: #fff;
+  transform: scale(1.1);
+}
+
+/* Títol i descripció */
+.media-card-body {
+  padding: 15px;
+  text-align: left;
+}
+.media-card-body h5 {
+  color: #d52b1e;
+  font-weight: 700;
+  font-size: 1rem;
+  margin-bottom: 6px;
+}
+.media-card-body p {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+/* === MULTIMÈDIA A 100% === */
+.media-card img,
+.media-card video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* manté la proporció sense deformar */
+  display: block;
+  border-radius: 0;
+  background: #dbd1d1;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* Opcional: efecte suau al passar el ratolí */
+.media-card img:hover,
+.media-card video:hover {
+  opacity: 0.9;
+  transform: scale(1.02);
+}
+
+/* Si vols que tota la targeta sigui plena */
+.media-card {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 10px;
+  background: #ffffff;
+}
+
+.media-card img:hover, .media-card video:hover {
+  opacity: 0.85;
+  transform: scale(1.01);
+}
+
+/* Millora dels botons per eliminar contingut */
+.btn-danger {
+  background-color: #d52b1e;
+  border: none;
+  font-weight: 600;
+  transition: background-color 0.25s, transform 0.2s;
+}
+.btn-danger:hover {
+  background-color: #a61a12;
+  transform: scale(1.03);
+}
+/* 🧭 Ajusta el contingut en mòbil perquè no quedi tapat per la navbar */
+@media (max-width: 768px) {
+  body {
+    padding-top: 130px !important; /* mou tot el contingut més avall */
+  }
+
+  .container.py-4 {
+    margin-top: 130px !important; /* assegura que la secció principal no quedi tapada */
+  }
+
+  .nav-tabs {
+    flex-wrap: wrap;
+    gap: 4px;
+    font-size: 0.9rem;
+  }
+
+  .media-card video, .media-card img {
+    max-height: 240px;
+    object-fit: cover;
+  }
+}
+#mediaSlider {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+#mediaSlider .carousel-inner {
+  width: 100%;
+  height: 100%;
+}
+
+#mediaSlider .carousel-item {
+  width: 100%;
+  height: 100%;
+}
+
+#mediaSlider .carousel-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* cobreix tot l’espai sense deformar */
+  object-position: center;
+}
+
+
+/* Efecte fade suau */
+.carousel-fade .carousel-item {
+  transition: opacity 1.5s ease-in-out;
+}
+
+/* Amaga botons i punts si no els vols */
+.carousel-control-prev,
+.carousel-control-next,
+.carousel-indicators {
+  display: none !important;
+}
+
+/* Treu els botons de navegació laterals */
+.carousel-control-prev,
+.carousel-control-next {
+  display: none !important;
+}
+
+/* Treu els indicadors de baix si hi ha */
+.carousel-indicators {
+  display: none !important;
+}
+
+/* Vídeos un al costat de l’altre */
+.media-card video {
+  height: 360px;
+  object-fit: cover;
+}
+
+@media (max-width: 768px) {
+  .media-card video {
+    height: 240px;
+  }
+}
+/* 📦 Fes que totes les seccions principals ocupin tot l'ample */
+#arxius .card,
+#videos .card,
+#tasques .card,
+#notes .card,
+#practiques .card {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 auto;
+  display: block;
+}
+
+/* 🔲 Si vols que el fons de cada secció també ocupi el 100% de la pantalla */
+#arxius,
+#videos,
+#tasques,
+#notes,
+#practiques {
+  width: 100vw !important;
+  margin-left: calc(-50vw + 50%) !important;
+}
+
+/* 🧱 Opcional: fes que no tinguin cantonades rodones (si vols efecte complet pantalla) */
+#arxius .card,
+#videos .card,
+#tasques .card,
+#notes .card,
+#practiques .card {
+  border-radius: 0 !important;
+}
+/* 🎥 Estil per als vídeos dins del gestor */
+#videosList video {
+  width: 100% !important;
+  height: auto !important;
+  max-height: 70vh;
+  object-fit: cover;
+  display: block;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+/* 📦 Cada targeta de vídeo ocupa tot l'ample */
+#videosList .media-card {
+  width: 100% !important;
+  max-width: 100% !important;
+  display: block;
+  margin: 0 auto 20px auto;
+  background: #fff;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+/* Cada card de vídeo ocupa tot l'ample del contenidor */
+#videosList .col-md-6 {
+  width: 100% !important;
+  max-width: 100% !important;
+  padding: 0 !important; /* elimina padding extra */
+}
+
+/* Vídeo ocupa tot l'ample de la card */
+#videosList video {
+  width: 100% !important;
+  height: auto !important;
+  object-fit: cover;
+  display: block;
+  border-radius: 12px;
+}
+
+
+  </style>
+</head>
+<body>
+
+
+<body style="background: #fff;">
+  <div id="app-root"></div>
+
+</body>
+
+
+
+  <!-- Loader (animació de càrrega) -->
+<div id="loader">
+  <div class="spinner"></div>
+</div>
+<script>
+  window.addEventListener("load", function () {
+    const loader = document.getElementById("loader");
+    loader.style.opacity = "0";
+    loader.style.visibility = "hidden";
+  });
+  // Comprovar si ja hi ha un token
+window.addEventListener('load', () => {
+  const token = localStorage.getItem('authToken');
+  const username = localStorage.getItem('username');
+
+  if(token && username){
+    // Ja hi ha sessió, mostrar xat directament
+    document.getElementById('username-section').style.display = 'none';
+    document.getElementById('chat-container').style.display = 'block';
+    document.getElementById('chat-info').style.display = 'none';
+  } else {
+    // Mostrar formulari
+    document.getElementById('username-section').style.display = 'block';
+    document.getElementById('chat-container').style.display = 'none';
+    document.getElementById('chat-info').style.display = 'block';
+  }
+});
+
+
+</script>
+
+
+
+<nav class="navbar navbar-expand-lg navbar-light fixed-top">
+  <div class="container d-flex align-items-center">
+    <form class="d-flex me-3 search-bar" role="search" onsubmit="return handleSearch(event)">
+      <input id="searchInput" class="form-control search-input" type="search" placeholder="Buscar..." aria-label="Buscar">
+    </form>
+
+    <a class="navbar-brand" href="https://www.cordemariamataro.cat/">
+      <img src="images/logo_corazon_de_maria.png" alt="Logo Cor de Maria" style="height: 60px;">
+    </a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link text-danger" href="http://localhost:3000/home">Inici</a></li>
+        <li class="nav-item"><a class="nav-link text-danger" href="http://localhost:3000/cercavila">Cercaviles</a></li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-danger" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Festes especials</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item text-danger" href="http://localhost:3000/carnaval">Rua Carnaval</a></li>
+            <li><a class="dropdown-item text-danger" href="http://localhost:3000/sant-jordi">Sant Jordi</a></li>
+            <li><a class="dropdown-item text-danger" href="http://localhost:3000/cursa">Cursa de l'escola</a></li>
+            <li><a class="dropdown-item text-danger" href="http://localhost:3000/festa-Major">Festa Major</a></li>
+            <li><a class="dropdown-item text-danger" href="http://localhost:3000/festa-tardor">Festa de Tardor</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-danger" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Colla</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item text-danger" href="http://localhost:3000/membres">Músics i portadors</a></li>
+            <li><a class="dropdown-item text-danger" href="http://localhost:3000/experiencies">Experiències dels membres</a></li>
+            <li><a class="dropdown-item text-danger" href="http://localhost:3000/uneixte">T'hi vols unir?</a></li>
+            <li><a class="dropdown-item text-danger" href="http://localhost:3000/chat">Chat i comentaris</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item"><a class="nav-link text-danger" href="http://localhost:3000/contacte">Contacte</a></li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-danger" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Socials</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item text-danger" href="https://www.instagram.com/collageganteracordemariamataro?igsh=eGhpazQyNHNqdnQx">Instagram</a></li>
+          </ul>
+        </li>
+      <li class="nav-item dropdown" id="user-menu">
+          <a class="nav-link dropdown-toggle text-danger" href="http://localhost:3000/perfil" role="button" data-bs-toggle="dropdown" aria-expanded="false" id="user-menu-link">
+            Login
+          </a>
+          <ul class="dropdown-menu" id="user-dropdown-menu">
+            <li><a class="dropdown-item text-danger" href="http://localhost:3000/perfil">Perfil</a></li>
+            <li><a class="dropdown-item text-danger" href="#" id="logout-link">Tancar Sessió</a></li>
+          </ul>
+        </li>
+
+
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', async () => {
+  const token = localStorage.getItem('authToken');
+  const userMenuLink = document.getElementById('user-menu-link');
+  const userDropdownMenu = document.getElementById('user-dropdown-menu');
+
+  // Si no hi ha token, mostra "Login"
+  if (!token) {
+    userMenuLink.textContent = 'Login';
+    return;
+  }
+
+  try {
+    const res = await fetch('/api/profile', {
+      headers: { 'Authorization': `Bearer ${token}` }
+    });
+    const data = await res.json();
+
+    if (!data.success || !data.user) {
+      userMenuLink.textContent = 'Login';
+      return;
+    }
+
+    const user = data.user;
+    userMenuLink.textContent = user.username || 'Perfil';
+
+    // --- Afegim enllaços segons rol i validació ---
+    if (user.roleWeb === 'portador' && user.roleWebValidat === true) {
+      const li = document.createElement('li');
+      li.innerHTML = `<a class="dropdown-item text-danger" href="http://localhost:3000/seccio-portadors">Secció Portadors</a>`;
+      userDropdownMenu.insertBefore(li, document.getElementById('logout-link').parentElement);
+    }
+
+    if (user.roleWeb === 'music' && user.roleWebValidat === true) {
+      const li = document.createElement('li');
+      li.innerHTML = `<a class="dropdown-item text-danger" href="http://localhost:3000/seccio-musics">Secció Músics</a>`;
+      userDropdownMenu.insertBefore(li, document.getElementById('logout-link').parentElement);
+    }
+
+    // (opcional) Si vols que també surti per altres rols validats (ex: acompanyant):
+    // if (user.roleWeb === 'acompanyant' && user.roleWebValidat) { ... }
+
+  } catch (err) {
+    console.error('Error carregant perfil:', err);
+    userMenuLink.textContent = 'Login';
+  }
+});
+</script>
+
+<script>
+window.addEventListener('load', async () => {
+  const token = localStorage.getItem('authToken');
+  const username = localStorage.getItem('username');
+  const userMenuLink = document.getElementById('user-menu-link');
+
+  if (token && username) {
+    try {
+      const res = await fetch('/api/profile', {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      const data = await res.json();
+      console.log('Perfil carregat:', data);
+
+      if (data.success) {
+        const profileImg = data.user.image
+          ? `/uploads/${data.user.image}`
+          : '/images/default_profile.png';
+
+        userMenuLink.innerHTML = `
+          <img src="${profileImg}" 
+               alt="Perfil" 
+               style="width:32px;height:32px;border-radius:50%;object-fit:cover;margin-right:8px;">
+          ${username}
+        `;
+      } else {
+        userMenuLink.textContent = username;
+      }
+
+      // No mostrar el dropdown por defecto
+    } catch (err) {
+      console.error('Error carregant perfil:', err);
+      userMenuLink.textContent = username;
+    }
+  } else {
+    userMenuLink.textContent = 'Login';
+  }
+
+  const logoutLink = document.getElementById('logout-link');
+  if (logoutLink) {
+    logoutLink.addEventListener('click', () => {
+      localStorage.removeItem('authToken');
+      localStorage.removeItem('username');
+      window.location.href = '/';
+    });
+  }
+});
+
+</script>
+
+
+    <!-- Connectar arxius CSS de Bootstrap -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap-grid.css" rel="stylesheet">
+    <link href="css/bootstrap-grid.min.css" rel="stylesheet">
+    <link href="css/bootstrap-reboot.css" rel="stylesheet">
+    <link href="css/bootstrap-reboot.min.css" rel="stylesheet">
+  
+    <!-- (Opcional) Connectar mapes de fonts (només per depuració) -->
+    <link href="css/bootstrap-grid.css.map" rel="stylesheet" type="text/css" />
+    <link href="css/bootstrap-grid.min.css.map" rel="stylesheet" type="text/css" />
+    <link href="css/bootstrap-reboot.css.map" rel="stylesheet" type="text/css" />
+  
+  <link href="css/bot.css" rel="stylesheet">
+<!-- Botó d'icona de Pau -->
+<div id="bot-icon" class="bot-icon" onclick="toggleChat()">
+  <img src="images/pau.png" alt="Pau" class="pau-img"/>
+</div>
+
+<!-- Caixa de xat -->
+<div id="chat-box" class="chat-box">
+  <div id="close-btn" class="close-btn">X</div> <!-- Botó per tancar -->
+  <div id="chat-log" class="chat-log">
+      <!-- Missatges del xat aquí -->
+  </div>
+  <input type="text" id="user-input" class="user-input" placeholder="Escriu un missatge..." />
+
+
+</div>
+
+  <script>
+    // --- SLIDER AUTOMÀTIC ---
+    const slides = document.querySelectorAll(".slide");
+    let index = 0;
+    const intervalTime = 4000; // temps entre canvis (ms)
+
+    function nextSlide() {
+      slides[index].classList.remove("active");
+      index = (index + 1) % slides.length;
+      slides[index].classList.add("active");
+    }
+
+    // Comença el canvi automàtic
+    setInterval(nextSlide, intervalTime);
+  </script>
+
+<script src="js/bot.js"></script>
+
+<!-- 🎠 SLIDER D’IMATGES -->
+<div id="mediaSlider" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="4000">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="images/gegants3.jpg" class="d-block w-100" alt="Gegants a la festa major">
+    </div>
+    <div class="carousel-item">
+      <img src="images/fondo1.png" class="d-block w-100" alt="Assaig de portadors">
+    </div>
+    <div class="carousel-item">
+      <img src="images/familia.jpg" class="d-block w-100" alt="Cercavila">
+    </div>
+  </div>
+</div>
+
+
+  
+
+<!-- 🎥 VÍDEOS DE PRÀCTICA UN AL COSTAT DE L’ALTRE -->
+<div class="container-fluid my-5 px-5">
+  <h3 class="text-center text-danger mb-4">🎥 Vídeos de Pràctica</h3>
+  <div class="row justify-content-center g-4">
+
+    <div class="col-lg-6 col-md-6 col-sm-12">
+      <div class="media-card shadow-lg rounded-4 overflow-hidden h-100">
+        <video controls preload="metadata" class="w-100">
+          <source src="videos/practica1.mp4" type="video/mp4">
+          El teu navegador no suporta vídeos.
+        </video>
+        <div class="media-text bg-light p-3">
+          <p class="fw-semibold text-danger mb-1">🎵 Vídeo de pràctica - Cor de Maria alegre</p>
+          <h5 class="mb-1">Assaig general - 2024</h5>
+          <p class="text-muted mb-0">Primera pràctica conjunta de tots els portadors.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-6 col-md-6 col-sm-12">
+      <div class="media-card shadow-lg rounded-4 overflow-hidden h-100">
+        <video controls preload="metadata" class="w-100">
+          <source src="videos/practica2.mp4" type="video/mp4">
+          El teu navegador no suporta vídeos.
+        </video>
+        <div class="media-text bg-light p-3">
+          <p class="fw-semibold text-danger mb-1">🎺 Preparació de sortida</p>
+          <h5 class="mb-1">Assaig final abans de la festa</h5>
+          <p class="text-muted mb-0">Revisió de moviments i sincronització amb la música.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+
+
+ <div class="container py-4" style="margin-top: 40px !important;">
+    <h2 class="text-center mb-4">📁 Gestió del Portador</h2>
+
+    <!-- NAVIGATION TABS -->
+    <ul class="nav nav-tabs justify-content-center mb-3">
+<li class="nav-item">
+  <a class="nav-link active" data-bs-toggle="tab" href="#arxius">📁 Arxius</a>
+</li>
+<li class="nav-item">
+  <a class="nav-link" data-bs-toggle="tab" href="#videos">🎥 Vídeos</a>
+</li>
+<li class="nav-item">
+  <a class="nav-link" data-bs-toggle="tab" href="#tasques">🧾 Tasques</a>
+</li>
+<li class="nav-item">
+  <a class="nav-link" data-bs-toggle="tab" href="#practiques">📅 Pràctiques</a>
+</li>
+<li class="nav-item">
+  <a class="nav-link" data-bs-toggle="tab" href="#notes">🗒️ Notes</a>
+</li>
+
+    </ul>
+
+    <div class="tab-content">
+      <!-- ==================== ARXIUS ==================== -->
+      <div class="tab-pane fade show active" id="arxius">
+<div class="card p-4 mb-3" style="width: 100% !important;">
+          <div class="section-header">Pujar nou arxiu</div>
+          <form id="uploadFileForm" class="mb-4">
+            <input type="file" id="fileInput" class="form-control mb-2" required>
+            <input type="text" id="fileDesc" class="form-control mb-3" placeholder="Descripció opcional">
+            <button class="btn btn-danger w-100"><i class="bi bi-upload"></i> Pujar</button>
+          </form>
+          <div id="arxiusList"></div>
+        </div>
+      </div>
+
+      <!-- ==================== VIDEOS ==================== -->
+      <div class="tab-pane fade" id="videos">
+        <div class="card p-4 mb-4">
+          <h4 class="mb-3 text-danger"><i class="bi bi-camera-reels-fill"></i> Gestió de Vídeos</h4>
+          <form id="addVideoForm" class="mb-4">
+            <input type="text" id="videoTitol" placeholder="Títol del vídeo" class="form-control mb-2" required>
+            <input type="file" id="videoFile" accept="video/*" class="form-control mb-2" required>
+            <textarea id="videoDesc" placeholder="Descripció..." class="form-control mb-3"></textarea>
+            <button class="btn btn-danger w-100"><i class="bi bi-plus-circle"></i> Afegir Vídeo</button>
+          </form>
+          <div id="videosList" class="media-grid"></div>
+        </div>
+      </div>
+      <!-- ==================== TASQUES ==================== -->
+      <div class="tab-pane fade" id="tasques">
+        <div class="card p-4 mb-3">
+          <div class="section-header">Nova tasca</div>
+          <form id="addTaskForm" class="mb-4">
+            <input type="text" id="taskTitle" placeholder="Títol" class="form-control mb-2" required>
+            <textarea id="taskDesc" placeholder="Descripció..." class="form-control mb-3"></textarea>
+            <button class="btn btn-danger w-100"><i class="bi bi-plus-circle"></i> Crear tasca</button>
+          </form>
+          <div id="tasquesList"></div>
+        </div>
+      </div>
+
+      <!-- ==================== PRÀCTIQUES ==================== -->
+      <div class="tab-pane fade" id="practiques">
+        <div class="card p-4 mb-3">
+          <div class="section-header">Nova pràctica</div>
+          <form id="addPracticeForm" class="mb-4">
+            <input type="text" id="practiceLocation" placeholder="Ubicació" class="form-control mb-2" required>
+            <textarea id="practiceObs" placeholder="Observacions..." class="form-control mb-3"></textarea>
+            <button class="btn btn-danger w-100"><i class="bi bi-calendar-plus"></i> Afegir pràctica</button>
+          </form>
+          <div id="practiquesList"></div>
+        </div>
+      </div>
+
+      <!-- ==================== NOTES ==================== -->
+      <div class="tab-pane fade" id="notes">
+        <div class="card p-4 mb-3">
+          <div class="section-header">Nova nota</div>
+          <form id="addNoteForm" class="mb-4">
+            <input type="text" id="noteTitle" placeholder="Títol" class="form-control mb-2" required>
+            <textarea id="noteContent" placeholder="Contingut..." class="form-control mb-2" required></textarea>
+            <select id="noteCategory" class="form-select mb-3">
+              <option value="general">General</option>
+              <option value="assaig">Assaig</option>
+              <option value="festes">Festes</option>
+              <option value="altres">Altres</option>
+            </select>
+            <button class="btn btn-danger w-100"><i class="bi bi-journal-plus"></i> Afegir nota</button>
+          </form>
+          <div id="notesList"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+const API = "http://localhost:3000/api/portadors";
+let userId = localStorage.getItem("userId") || "6728a8c5b3efb1b4c85e33aa";
+
+// ====================== AUTENTICACIÓ ======================
+async function checkAuthToken() {
+  const token = localStorage.getItem('authToken');
+  if (!token) {
+    window.location.href = '/perfil';
+    return null;
+  }
+  try {
+    const res = await fetch('/api/profile', {
+      headers: { 'Authorization': `Bearer ${token}` }
+    });
+    const data = await res.json();
+    if (data.success && data.user) {
+      localStorage.setItem('username', data.user.username);
+      localStorage.setItem('userId', data.user._id);
+      userId = data.user._id;
+      return data.user;
+    } else {
+      localStorage.clear();
+      window.location.href = '/perfil';
+      return null;
+    }
+  } catch (err) {
+    console.error('Error validant token:', err);
+    localStorage.clear();
+    window.location.href = '/perfil';
+    return null;
+  }
+}
+
+// ====================== UTILITATS ======================
+function cardHTML(icon, title, desc, actionsHTML = "", preview = "") {
+  return `
+  <div class="file-card">
+    <div class="d-flex align-items-center gap-3">
+      ${preview ? `<img src="${preview}" class="preview-img">` : `<i class="bi ${icon} fs-2 text-danger"></i>`}
+      <div>
+        <strong>${title}</strong><br>
+        <small>${desc || "Sense descripció"}</small>
+      </div>
+    </div>
+    <div>${actionsHTML}</div>
+  </div>`;
+}
+
+function actionButtons({ view, edit, del }) {
+  return `
+    ${view ? `<button class="btn-action view" title="Veure" onclick="${view}"><i class="bi bi-eye"></i></button>` : ""}
+    ${edit ? `<button class="btn-action edit" title="Editar" onclick="${edit}"><i class="bi bi-pencil"></i></button>` : ""}
+    ${del ? `<button class="btn-action delete" title="Eliminar" onclick="${del}"><i class="bi bi-trash"></i></button>` : ""}
+  `;
+}
+
+
+async function deleteItem(endpoint, id, reloadFn) {
+  if (!confirm("Segur que vols eliminar-ho?")) return;
+  await fetch(`${API}/${userId}/${endpoint}/${id}`, {
+    method: "DELETE",
+    headers: { Authorization: `Bearer ${localStorage.getItem("authToken")}` },
+  });
+  reloadFn();
+}
+
+// ====================== FUNCIONS DE CÀRREGA ======================
+function openPreview(url, tipus) {
+  const modal = new bootstrap.Modal(document.getElementById('previewModal'));
+  const content = document.getElementById('previewContent');
+  
+  if (tipus.startsWith('image')) {
+    content.innerHTML = `<img src="${url}" class="img-fluid">`;
+  } else if (tipus.startsWith('video')) {
+    content.innerHTML = `
+      <video controls autoplay class="w-100 rounded-0">
+        <source src="${url}" type="${tipus}">
+        El teu navegador no admet la reproducció de vídeos.
+      </video>`;
+  } else {
+    content.innerHTML = `<p class="p-4">No es pot previsualitzar aquest tipus de fitxer.</p>`;
+  }
+
+  modal.show();
+}
+
+// Carregar arxius
+async function loadArxius() {
+  const res = await fetch(`${API}/${userId}/arxius`);
+  const data = await res.json();
+  const list = document.getElementById("arxiusList");
+  list.innerHTML = data.length ? "" : `<p class="text-muted text-center">Encara no hi ha arxius.</p>`;
+
+  data.forEach(a => {
+    const isImg = a.tipus?.includes("image");
+    const buttons = actionButtons({
+      view: `window.open('${a.url}', '_blank')`,
+      edit: `alert('Editar ${a.nom}')`,
+      del: `deleteItem('arxius','${a._id}',loadArxius)`
+    });
+    list.innerHTML += `
+      <div class="media-card">
+        ${isImg 
+          ? `<img src="${a.url}" onclick="openPreview('${a.url}','${a.tipus}')">` 
+          : `<img src="/images/file-icon.png" onclick="window.open('${a.url}')">`}
+        <div class="media-actions">${buttons}</div>
+        <div class="media-card-body">
+          <h5>${a.nom}</h5>
+          <p>${a.descripcio || "Sense descripció"}</p>
+        </div>
+      </div>`;
+  });
+}
+
+async function loadVideos() {
+  const res = await fetch(`${API}/${userId}/videos`);
+  const data = await res.json();
+  const list = document.getElementById("videosList");
+  list.innerHTML = data.length ? "" : `<p class="empty-state">Cap vídeo afegit encara.</p>`;
+
+  data.forEach(v => {
+    const col = document.createElement("div");
+    col.className = "col-md-6";
+
+    col.innerHTML = `
+      <div class="media-card shadow-lg rounded-4 overflow-hidden">
+        <video controls preload="metadata" class="w-100">
+          <source src="${v.url_video}" type="video/mp4">
+          El teu navegador no suporta vídeos.
+        </video>
+        <div class="media-text bg-light p-3">
+          <p class="fw-semibold text-danger mb-1">${v.titol || "Vídeo sense títol"}</p>
+          <p class="text-muted mb-2">${v.descripcio || "Sense descripció"}</p>
+          <div class="text-end">
+            <button class="btn btn-sm btn-danger rounded-circle me-2" title="Eliminar" onclick="deleteItem('videos','${v._id}',loadVideos)">
+              <i class="bi bi-trash"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    `;
+
+    list.appendChild(col);
+  });
+}
+
+
+
+async function loadTasques() {
+  const res = await fetch(`${API}/${userId}/tasques`);
+  const data = await res.json();
+  const list = document.getElementById("tasquesList");
+  list.innerHTML = data.length ? "" : `<p class="empty-state">No hi ha tasques pendents.</p>`;
+  data.forEach(t => {
+    const buttons = actionButtons({
+      edit: `alert('Editar ${t.titol}')`,
+      del: `deleteItem('tasques','${t._id}',loadTasques)`
+    });
+    list.innerHTML += cardHTML("bi-clipboard-check", t.titol, t.descripcio, buttons);
+  });
+}
+
+async function loadPractiques() {
+  const res = await fetch(`${API}/${userId}/practiques`);
+  const data = await res.json();
+  const list = document.getElementById("practiquesList");
+  list.innerHTML = data.length ? "" : `<p class="empty-state">Cap pràctica registrada.</p>`;
+  data.forEach(p => {
+    const buttons = actionButtons({
+      edit: `alert('Editar ${p.ubicacio}')`,
+      del: `deleteItem('practiques','${p._id}',loadPractiques)`
+    });
+    list.innerHTML += cardHTML("bi-calendar-event", p.ubicacio, p.observacions, buttons);
+  });
+}
+
+async function loadNotes() {
+  const res = await fetch(`${API}/${userId}/notes`);
+  const data = await res.json();
+  const list = document.getElementById("notesList");
+  list.innerHTML = data.length ? "" : `<p class="empty-state">Cap nota encara.</p>`;
+  data.forEach(n => {
+    const buttons = actionButtons({
+      edit: `alert('Editar nota: ${n.titol}')`,
+      del: `deleteItem('notes','${n._id}',loadNotes)`
+    });
+    list.innerHTML += cardHTML("bi-journal-text", n.titol, `${n.categoria} · ${n.contingut}`, buttons);
+  });
+}
+
+// ====================== FORMULARIS ======================
+function initFormHandlers() {
+  document.getElementById("uploadFileForm").onsubmit = async e => {
+    e.preventDefault();
+    const fd = new FormData();
+    fd.append("arxiu", document.getElementById("fileInput").files[0]);
+    fd.append("descripcio", document.getElementById("fileDesc").value);
+    await fetch(`${API}/${userId}/arxius`, {
+      method: "POST",
+      body: fd,
+      headers: { Authorization: `Bearer ${localStorage.getItem('authToken')}` }
+    });
+    loadArxius();
+  };
+
+  document.getElementById("addVideoForm").onsubmit = async e => {
+    e.preventDefault();
+    const fd = new FormData();
+    fd.append("titol", document.getElementById("videoTitol").value);
+    fd.append("descripcio", document.getElementById("videoDesc").value);
+    fd.append("video", document.getElementById("videoFile").files[0]);
+    await fetch(`${API}/${userId}/videos`, {
+      method: "POST",
+      body: fd,
+      headers: { Authorization: `Bearer ${localStorage.getItem('authToken')}` }
+    });
+    loadVideos();
+  };
+
+  document.getElementById("addTaskForm").onsubmit = async e => {
+    e.preventDefault();
+    const body = {
+      titol: document.getElementById("taskTitle").value,
+      descripcio: document.getElementById("taskDesc").value
+    };
+    await fetch(`${API}/${userId}/tasques`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem('authToken')}`
+      },
+      body: JSON.stringify(body)
+    });
+    loadTasques();
+  };
+
+  document.getElementById("addPracticeForm").onsubmit = async e => {
+    e.preventDefault();
+    const body = {
+      ubicacio: document.getElementById("practiceLocation").value,
+      observacions: document.getElementById("practiceObs").value
+    };
+    await fetch(`${API}/${userId}/practiques`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem('authToken')}`
+      },
+      body: JSON.stringify(body)
+    });
+    loadPractiques();
+  };
+
+  document.getElementById("addNoteForm").onsubmit = async e => {
+    e.preventDefault();
+    const body = {
+      titol: document.getElementById("noteTitle").value,
+      contingut: document.getElementById("noteContent").value,
+      categoria: document.getElementById("noteCategory").value
+    };
+    await fetch(`${API}/${userId}/notes`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem('authToken')}`
+      },
+      body: JSON.stringify(body)
+    });
+    loadNotes();
+  };
+}
+
+// ====================== INICIALITZACIÓ ======================
+async function initGestor() {
+  const user = await checkAuthToken();
+  if (!user) return;
+
+  console.log(`✅ Sessió iniciada com: ${user.username}`);
+  initFormHandlers();
+
+  await Promise.all([
+    loadArxius(),
+    loadVideos(),
+    loadTasques(),
+    loadPractiques(),
+    loadNotes()
+  ]);
+}
+
+// Executar UNA sola vegada
+document.addEventListener("DOMContentLoaded", initGestor);
+
+// Executar en carregar
+document.addEventListener('DOMContentLoaded', async () => {
+  const user = await checkAuthToken();
+  if (user) console.log('Sessió iniciada com:', user.username);
+});
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', async () => {
+  const user = await checkAuthToken();
+  if (!user) {
+    console.warn("Usuari no autenticat, mostrant 'Login'");
+  } else {
+    console.log("Sessió detectada per:", user.username);
+  }
+});
+</script>
+
+<script>
+// -------------------------
+// AUTENTICACIÓ GLOBAL GESTOR
+// -------------------------
+
+async function checkAuthToken() {
+  const token = localStorage.getItem('authToken');
+  if (!token) {
+    // Si no hi ha token, redirigim al login
+    window.location.href = '/perfil';
+    return null;
+  }
+
+  try {
+    const res = await fetch('/api/profile', {
+      headers: { 'Authorization': `Bearer ${token}` }
+    });
+    const data = await res.json();
+
+    if (data.success && data.user) {
+      // Guarda el nom i info actualitzada de l’usuari
+      localStorage.setItem('username', data.user.username);
+      localStorage.setItem('userId', data.user._id);
+      return data.user;
+    } else {
+      // Token invàlid → eliminem sessió
+      localStorage.removeItem('authToken');
+      localStorage.removeItem('username');
+      localStorage.removeItem('userId');
+      window.location.href = '/perfil';
+      return null;
+    }
+  } catch (err) {
+    console.error('Error validant token:', err);
+    localStorage.removeItem('authToken');
+    localStorage.removeItem('username');
+    localStorage.removeItem('userId');
+    window.location.href = '/perfil';
+    return null;
+  }
+}
+
+// Executem en carregar la pàgina
+document.addEventListener('DOMContentLoaded', async () => {
+  const user = await checkAuthToken();
+  if (user) {
+    console.log('Sessió vàlida per a', user.username);
+    initGestor(user); // Cridem la funció principal del gestor
+  }
+});
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Equip - Colla Gegantera Cor de Maria</title>
+  <link rel="icon" href="images/favicon.jpeg" type="image/jpeg">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/cercavila.css" rel="stylesheet">
+  <link href="css/search.css" rel="stylesheet">
+  <script src="js/proteger.js"></script>
+  <script src="js/search.js"></script>
+
+  <!-- AOS CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+
+  <style>
+    /* Estils generals */
+    body {
+      padding-top: 80px;
+      overflow-x: hidden;
+
+    }
+
+    .section-musics {
+      margin-bottom: 80px;
+    }
+
+    .section-portadors {
+      margin-top: 80px;
+    }
+
+    .section-portadors .section-title {
+      margin-top: 60px;
+    }
+
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      width: 100vw;
+      background-color: #ffffff;
+      z-index: 10;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      margin: 0;
+    }
+
+  /* Millora dels estils generals de les caixes */
+  .team-member {
+    position: relative;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    margin: 20px;
+    height: 600px;
+    transition: all 0.3s ease;
+  }
+
+  .team-member:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  }
+
+  /* Estils per a les imatges */
+  .team-member img {
+    width: 100%;
+    height: 60%;
+    object-fit: cover;
+    border-radius: 12px 12px 0 0;
+    transition: transform 0.5s ease;
+  }
+
+  .team-member:hover img {
+    transform: scale(1.1);
+  }
+
+  /* Caixa d'informació */
+  .info-box {
+    background-color: #f7f7f7;
+    border-radius: 0 0 12px 12px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    height: 40%;
+    text-align: left;
+    transition: background-color 0.3s ease;
+  }
+
+  .team-member:hover .info-box {
+    background-color: #f0f0f0;
+  }
+
+  /* Millorar la tipografia dels noms */
+  .team-member h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-top: 15px;
+    color: #FF0000;
+    text-align: center;
+    transition: color 0.3s ease;
+  }
+
+  .team-member:hover h3 {
+    color: #CC0000;
+  }
+
+  /* Millorar les descripcions dels membres */
+  .team-member p {
+    font-size: 1rem;
+    font-weight: 400;
+    color: #555;
+    margin-bottom: 10px;
+  }
+
+  /* Millorar els botons d'informació */
+  .info-box p {
+    font-size: 0.9rem;
+    margin: 5px 0;
+    color: #333;
+  }
+
+  /* Millorar l'efecte hover en les caixes */
+  .team-member:hover {
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    transform: translateY(-10px);
+  }
+
+  /* Estils per als títols de les seccions */
+  .section-title {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #FF0000;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    position: relative;
+  }
+
+  .section-title:after {
+    content: "";
+    display: block;
+    height: 5px;
+    background-color: #FF0000;
+    width: 150px;
+    margin-top: 15px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  /* Millores per a dispositius més petits */
+  @media (max-width: 768px) {
+    .team-member {
+      height: 500px;
+    }
+
+    .info-box {
+      padding: 15px;
+    }
+
+    .team-member h3 {
+      font-size: 1.3rem;
+    }
+  }
+ /* Loader full screen */
+#loader {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  z-index: 9999;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+/* L'spinner animat */
+.spinner {
+  width: 60px;
+  height: 60px;
+  border: 6px solid #d32f2f;
+  border-top: 6px solid transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+/* Animació de gir */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@media (max-width: 768px) {
+  .navbar .container {
+    flex-direction: column;      /* todo en columna */
+    align-items: center;         /* centra los elementos */
+  }
+
+  .navbar-brand {
+    order: 1;                    /* logo primero */
+    margin-bottom: 10px;         /* separa del siguiente */
+  }
+
+  .search-bar {
+    order: 2;                    /* buscador después del logo */
+    width: 90%;                  /* ocupa casi todo el ancho */
+    margin-bottom: 10px;
+    left: 0 !important;          /* quitar cualquier desplazamiento previo */
+  }
+
+  .navbar-toggler {
+    order: 3;                    /* botón del menú abajo del buscador */
+    margin-bottom: 10px;
+  }
+
+  .collapse.navbar-collapse {
+    order: 4;                    /* menú desplegable al final */
+    width: 100%;
+  }
+
+  .navbar-nav {
+    flex-direction: column;       /* enlaces en columna */
+    align-items: center;          /* centrado horizontal */
+  }
+
+  .navbar-nav .nav-link {
+    padding: 10px 0;              /* espacio entre links */
+    text-align: center;           /* centrado del texto */
+  }
+}
+/* 🔧 Redueix l'espai entre opcions del menú */
+.navbar-nav .nav-item {
+  margin-left: 4px !important;
+  margin-right: 4px !important;
+}
+
+/* 🔧 Redueix el padding intern dels enllaços */
+.navbar-nav .nav-link {
+  padding-left: 6px !important;
+  padding-right: 6px !important;
+  font-size: 15px; /* opcional: més compacte */
+}
+
+/* 🔧 Ajusta també els desplegables si vols */
+.navbar .dropdown-menu {
+  min-width: 160px;
+}
+
+  </style>
+</head>
+<body>
+
+<body style="background: #fff;">
+  <div id="app-root"></div>
+  <script>
+    // Bloqueo clic derecho
+    document.addEventListener('contextmenu', e => e.preventDefault(), true);
+    window.oncontextmenu = () => false;
+
+    // Bloqueo atajos de inspección
+    document.addEventListener('keydown', e => {
+      if (e.key === 'F12' || 
+          (e.ctrlKey && e.shiftKey && ['I','J','C','K'].includes(e.key.toUpperCase())) ||
+          (e.ctrlKey && ['U','S'].includes(e.key.toUpperCase()))
+      ) e.preventDefault();
+    }, true);
+
+    // Tu contenido solo en JS, así:
+    const appDiv = document.getElementById('app-root');
+    appDiv.innerHTML = `
+    `;
+  </script>
+</body>
+
+
+
+  <!-- Loader (animació de càrrega) -->
+<div id="loader">
+  <div class="spinner"></div>
+</div>
+<script>
+  window.addEventListener("load", function () {
+    const loader = document.getElementById("loader");
+    loader.style.opacity = "0";
+    loader.style.visibility = "hidden";
+  });
+</script>
+
+
+<nav class="navbar navbar-expand-lg navbar-light fixed-top">
+  <div class="container d-flex align-items-center">
+    <form class="d-flex me-3 search-bar" role="search" onsubmit="return handleSearch(event)">
+      <input id="searchInput" class="form-control search-input" type="search" placeholder="Buscar..." aria-label="Buscar">
+    </form>
+
+    <a class="navbar-brand" href="https://www.cordemariamataro.cat/">
+      <img src="images/logo_corazon_de_maria.png" alt="Logo Cor de Maria" style="height: 60px;">
+    </a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link text-danger" href="http://localhost:3000/home">Inici</a></li>
+        <li class="nav-item"><a class="nav-link text-danger" href="http://localhost:3000/cercavila">Cercaviles</a></li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-danger" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Festes especials</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item text-danger" href="http://localhost:3000/carnaval">Rua Carnaval</a></li>
+            <li><a class="dropdown-item text-danger" href="http://localhost:3000/sant-jordi">Sant Jordi</a></li>
+            <li><a class="dropdown-item text-danger" href="http://localhost:3000/cursa">Cursa de l'escola</a></li>
+            <li><a class="dropdown-item text-danger" href="http://localhost:3000/festa-Major">Festa Major</a></li>
+            <li><a class="dropdown-item text-danger" href="http://localhost:3000/festa-tardor">Festa de Tardor</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-danger" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Colla</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item text-danger" href="http://localhost:3000/membres">Músics i portadors</a></li>
+            <li><a class="dropdown-item text-danger" href="http://localhost:3000/experiencies">Experiències dels membres</a></li>
+            <li><a class="dropdown-item text-danger" href="http://localhost:3000/uneixte">T'hi vols unir?</a></li>
+            <li><a class="dropdown-item text-danger" href="http://localhost:3000/chat">Chat i comentaris</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item"><a class="nav-link text-danger" href="http://localhost:3000/contacte">Contacte</a></li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-danger" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Socials</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item text-danger" href="https://www.instagram.com/collageganteracordemariamataro?igsh=eGhpazQyNHNqdnQx">Instagram</a></li>
+          </ul>
+        </li>
+      <li class="nav-item dropdown" id="user-menu">
+          <a class="nav-link dropdown-toggle text-danger" href="http://localhost:3000/perfil" role="button" data-bs-toggle="dropdown" aria-expanded="false" id="user-menu-link">
+            Login
+          </a>
+          <ul class="dropdown-menu" id="user-dropdown-menu">
+            <li><a class="dropdown-item text-danger" href="http://localhost:3000/perfil">Perfil</a></li>
+            <li><a class="dropdown-item text-danger" href="#" id="logout-link">Tancar Sessió</a></li>
+          </ul>
+        </li>
+
+
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', async () => {
+  const token = localStorage.getItem('authToken');
+  const userMenuLink = document.getElementById('user-menu-link');
+  const userDropdownMenu = document.getElementById('user-dropdown-menu');
+
+  // Si no hi ha token, mostra "Login"
+  if (!token) {
+    userMenuLink.textContent = 'Login';
+    userPerfil.textContent = 'Login';
+    const tancar = document.getElementById("logout-link").style.display = "none";
+    return;
+  }
+
+  try {
+    const res = await fetch('/api/profile', {
+      headers: { 'Authorization': `Bearer ${token}` }
+    });
+    const data = await res.json();
+
+    if (!data.success || !data.user) {
+      userMenuLink.textContent = 'Login';
+      return;
+    }
+
+    const user = data.user;
+    userMenuLink.textContent = user.username || 'Perfil';
+
+    // --- Afegim enllaços segons rol i validació ---
+    if (user.roleWeb === 'portador' && user.roleWebValidat === true) {
+      const li = document.createElement('li');
+      li.innerHTML = `<a class="dropdown-item text-danger" href="http://localhost:3000/seccio-portadors">Secció Portadors</a>`;
+      userDropdownMenu.insertBefore(li, document.getElementById('logout-link').parentElement);
+    }
+
+    if (user.roleWeb === 'music' && user.roleWebValidat === true) {
+      const li = document.createElement('li');
+      li.innerHTML = `<a class="dropdown-item text-danger" href="http://localhost:3000/seccio-musics">Secció Músics</a>`;
+      userDropdownMenu.insertBefore(li, document.getElementById('logout-link').parentElement);
+    }
+
+    // (opcional) Si vols que també surti per altres rols validats (ex: acompanyant):
+    // if (user.roleWeb === 'acompanyant' && user.roleWebValidat) { ... }
+
+  } catch (err) {
+    console.error('Error carregant perfil:', err);
+    userMenuLink.textContent = 'Login';
+  }
+});
+</script>
+
+<script>
+window.addEventListener('load', async () => {
+  const token = localStorage.getItem('authToken');
+  const username = localStorage.getItem('username');
+  const userMenuLink = document.getElementById('user-menu-link');
+
+  if (token && username) {
+    try {
+      const res = await fetch('/api/profile', {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      const data = await res.json();
+      console.log('Perfil carregat:', data);
+
+      if (data.success) {
+        const profileImg = data.user.image
+          ? `/uploads/${data.user.image}`
+          : '/images/default_profile.png';
+
+        userMenuLink.innerHTML = `
+          <img src="${profileImg}" 
+               alt="Perfil" 
+               style="width:32px;height:32px;border-radius:50%;object-fit:cover;margin-right:8px;">
+          ${username}
+        `;
+      } else {
+        userMenuLink.textContent = username;
+      }
+
+      // No mostrar el dropdown por defecto
+    } catch (err) {
+      console.error('Error carregant perfil:', err);
+      userMenuLink.textContent = username;
+    }
+  } else {
+    userMenuLink.textContent = 'Login';
+  }
+
+  const logoutLink = document.getElementById('logout-link');
+  if (logoutLink) {
+    logoutLink.addEventListener('click', () => {
+      localStorage.removeItem('authToken');
+      localStorage.removeItem('username');
+      window.location.href = '/';
+    });
+  }
+});
+
+</script>
+
+  
+
+  <!-- Connectar arxius CSS de Bootstrap -->
+  <link href="css/bootstrap.css" rel="stylesheet">
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/bootstrap-grid.css" rel="stylesheet">
+  <link href="css/bootstrap-grid.min.css" rel="stylesheet">
+  <link href="css/bootstrap-reboot.css" rel="stylesheet">
+  <link href="css/bootstrap-reboot.min.css" rel="stylesheet">
+  
+  <link href="css/bot.css" rel="stylesheet">
+
+  <!-- Botó d'icona de Pau -->
+  <div id="bot-icon" class="bot-icon" onclick="toggleChat()">
+    <img src="images/pau.png" alt="Pau" class="pau-img"/>
+  </div>
+
+  <!-- Caixa de xat -->
+  <div id="chat-box" class="chat-box">
+    <div id="close-btn" class="close-btn">X</div> <!-- Botó per tancar -->
+    <div id="chat-log" class="chat-log">
+      <!-- Missatges del xat aquí -->
+    </div>
+    <input type="text" id="user-input" class="user-input" placeholder="Escriu un missatge..." />
+    <button id="send-btn" class="send-btn">Enviar</button>
+  </div>
+
+<script src="js/bot.js"></script>
+
+  <div class="container py-5">
+
+    <!-- Secció de Músics -->
+    <div class="section-title text-center section-musics" data-aos="fade-up">Músics de la Colla</div>
+    <div class="row">
+      <!-- Primera fila de músics -->
+      <div class="col-md-4" data-aos="fade-up">
+        <div class="team-member">
+          <img src="images/jaume.jpg" alt="Músic 1">
+          <h3>Jaume Tomé</h3>
+          <p>Cap de músics i graller excepcional i antic cap de colla!</p>
+          <div class="info-box">
+            <p><i class="bi bi-guitar"></i> Instrument: Gralla</p>
+            <p><i class="bi bi-person-check"></i> Pare d'un alumne de l'escola</p>
+            <p><i class="bi bi-person-badge"></i> Càrrec: Cap de músics</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4" data-aos="fade-up">
+        <div class="team-member">
+          <img src="images/Screenshot_20250306_170100_Gallery.jpg" alt="Músic 2">
+          <h3>Carles Rigat</h3>
+          <p>Antic portador i actual graller animat sempre a donar el màxim!</p>
+          <div class="info-box">
+            <p><i class="bi bi-guitar"></i> Instrument: Gralla</p>
+            <p><i class="bi bi-person-x"></i> Antic alumne</p>
+            <p><i class="bi bi-person-badge"></i> Càrrec: Músic</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4" data-aos="fade-up">
+        <div class="team-member">
+          <img src="images/Screenshot_20250306_165819_Gallery.jpg" alt="Músic 3">
+          <h3>Jaume (Fill Jaume Tomé)</h3>
+          <p>Un gran graller avançat amb poca edat i molt animat!</p>
+          <div class="info-box">
+            <p><i class="bi bi-guitar"></i> Instrument: Gralla</p>
+            <p><i class="bi bi-person-x"></i> Actual alumne</p>
+            <p><i class="bi bi-person-badge"></i> Càrrec: Músic</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Segona fila de músics -->
+    <div class="row">
+      <div class="col-md-4" data-aos="fade-up">
+        <div class="team-member">
+          <img src="images/Screenshot_20250306_165929_Gallery.jpg" alt="Músic 4">
+          <h3>Mariona</h3>
+          <p>Una grallera i actual alumne amb diferents coneixements en instruments musicals</p>
+          <div class="info-box">
+            <p><i class="bi bi-guitar"></i> Instrument: Gralla</p>
+            <p><i class="bi bi-person-check"></i> Alumne actual</p>
+            <p><i class="bi bi-person-badge"></i> Càrrec: Músic</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4" data-aos="fade-up">
+        <div class="team-member">
+          <img src="images/Screenshot_20250306_170152_Gallery.jpg" alt="Músic 5">
+          <h3>Laia</h3>
+          <p>Una grallera i actual alumne amb anims per tocar sempre millor!</p>
+          <div class="info-box">
+            <p><i class="bi bi-guitar"></i> Instrument: Gralla</p>
+            <p><i class="bi bi-person-check"></i> Alumne actual</p>
+            <p><i class="bi bi-person-badge"></i> Càrrec: Músic</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4" data-aos="fade-up">
+        <div class="team-member">
+          <img src="images/IMG-20240820-WA0021 (1).jpg" alt="Músic 6">
+          <h3>Aniol Rodríguez</h3>
+          <p>Un tabaler creatiu i desenvolupador de la web de la colla gegantera!</p>
+          <div class="info-box">
+            <p><i class="bi bi-guitar"></i> Instrument: Tabal</p>
+            <p><i class="bi bi-person-check"></i> Antic Alumne</p>
+            <p><i class="bi bi-person-badge"></i> Càrrec: Músic</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    AOS.init();
+  </script>
+
+
+    <!-- Secció de Portadors de Gegants -->
+    <div class="section-title text-center section-portadors">Portadors de la colla</div>
+
+    <div class="row">
+      <div class="col-md-4" data-aos="fade-up">
+        <div class="team-member">
+          <img src="images/pedro - copia.jpg" alt="Portador 1">
+          <h3>Pedro Matallana</h3>
+          <p>Cap de colla i portador de gegants, gran fan de bela ciao!</p>
+          <div class="info-box">
+            <p><i class="bi bi-person-check"></i> Pare d'un nen de l'escola</p>
+            <p><i class="bi bi-person-badge"></i> Càrrec: Cap de colla</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4" data-aos="fade-up">
+        <div class="team-member">
+          <img src="images/Screenshot_20250306_010844_Gallery - copia.jpg" alt="Portador 2">
+          <h3>Aleix Gironès</h3>
+          <p>Cap de portadors i portador de gegants, animat a portar un gegant sempre en cercavila!</p>
+          <div class="info-box">
+            <p><i class="bi bi-person-check"></i> Pare d'un nen de l'escola</p>
+            <p><i class="bi bi-person-badge"></i> Càrrec: Cap de portadors</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4" data-aos="fade-up">
+        <div class="team-member">
+          <img src="images/portador3.jpg" alt="Portador 3">
+          <h3>Marc Ruiz</h3>
+          <p>Amb gran força i dedicació, Marc és un dels membres més veterans del nostre grup de portadors.</p>
+          <div class="info-box">
+            <p><i class="bi bi-person-x"></i> Alumne antic</p>
+            <p><i class="bi bi-person-badge"></i> Càrrec: Portador Secundari</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <footer class="footer">
+    <p>&copy; 2025 Colla Gegantera Cor de Maria. Tots els drets reservats.</p>
+  </footer>
+
+</body>
+</html>

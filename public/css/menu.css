@@ -1,0 +1,246 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+    padding-top: 80px; 
+    overflow-x: hidden;
+
+}
+
+header {
+    background-color: #b30000;
+    color: white;
+    padding: 120px 0 60px 0; 
+    margin-top: 100px; 
+}
+
+header h1 {
+    font-family: 'Russo One', sans-serif;
+    font-size: 3.5rem; 
+    font-weight: 700;
+    text-transform: uppercase;
+    line-height: 1.3;
+    text-shadow: 2px 2px 5px rgba(0,0,0,0.3); 
+}
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100vw;
+    background-color: #ffffff;
+    z-index: 10;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: flex-start; /* Contingut alineat a l'esquerra */
+    align-items: center;
+    padding: 10px 0;
+    margin: 0;
+  }
+  
+  .navbar-nav {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .navbar-nav .nav-link {
+    color: #D52B1E; /* Color vermell fort */
+    font-size: 1.2rem;
+    font-weight: 700;
+    padding: 10px 20px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+    margin: 0 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  /* Eliminar separació i alineació cap a la dreta */
+  .navbar-nav.ms-auto {
+    margin-left: 0;
+  }
+  
+  .navbar-toggler {
+    margin-left: 0;
+  }
+  
+  .navbar-brand {
+    margin-left: 0;
+  }
+  
+  /* Estils adaptatius per a mòbils */
+  @media (max-width: 768px) {
+    .navbar-nav {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .navbar-nav .nav-link {
+      width: 100%;
+      text-align: left;
+      padding: 15px 0;
+      white-space: normal;
+      overflow: visible;
+    }
+  }
+  
+
+/* Imatge amb subtítol */
+.img-container .caption {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    padding: 12px 30px; 
+    font-size: 1.2rem; 
+    font-weight: 700;
+    border-radius: 10px;
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    transform: translateY(20px); }
+
+.img-container:hover .caption {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0); 
+}
+
+.section-title {
+    font-family: 'Russo One', sans-serif;
+    color: #D52B1E;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.section-text {
+    font-size: 1.125rem;
+    color: #555;
+    line-height: 1.6;
+    max-width: 800px;
+    margin: 0 auto 40px;
+    text-align: center;
+}
+
+.footer {
+    background-color: #D52B1E;
+    color: white;
+    padding: 30px 0;
+    text-align: center;
+    font-size: 1rem;
+}
+
+/* Responsiu les mides per pantalles més petites */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 2.5rem;
+    }
+
+    .navbar-nav .nav-link {
+        font-size: 1rem;
+        padding: 8px 12px;
+    }
+
+    .section-title {
+        font-size: 2rem;
+    }
+
+    .section-text {
+        font-size: 1rem;
+    }
+
+    .img-container {
+        margin-bottom: 15px;
+    }
+
+    .col-md-4 {
+        margin-bottom: 15px;
+    }
+
+    .navbar {
+        padding: 10px;
+    }
+}
+/* Estilos para la caja de bienvenida */
+.inicio-box {
+  background-color: #D52B1E; /* Rojo distintivo de la colla */
+  color: #fff; /* Texto blanco */
+  padding: 40px;
+  margin-top: 120px; /* Para no sobreponerse al menú fijo */
+  text-align: center;
+  font-size: 1.5rem;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); /* Sombra suave para dar profundidad */
+  max-width: 90%; /* Limitar el ancho */
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Efecto de degradado para fondo */
+.inicio-box::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, rgba(213, 43, 30, 0.7), rgba(0, 0, 0, 0.6)); /* Degradado de rojo */
+  z-index: -1;
+  border-radius: 15px; /* Mantener el border-radius */
+}
+
+/* Mejorar la tipografía del texto */
+.inicio-box p {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700; /* Texto negrita para mayor impacto */
+  font-size: 1.8rem; /* Aumentar tamaño de fuente */
+  letter-spacing: 1px; /* Espaciado entre letras */
+  line-height: 1.6; /* Mejorar legibilidad */
+  margin: 0; /* Eliminar márgenes */
+  padding: 10px 0; /* Añadir padding */
+}
+
+/* Animación para el texto */
+.inicio-box p span {
+  display: inline-block;
+  position: relative;
+  color: #fff;
+  animation: textAnimation 3s ease-in-out infinite;
+}
+
+@keyframes textAnimation {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+/* Estilos responsivos para pantallas pequeñas */
+@media (max-width: 768px) {
+  .inicio-box {
+    font-size: 1.3rem;
+    padding: 20px;
+    margin-top: 100px;
+  }
+
+  .inicio-box p {
+    font-size: 1.5rem; /* Ajuste de tamaño de fuente */
+  }
+}

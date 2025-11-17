@@ -1,0 +1,128 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+    overflow-x: hidden;
+
+  }
+  
+  header {
+    background-color: #b30000;
+    color: white;
+    padding: 120px 0 60px 0;
+    margin-top: 100px;
+  }
+  
+  header h1 {
+    font-family: 'Russo One', sans-serif;
+    font-size: 3.5rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    line-height: 1.3;
+    text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+  }
+  
+
+  header {
+    background-color: #b30000;
+    color: white;
+    padding: 120px 0 60px 0; 
+    margin-top: 100px; 
+}
+
+header h1 {
+    font-family: 'Russo One', sans-serif;
+    font-size: 3.5rem; 
+    font-weight: 700;
+    text-transform: uppercase;
+    line-height: 1.3;
+    text-shadow: 2px 2px 5px rgba(0,0,0,0.3); 
+}
+ /* Barra de navegació */
+ .navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100vw; /* Asegura que la barra de navegación ocupe todo el ancho de la ventana */
+  background-color: #ffffff;
+  z-index: 10;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4); /* Sombra más intensa */
+  display: flex;
+  justify-content: center; /* Centra los elementos dentro de la barra */
+  align-items: center;
+  padding: 5px 20px; /* Menos padding para que el menú esté más cerca de la imagen */
+  margin: 0; /* Elimina márgenes */
+}
+
+/* Menú de navegación */
+.navbar-nav {
+  display: flex; /* Alinea los enlaces horizontalmente */
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 10px; /* Añade un pequeño espacio entre los enlaces */
+}
+
+/* Enlaces del menú */
+.navbar-nav .nav-link {
+  color: #D52B1E; /* Color rojo */
+  font-size: 1.2rem; /* Tamaño de fuente moderado */
+  font-weight: 700; /* Negrita */
+  padding: 5px 10px; /* Reducción del padding */
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+  margin: 0 5px; /* Reducido el margen para un menor espacio */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Estilo al pasar el cursor sobre los enlaces */
+.navbar-nav .nav-link:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+  color: #fff;
+}
+
+/* Estilo cuando el enlace está en foco o activo */
+.navbar-nav .nav-link:focus,
+.navbar-nav .nav-link:active {
+  background-color: rgba(0, 0, 0, 0.2);
+  color: #fff;
+}
+
+/* Imagen del logo */
+.navbar-brand img {
+  height: 50px; /* Reduce el tamaño de la imagen para que esté más cerca del menú */
+}
+
+/* Estilos para dispositivos móviles */
+@media (max-width: 768px) {
+  .navbar-nav {
+    flex-direction: column; /* Cambia a columna en pantallas pequeñas */
+    align-items: center;
+    width: 100%;
+  }
+
+  .navbar-nav .nav-link {
+    width: 100%;
+    text-align: center;
+    padding: 10px 0; /* Aumenta el padding vertical en pantallas pequeñas */
+  }
+}
+
+/* Estils per al peu de pàgina */
+.footer {
+  background-color: #b30000;
+  color: white;
+  padding: 20px 0;
+}
+
+  
+  .video-container video {
+    max-width: 100%;
+    border-radius: 10px;
+  }
+ 
+  

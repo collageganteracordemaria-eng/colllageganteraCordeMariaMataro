@@ -1,0 +1,134 @@
+/* Estil per al botó d'imatge de Pau */
+#bot-icon {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    overflow: hidden;
+    cursor: pointer;
+    z-index: 9999; /* Assegura que estigui per sobre de tot */
+    border: 2px solid #D52B1E;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Imatge de Pau dins del botó */
+#bot-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ajusta la imatge al contenidor */
+    border-radius: 50%;
+}
+
+/* Estils per a la finestra del xat */
+#chat-box {
+    display: none;
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    width: 350px;
+    height: 450px;
+    background-color: #fff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 15px;
+    padding: 20px;
+    overflow-y: auto;
+    z-index: 10000;
+    border: 2px solid #D52B1E;
+}
+
+/* Mostrar el xat quan s'obre */
+#chat-box.open {
+    display: block;
+}
+
+/* Estil per al botó de tancar */
+#close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 20px;
+    color: red;
+}
+
+#close-btn:hover {
+    color: #C62D1A; /* Color més fosc en passar el ratolí */
+}
+
+/* Estils per al log de missatges */
+#chat-log {
+    max-height: 350px;
+    overflow-y: auto;
+    padding: 10px;
+    margin-bottom: 15px;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Missatges de l'usuari */
+#chat-log .user-message {
+    background-color: #D52B1E;
+    color: white;
+    padding: 12px;
+    border-radius: 20px;
+    margin-bottom: 10px;
+    max-width: 75%;
+    align-self: flex-start;
+    font-size: 14px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Missatges del bot (Pau) */
+#chat-log .bot-message {
+    background-color: #F5B9B9;
+    color: #333;
+    padding: 12px;
+    border-radius: 20px;
+    margin-bottom: 10px;
+    max-width: 75%;
+    align-self: flex-end;
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Estil per a la imatge del bot */
+#chat-log .bot-message img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+    border: 2px solid #D52B1E;
+    object-fit: cover;
+}
+
+/* Estils per a l'input de l'usuari */
+#user-input {
+    width: calc(100% - 24px);
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+/* Millorar l'estil del botó d'enviament */
+#chat-box button {
+    width: 100%;
+    padding: 12px;
+    background-color: #D52B1E;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+#chat-box button:hover {
+    background-color: #C62D1A;
+}

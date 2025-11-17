@@ -1,0 +1,20 @@
+[
+  {
+    "username": "Arodriguez",
+    "password": "$2a$10$examplehashedpassword",
+    "role": null,
+    "date": "2025-03-16T12:34:56.000Z"
+  },
+  {
+    "username": "jdoe",
+    "password": "$2a$10$examplehashedpassword",
+    "role": null,
+    "date": "2025-03-16T12:34:56.000Z"
+  },
+  {
+    "username": "msmith",
+    "password": "$2a$10$examplehashedpassword",
+    "role": null,
+    "date": "2025-03-16T12:34:56.000Z"
+  }
+]

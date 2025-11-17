@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formulari de Portadors</title>  
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="icon" href="images/favicon.jpeg" type="image/jpeg">
+  <script src="js/proteger.js"></script>
+</head>
+  <style>
+    /* Estilos generales */
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f9f9f9;
+      margin: 0;
+      padding: 0;
+      color: #333;
+      overflow-x: hidden;
+
+    }
+
+    /* Título */
+    h1 {
+      color: #d32f2f;
+      font-size: 2rem;
+      text-align: center;
+      font-weight: bold;
+      margin-bottom: 40px;
+      text-transform: uppercase;
+    }
+
+    /* Contenedor principal */
+    .container {
+      max-width: 600px;
+      margin: 60px auto;
+      padding: 40px;
+      background-color: #fff;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      border-radius: 12px;
+    }
+
+    /* Estilo de las etiquetas */
+    label {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+      display: block;
+      color: #333;
+    }
+
+    /* Inputs */
+    .form-control {
+      border-radius: 8px;
+      padding: 15px;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      margin-bottom: 20px;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .form-control:focus {
+      border-color: #d32f2f;
+      box-shadow: 0 0 8px rgba(211, 47, 47, 0.3);
+      outline: none;
+    }
+
+    .form-group {
+      margin-bottom: 25px;
+    }
+
+    .form-control::placeholder {
+      color: #999;
+    }
+
+    /* Botón de enviar */
+    .btn-danger {
+      background-color: #d32f2f;
+      color: white;
+      padding: 15px;
+      font-size: 1.1rem;
+      width: 100%;
+      border-radius: 8px;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease-in-out, transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .btn-danger:hover {
+      background-color: #b71c1c;
+      transform: scale(1.05);
+      box-shadow: 0px 5px 20px rgba(211, 47, 47, 0.4);
+    }
+
+    /* Logo */
+    .logo {
+      display: block;
+      margin: 0 auto 30px;
+      width: 150px;
+      height: auto;
+    }
+
+    /* Resaltado de campos */
+    .form-group label {
+      color: #d32f2f;
+    }
+
+    /* Pie de página */
+    footer {
+      background-color: #d32f2f;
+      color: white;
+      text-align: center;
+      padding: 10px;
+      font-size: 0.9rem;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+    }
+
+    /* Media queries para responsividad */
+    @media (max-width: 768px) {
+      .container {
+        padding: 30px 20px;
+      }
+
+      h1 {
+        font-size: 1.6rem;
+      }
+
+      .form-group {
+        margin-bottom: 20px;
+      }
+
+      .form-control,
+      .btn-danger {
+        font-size: 1rem;
+      }
+    }
+
+    /* Estilo para mensajes de éxito y error */
+    #message {
+      padding: 10px;
+      border-radius: 5px;
+      margin-top: 20px;
+      font-weight: bold;
+      display: none;
+    }
+   /* Efecto de transición de opacidad */
+.fade-enter {
+  opacity: 0;
+}
+
+.fade-enter-active {
+  opacity: 1;
+  transition: opacity 300ms ease-in-out;
+}
+
+.fade-exit {
+  opacity: 1;
+}
+
+.fade-exit-active {
+  opacity: 0;
+  transition: opacity 300ms ease-in-out;
+}.loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* Loader full screen */
+#loader {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  z-index: 9999;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+/* L'spinner animat */
+.spinner {
+  width: 60px;
+  height: 60px;
+  border: 6px solid #d32f2f;
+  border-top: 6px solid transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+/* Animació de gir */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+  </style>
+</head>
+<body>
+  <body style="background: #fff;">
+  <div id="app-root"></div>
+  <script>
+    // Bloqueo clic derecho
+    document.addEventListener('contextmenu', e => e.preventDefault(), true);
+    window.oncontextmenu = () => false;
+
+    // Bloqueo atajos de inspección
+    document.addEventListener('keydown', e => {
+      if (e.key === 'F12' || 
+          (e.ctrlKey && e.shiftKey && ['I','J','C','K'].includes(e.key.toUpperCase())) ||
+          (e.ctrlKey && ['U','S'].includes(e.key.toUpperCase()))
+      ) e.preventDefault();
+    }, true);
+
+    // Tu contenido solo en JS, así:
+    const appDiv = document.getElementById('app-root');
+    appDiv.innerHTML = `
+
+    `;
+  </script>
+</body>
+
+  <!-- Loader (animació de càrrega) -->
+<div id="loader">
+  <div class="spinner"></div>
+</div>
+<script>
+  window.addEventListener("load", function () {
+    const loader = document.getElementById("loader");
+    loader.style.opacity = "0";
+    loader.style.visibility = "hidden";
+  });
+</script>
+
+
+  <div class="container">
+    <h1>Formulari de Portadors</h1>
+    <form id="portadors-form">
+      <div class="form-group">
+        <label for="nom">Nom complet</label>
+        <input type="text" class="form-control" id="nom" name="nom" required placeholder="Escriu el teu nom complet">
+      </div>
+
+      <div class="form-group">
+        <label for="edat">Edat</label>
+        <input type="number" class="form-control" id="edat" name="edat" required placeholder="Escriu la teva edat">
+      </div>
+
+      <div class="form-group">
+        <label for="telefon">Número de telèfon</label>
+        <input type="tel" class="form-control" id="telefon" name="telefon" required placeholder="Escriu el teu número de telèfon">
+      </div>
+
+      <div class="form-group">
+        <label for="correu">Correu electrònic</label>
+        <input type="email" class="form-control" id="correu" name="correu" required placeholder="Escriu el teu correu electrònic">
+      </div>
+
+      <div class="form-group">
+        <label for="pes">Pes (kg)</label>
+        <input type="number" class="form-control" id="pes" name="pes" required placeholder="Escriu el teu pes en kg">
+      </div>
+
+      <div class="form-group">
+        <label for="alçada">Alçada (cm)</label>
+        <input type="number" class="form-control" id="alçada" name="alçada" required placeholder="Escriu la teva alçada en cm">
+      </div>
+
+      <div class="form-group">
+        <label for="antic_alumne">Ets un antic alumne o actual alumne?</label>
+        <select class="form-control" id="antic_alumne" name="antic_alumne" required>
+          <option value="si">Sí</option>
+          <option value="no">No</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="missatge">Missatge</label>
+        <textarea class="form-control" id="missatge" name="missatge" required placeholder="Escriu el teu missatge"></textarea>
+      </div>
+      
+      <button type="submit" class="btn btn-danger">Envia el formulari</button>
+    </form>
+
+    <div id="message" class="mt-3" style="display: none;"></div>
+  </div>
+  <!-- Connectar arxius CSS de Bootstrap -->
+  <link href="css/bootstrap.css" rel="stylesheet">
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/bootstrap-grid.css" rel="stylesheet">
+  <link href="css/bootstrap-grid.min.css" rel="stylesheet">
+  <link href="css/bootstrap-reboot.css" rel="stylesheet">
+  <link href="css/bootstrap-reboot.min.css" rel="stylesheet">
+
+  <!-- (Opcional) Connectar mapes de fonts (només per depuració) -->
+  <link href="css/bootstrap.css.map" rel="stylesheet" type="text/css" />
+  <link href="css/bootstrap.min.css.map" rel="stylesheet" type="text/css" />
+  <link href="css/bootstrap-grid.css.map" rel="stylesheet" type="text/css" />
+  <link href="css/bootstrap-grid.min.css.map" rel="stylesheet" type="text/css" />
+  <link href="css/bootstrap-reboot.css.map" rel="stylesheet" type="text/css" />
+  <link href="css/bootstrap-reboot.min.css.map" rel="stylesheet" type="text/css" />
+
+  <footer>
+    <p>&copy; 2025 Colla Gegantera Cor de Maria. Tots els drets reservats.</p>
+  </footer>
+
+  <script>
+    document.getElementById('portadors-form').addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      const formData = new FormData(this);
+
+      fetch('/submit-portadors', {
+        method: 'POST',
+        body: new URLSearchParams(formData),
+      })
+      .then(response => response.json())
+      .then(data => {
+        const messageDiv = document.getElementById('message');
+        messageDiv.style.display = 'block';
+
+        if (data.success) {
+          messageDiv.textContent = data.message;
+          messageDiv.classList.remove('message-error');
+          messageDiv.classList.add('message-success');
+          
+          setTimeout(function() {
+            window.location.href = 'menu.html';
+          }, 2000);
+        } else {
+          messageDiv.textContent = data.message;
+          messageDiv.classList.remove('message-success');
+          messageDiv.classList.add('message-error');
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+    });
+  </script>
+
+</body>
+</html>
+  <!-- Connectar arxius CSS de Bootstrap -->
+  <link href="css/bootstrap.css" rel="stylesheet">
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/bootstrap-grid.css" rel="stylesheet">
+  <link href="css/bootstrap-grid.min.css" rel="stylesheet">
+  <link href="css/bootstrap-reboot.css" rel="stylesheet">
+  <link href="css/bootstrap-reboot.min.css" rel="stylesheet">
+
+  <!-- (Opcional) Connectar mapes de fonts (només per depuració) -->
+  <link href="css/bootstrap.css.map" rel="stylesheet" type="text/css" />
+  <link href="css/bootstrap.min.css.map" rel="stylesheet" type="text/css" />
+  <link href="css/bootstrap-grid.css.map" rel="stylesheet" type="text/css" />
+  <link href="css/bootstrap-grid.min.css.map" rel="stylesheet" type="text/css" />
+  <link href="css/bootstrap-reboot.css.map" rel="stylesheet" type="text/css" />
+  <link href="css/bootstrap-reboot.min.css.map" rel="stylesheet" type="text/css" />

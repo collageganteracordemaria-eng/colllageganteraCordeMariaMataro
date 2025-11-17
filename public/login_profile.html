@@ -1,0 +1,1174 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Perfil Usuari - Colla Gegantera</title>
+<link rel="icon" href="images/favicon.jpeg" type="image/jpeg">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+  <link href="css/search.css" rel="stylesheet">
+
+<style>
+/* Body i fonts */
+body {
+  font-family: 'Arial', sans-serif;
+  background: linear-gradient(135deg, #ffffff, #ffffff);
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding-top: 100px;
+}
+
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100vw;
+    background-color: #ffffff;
+    z-index: 10;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: flex-start; /* Contingut alineat a l'esquerra */
+    align-items: center;
+    padding: 10px 0;
+    margin: 0;
+  }
+  
+  .navbar-nav {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .navbar-nav .nav-link {
+    color: #D52B1E; /* Color vermell fort */
+    font-size: 1.2rem;
+    font-weight: 700;
+    padding: 10px 20px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+    margin: 0 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  /* Eliminar separació i alineació cap a la dreta */
+  .navbar-nav.ms-auto {
+    margin-left: 0;
+  }
+  
+  .navbar-toggler {
+    margin-left: 0;
+  }
+  
+  .navbar-brand {
+    margin-left: 0;
+  }
+  
+/* Containers login/registro */
+#auth-section {
+  max-width: 450px;
+  margin: 80px auto;
+  padding: 30px 25px;
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+}
+#auth-section h1 { text-align: center; color: #D52B1E; margin-bottom: 25px; }
+
+/* Inputs modernos */
+input.form-control, select.form-control, textarea.form-control {
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  padding: 12px 15px;
+  margin-bottom: 15px;
+  box-shadow: inset 0 2px 5px rgba(0,0,0,0.05);
+  transition: all 0.3s;
+}
+input.form-control:focus, select.form-control:focus, textarea.form-control:focus {
+  border-color: #D52B1E;
+  box-shadow: 0 0 10px rgba(213,43,30,0.3);
+  outline: none;
+}
+
+/* Botons estil Instagram-like */
+.btn-primary {
+  background: linear-gradient(45deg, #D52B1E, #ff4c4c);
+  border: none;
+  font-weight: 600;
+  border-radius: 12px;
+  transition: all 0.3s;
+}
+.btn-primary:hover {
+  background: linear-gradient(45deg, #b02118, #ff1a1a);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+}
+.btn-danger {
+  border-radius: 12px;
+  font-weight: 600;
+  background-color: #ff3b3b;
+  border: none;
+}
+.btn-danger:hover {
+  background-color: #d32f2f;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+}
+
+/* Perfil pantalla completa */
+#profile-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px;
+}
+
+/* Foto de perfil centrada y con hover */
+.profile-img {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #D52B1E;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+  transition: transform 0.3s;
+  cursor: pointer;
+}
+.profile-img:hover { transform: scale(1.1); }
+
+/* Secciones estilo Instagram card */
+.section-card {
+  background: #fff;
+  border-radius: 15px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+  padding: 20px 25px;
+  margin-top: 25px;
+  width: 100%;
+  max-width: 900px;
+}
+
+/* Títulos de secciones */
+.section-title {
+  font-weight: 700;
+  color: #D52B1E;
+  margin-bottom: 15px;
+  font-size: 1.3rem;
+  border-bottom: 2px solid #D52B1E;
+  padding-bottom: 5px;
+}
+
+/* Row de formularios */
+.row-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.row-form .col { flex: 1; min-width: 150px; }
+
+
+.profile-img {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #D52B1E;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+  transition: transform 0.3s;
+  cursor: pointer;
+  margin-bottom: 20px; /* separació del formulari */
+}
+/* 🔧 Redueix l'espai entre opcions del menú */
+.navbar-nav .nav-item {
+  margin-left: 4px !important;
+  margin-right: 4px !important;
+}
+
+/* 🔧 Redueix el padding intern dels enllaços */
+.navbar-nav .nav-link {
+  padding-left: 6px !important;
+  padding-right: 6px !important;
+  font-size: 15px; /* opcional: més compacte */
+}
+
+/* 🔧 Ajusta també els desplegables si vols */
+.navbar .dropdown-menu {
+  min-width: 160px;
+}
+/* Solo en pantallas grandes */
+/* Solo en pantallas grandes */
+@media (min-width: 992px) {
+  /* Mover logo más a la izquierda */
+  .navbar-brand {
+    position: relative;
+    left: 110px; /* Más a la izquierda que antes */
+  }
+
+  /* Mover buscador junto al logo y hacerlo más largo */
+  .search-bar {
+    position: relative;
+    left: 110px; /* Ajusta para que esté alineado con el logo */
+    width: 300px; /* Buscador más largo */
+    max-width: 350px;
+    z-index: 1000;
+  }
+
+  .search-bar input {
+    padding: 6px 12px;
+    border: 2px solid #b30000;
+    border-radius: 30px;
+    outline: none;
+  }
+
+  /* Separación entre logo y menú */
+  .navbar-nav {
+    margin-left: 30px; /* Ajusta para separar logo y menú */
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar .container {
+    flex-direction: column;      /* todo en columna */
+    align-items: center;         /* centra los elementos */
+  }
+
+  .navbar-brand {
+    order: 1;                    /* logo primero */
+    margin-bottom: 10px;         /* separa del siguiente */
+  }
+
+  .search-bar {
+    order: 2;                    /* buscador después del logo */
+    width: 90%;                  /* ocupa casi todo el ancho */
+    margin-bottom: 10px;
+    left: 0 !important;          /* quitar cualquier desplazamiento previo */
+  }
+    .search-bar input {
+    padding: 6px 12px;
+    border: 2px solid #b30000;
+    }
+
+  .navbar-toggler {
+    order: 3;                    /* botón del menú abajo del buscador */
+    margin-bottom: 10px;
+  }
+
+  .collapse.navbar-collapse {
+    order: 4;                    /* menú desplegable al final */
+    width: 100%;
+  }
+
+  .navbar-nav {
+    flex-direction: column;       /* enlaces en columna */
+    align-items: center;          /* centrado horizontal */
+  }
+
+  .navbar-nav .nav-link {
+    padding: 10px 0;              /* espacio entre links */
+    text-align: center;           /* centrado del texto */
+  }
+}
+
+
+#auth-section {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.password-container {
+  position: relative;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.password-container input {
+  width: 100%;
+  padding-right: 40px; /* espacio para el icono del ojo */
+  box-sizing: border-box;
+}
+
+.toggle-password {
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #6c757d;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.toggle-password svg {
+  width: 22px;
+  height: 22px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+}
+
+.toggle-password:hover {
+  color: #000;
+}
+
+@media (max-width: 768px) {
+  #profile-section {
+    margin-top: 160px; /* Ajusta segons el que necessitis */
+    padding: 20px;      /* Opcional: afegeix padding intern */
+  }
+}
+
+.searchInput{
+  width: 350px !important;
+}
+@media (max-width: 768px) {
+  #auth-section {
+    margin-top: 150px; /* augmenta la distància des de la part superior */
+  }
+}
+
+</style>
+</head>
+<body>
+
+
+<nav class="navbar navbar-expand-lg navbar-light fixed-top">
+  <div class="container d-flex align-items-center">
+    <form class="d-flex me-3 search-bar" role="search" onsubmit="return handleSearch(event)">
+      <input  style="width: 360px !important;" id="searchInput" class="form-control search-input" type="search" placeholder="Buscar..." aria-label="Buscar">
+    </form>
+
+    <a class="navbar-brand" href="https://www.cordemariamataro.cat/">
+      <img src="images/logo_corazon_de_maria.png" alt="Logo Cor de Maria" style="height: 60px;">
+    </a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link text-danger" href="http://localhost:3000/home">Inici</a></li>
+        <li class="nav-item"><a class="nav-link text-danger" href="http://localhost:3000/cercavila">Cercaviles</a></li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-danger" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Festes especials</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item text-danger" href="http://localhost:3000/carnaval">Rua Carnaval</a></li>
+            <li><a class="dropdown-item text-danger" href="http://localhost:3000/sant-jordi">Sant Jordi</a></li>
+            <li><a class="dropdown-item text-danger" href="http://localhost:3000/cursa">Cursa de l'escola</a></li>
+            <li><a class="dropdown-item text-danger" href="http://localhost:3000/festa-Major">Festa Major</a></li>
+            <li><a class="dropdown-item text-danger" href="http://localhost:3000/festa-tardor">Festa de Tardor</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-danger" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Colla</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item text-danger" href="http://localhost:3000/membres">Músics i portadors</a></li>
+            <li><a class="dropdown-item text-danger" href="http://localhost:3000/experiencies">Experiències dels membres</a></li>
+            <li><a class="dropdown-item text-danger" href="http://localhost:3000/uneixte">T'hi vols unir?</a></li>
+            <li><a class="dropdown-item text-danger" href="http://localhost:3000/chat">Chat i comentaris</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item"><a class="nav-link text-danger" href="http://localhost:3000/contacte">Contacte</a></li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-danger" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Socials</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item text-danger" href="https://www.instagram.com/collageganteracordemariamataro?igsh=eGhpazQyNHNqdnQx">Instagram</a></li>
+          </ul>
+        </li>
+      <li class="nav-item dropdown" id="user-menu">
+          <a class="nav-link dropdown-toggle text-danger" href="http://localhost:3000/perfil" role="button" data-bs-toggle="dropdown" aria-expanded="false" id="user-menu-link">
+            Login
+          </a>
+          <ul class="dropdown-menu" id="user-dropdown-menu">
+            <li><a class="dropdown-item text-danger" href="http://localhost:3000/perfil">Perfil</a></li>
+            <li><a class="dropdown-item text-danger" href="#" id="logout-link">Tancar Sessió</a></li>
+          </ul>
+        </li>
+
+
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<script>
+document.addEventListener('DOMContentLoaded', async () => {
+  const authSection = document.getElementById('auth-section');
+  const profileSection = document.getElementById('profile-section');
+  const userMenuLink = document.getElementById('user-menu-link');
+  const userDropdownMenu = document.getElementById('user-dropdown-menu');
+
+  async function loadProfileData() {
+    const token = localStorage.getItem('authToken');
+    if(!token) return;
+
+    try {
+      const res = await fetch('/api/profile', {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      const data = await res.json();
+      if(data.success && data.user){
+        const user = data.user;
+
+        // Omplir dades del formulari de perfil
+        document.getElementById('profile-username').value = user.username || '';
+        document.getElementById('profile-email').value = user.email || '';
+        document.getElementById('profile-description').value = user.description || '';
+        document.getElementById('profile-additional-info').value = user.additionalInfo || '';
+        document.getElementById('profile-facebook').value = user.facebook || '';
+        document.getElementById('profile-instagram').value = user.instagram || '';
+        document.getElementById('profile-gender').value = user.gender || 'altres';
+        document.getElementById('profile-roleweb').value = user.roleWeb || 'usuari';
+        document.getElementById('profile-nom').value = user.nom || '';
+        document.getElementById('profile-cognoms').value = user.cognoms || '';
+        document.getElementById('profile-naixement').value = user.naixement ? user.naixement.split('T')[0] : '';
+        document.getElementById('profile-telefon').value = user.telefon || '';
+        document.getElementById('profile-poblacio').value = user.poblacio || '';
+
+        // Foto perfil
+        document.getElementById('profile-img').src = user.image ? `/uploads/${user.image}` : 'images/default_profile.png';
+
+        // Actualitza menú navbar
+        const profileImg = user.image ? `/uploads/${user.image}` : 'images/default_profile.png';
+        userMenuLink.innerHTML = `<img src="${profileImg}" alt="Perfil" style="width:32px;height:32px;border-radius:50%;margin-right:6px;">${user.username}`;
+        
+        // Afegir opcions segons rol
+        userDropdownMenu.innerHTML = `
+          <li><a class="dropdown-item text-danger" href="http://localhost:3000/perfil">Perfil</a></li>
+          ${user.roleWeb === 'portador' && user.roleWebValidat ? `<li><a class="dropdown-item text-danger" href="http://localhost:3000/seccio-portadors">Secció Portadors</a></li>` : ''}
+          ${user.roleWeb === 'music' && user.roleWebValidat ? `<li><a class="dropdown-item text-danger" href="http://localhost:3000/seccio-musics">Secció Músics</a></li>` : ''}
+          <li><a class="dropdown-item text-danger" href="#" id="logout-link">Tancar Sessió</a></li>
+        `;
+
+        document.getElementById('logout-link').addEventListener('click', () => {
+          localStorage.removeItem('authToken');
+          localStorage.removeItem('username');
+          authSection.style.display = 'block';
+          profileSection.style.display = 'none';
+          userMenuLink.textContent = 'Login';
+        });
+
+        authSection.style.display = 'none';
+        profileSection.style.display = 'flex';
+      } else {
+        authSection.style.display = 'block';
+        profileSection.style.display = 'none';
+        userMenuLink.textContent = 'Login';
+      }
+    } catch(err) {
+      console.error('Error carregant perfil:', err);
+      authSection.style.display = 'block';
+      profileSection.style.display = 'none';
+    }
+  }
+
+  // Login
+  const loginBtn = document.getElementById('login-btn');
+  if(loginBtn){
+    loginBtn.addEventListener('click', async (e)=>{
+      e.preventDefault();
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value;
+      if(!username || !password){ alert('Nom d’usuari i contrasenya són obligatoris'); return; }
+
+      try {
+        const res = await fetch('/api/login', {
+          method:'POST',
+          headers:{'Content-Type':'application/json'},
+          body:JSON.stringify({username,password})
+        });
+        const data = await res.json();
+        if(data.success){
+          localStorage.setItem('authToken', data.token);
+          localStorage.setItem('username', data.user.username);
+          await loadProfileData();
+        } else {
+          alert(data.message || 'Usuari o contrasenya incorrectes');
+        }
+      } catch(err){ console.error(err); alert('Error de connexió amb el servidor.'); }
+    });
+  }
+
+  // Carregar perfil si ja hi ha token
+  await loadProfileData();
+});
+
+</script>
+<script>
+async function updateUserMenu() {
+  const token = localStorage.getItem('authToken');
+  const userMenuLink = document.getElementById('user-menu-link');
+  const userDropdownMenu = document.getElementById('user-dropdown-menu');
+
+  if (!userMenuLink || !userDropdownMenu) return;
+
+  if (!token) {
+    userMenuLink.textContent = 'Login';
+    userPerfil.textContent = 'Login';
+    const tancar = document.getElementById("logout-link").style.display = "none";
+    return;
+  }
+
+  try {
+    const res = await fetch('/api/profile', {
+      headers: { 'Authorization': `Bearer ${token}` }
+    });
+    const data = await res.json();
+
+    if (!data.success || !data.user) {
+      localStorage.removeItem('authToken');
+      userMenuLink.textContent = 'Login';
+      return;
+    }
+
+    const user = data.user;
+    const profileImg = user.image ? `/uploads/${user.image}` : '/images/default_profile.png';
+
+    userMenuLink.innerHTML = `
+      <img src="${profileImg}" alt="Perfil"
+           style="width:32px;height:32px;border-radius:50%;object-fit:cover;margin-right:6px;">
+      ${user.username}
+    `;
+
+    userDropdownMenu.innerHTML = `
+      <li><a class="dropdown-item text-danger" href="http://localhost:3000/perfil">Perfil</a></li>
+      ${user.roleWeb === 'portador' && user.roleWebValidat ? `<li><a class="dropdown-item text-danger" href="http://localhost:3000/seccio-portadors">Secció Portadors</a></li>` : ''}
+      ${user.roleWeb === 'music' && user.roleWebValidat ? `<li><a class="dropdown-item text-danger" href="http://localhost:3000/seccio-musics">Secció Músics</a></li>` : ''}
+      <li><a class="dropdown-item text-danger" href="#" id="logout-link">Tancar Sessió</a></li>
+    `;
+
+    // Logout immediat sense recarregar
+    const logoutLink = document.getElementById('logout-link');
+    if (logoutLink) {
+      logoutLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        localStorage.removeItem('authToken');
+        localStorage.removeItem('username');
+        updateUserMenu();
+        document.getElementById('auth-section').style.display = 'block';
+        document.getElementById('profile-section').style.display = 'none';
+      });
+    }
+
+  } catch (err) {
+    console.error('Error actualitzant menú:', err);
+    userMenuLink.textContent = 'Login';
+  }
+}
+
+// Comprova la sessió al carregar la pàgina
+document.addEventListener('DOMContentLoaded', () => {
+  updateUserMenu();
+
+  // Si hi ha sessió, mostra el perfil
+  const token = localStorage.getItem('authToken');
+  if(token){
+    document.getElementById('auth-section').style.display='none';
+    document.getElementById('profile-section').style.display='flex';
+    loadProfile();
+  }
+
+  // Login btn
+  const loginBtn = document.getElementById('login-btn');
+  if(loginBtn){
+    loginBtn.addEventListener('click', async (e) => {
+      e.preventDefault();
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value;
+      if(!username || !password){
+        alert('Nom d’usuari i contrasenya són obligatoris');
+        return;
+      }
+
+      try {
+        const res = await fetch('/api/login', {
+          method:'POST',
+          headers:{'Content-Type':'application/json'},
+          body:JSON.stringify({username,password})
+        });
+        const data = await res.json();
+        if(data.success){
+          localStorage.setItem('authToken', data.token);
+          localStorage.setItem('username', data.user.username);
+          updateUserMenu();
+          document.getElementById('auth-section').style.display='none';
+          document.getElementById('profile-section').style.display='flex';
+          loadProfile();
+        } else {
+          alert(data.message || 'Usuari o contrasenya incorrectes');
+        }
+      } catch(err){
+        console.error(err);
+        alert('Error de connexió amb el servidor.');
+      }
+    });
+  }
+
+  // Logout btn del perfil
+  const logoutBtn = document.getElementById('logout-btn');
+  if(logoutBtn) logoutBtn.addEventListener('click', ()=>{
+    localStorage.removeItem('authToken');
+    localStorage.removeItem('username');
+    updateUserMenu();
+    document.getElementById('auth-section').style.display='block';
+    document.getElementById('profile-section').style.display='none';
+  });
+});
+</script>
+
+
+
+<script>
+
+async function login(username, password) {
+  const res = await fetch('/api/login', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ username, password })
+  });
+  const data = await res.json();
+
+  if (data.success) {
+  localStorage.setItem('authToken', data.token);
+  localStorage.setItem('user', JSON.stringify(data.user));
+
+  // 🔥 Actualitza el menú al moment
+  await updateUserMenu();
+
+  // Mostra la secció de perfil sense recarregar
+  document.getElementById('auth-section').style.display = 'none';
+  document.getElementById('profile-section').style.display = 'flex';
+  } else {
+    alert(data.message || 'Error iniciant sessió');
+  }
+}
+
+document.addEventListener('loginSuccess', (e) => {
+  const user = e.detail?.user;
+  updateUserMenu(user); // 🔥 Actualitza menú sense recarregar
+  document.getElementById('auth-section').style.display = 'none';
+  document.getElementById('profile-section').style.display = 'flex';
+});
+
+
+
+
+window.addEventListener('load', async () => {
+  const token = localStorage.getItem('authToken');
+  const username = localStorage.getItem('username');
+  const userMenuLink = document.getElementById('user-menu-link');
+
+  if (token && username) {
+    try {
+      const res = await fetch('/api/profile', {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      const data = await res.json();
+      console.log('Perfil carregat:', data);
+
+      if (data.success) {
+        const profileImg = data.user.image
+          ? `/uploads/${data.user.image}`
+          : '/images/default_profile.png';
+
+        userMenuLink.innerHTML = `
+          <img src="${profileImg}" 
+               alt="Perfil" 
+               style="width:32px;height:32px;border-radius:50%;object-fit:cover;margin-right:8px;">
+          ${username}
+        `;
+      } else {
+        userMenuLink.textContent = username;
+      }
+
+      // No mostrar el dropdown por defecto
+    } catch (err) {
+      console.error('Error carregant perfil:', err);
+      userMenuLink.textContent = username;
+    }
+  } else {
+    userMenuLink.textContent = 'Login';
+  }
+
+  const logoutLink = document.getElementById('logout-link');
+  if (logoutLink) {
+    logoutLink.addEventListener('click', () => {
+      localStorage.removeItem('authToken');
+      localStorage.removeItem('username');
+      window.location.href = '/';
+    });
+  }
+});
+
+
+</script>
+
+  
+<style>
+
+</style>
+
+<div id="auth-section">
+  <h1>Iniciar Sessió / Registrar-se</h1>
+
+  <input type="text" id="username" class="form-control mb-2" placeholder="Nom d'usuari">
+  <input type="email" id="email" class="form-control mb-2" placeholder="Correu">
+
+  <div class="password-container">
+    <input type="password" id="password" class="form-control" placeholder="Contrasenya">
+    <button type="button" class="toggle-password" onclick="togglePassword('password', this)">
+      <!-- OJO ABIERTO -->
+      <svg viewBox="0 0 24 24">
+        <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/>
+        <circle cx="12" cy="12" r="3"/>
+      </svg>
+    </button>
+  </div>
+
+  <div class="password-container">
+    <input type="password" id="confirm-password" class="form-control" placeholder="Confirmar contrasenya">
+    <button type="button" class="toggle-password" onclick="togglePassword('confirm-password', this)">
+      <svg viewBox="0 0 24 24">
+        <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/>
+        <circle cx="12" cy="12" r="3"/>
+      </svg>
+    </button>
+  </div>
+
+  <div class="d-flex gap-3 mt-3">
+    <button id="login-btn" class="btn btn-primary flex-fill">Iniciar Sessió</button>
+    <button id="register-btn" class="btn btn-secondary flex-fill">Registrar-se</button>
+  </div>
+
+  <p class="mt-3 text-center">
+    <a href="#" id="forgot-password-link">Has oblidat la contrasenya?</a>
+  </p>
+</div>
+
+
+<script>
+
+  
+function togglePassword(id, btn) {
+  const input = document.getElementById(id);
+  const isPassword = input.type === 'password';
+  input.type = isPassword ? 'text' : 'password';
+
+  // Cambia entre ojo abierto y cerrado (SVG)
+  btn.innerHTML = isPassword
+    ? `<svg viewBox="0 0 24 24">
+         <path d="M17.94 17.94A10.94 10.94 0 0 1 12 19c-7 0-11-7-11-7a20.26 20.26 0 0 1 5.17-5.88M1 1l22 22"/>
+         <path d="M9.53 9.53A3.5 3.5 0 0 0 12 15.5 3.5 3.5 0 0 0 15.5 12c0-.83-.3-1.6-.79-2.19"/>
+       </svg>`
+    : `<svg viewBox="0 0 24 24">
+         <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/>
+         <circle cx="12" cy="12" r="3"/>
+       </svg>`;
+}
+</script>
+
+<script>
+  function generarRutaAleatoria(longitud = 12) {
+    const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    let resultat = '';
+    for (let i = 0; i < longitud; i++) {
+      resultat += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return resultat;
+  }
+
+  // Quan fan clic a "Has oblidat la contrasenya?"
+  document.getElementById('forgot-password-link').addEventListener('click', (event) => {
+    event.preventDefault(); // Evitem que el link actuï com a #.
+    const ruta = '/recuperar/' + generarRutaAleatoria();
+    window.location.href = ruta; // Redirigim cap a la ruta aleatòria
+  });
+</script>
+
+<script>
+document.getElementById('register-btn').addEventListener('click', async (e) => {
+  e.preventDefault();
+
+  const username = document.getElementById('username').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const password = document.getElementById('password').value;
+  const confirmPassword = document.getElementById('confirm-password').value;
+
+  // Validacions bàsiques
+  if (!username || !email || !password || !confirmPassword) {
+    alert('Tots els camps són obligatoris.');
+    return;
+  }
+
+  if (!/^[a-zA-Z0-9]{4,}$/.test(username)) {
+    alert("Nom d'usuari mínim 4 caràcters i només lletres/números.");
+    return;
+  }
+
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    alert('Correu invàlid.');
+    return;
+  }
+
+  if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/.test(password)) {
+    alert('Contrasenya: mínim 8 caràcters amb majúscula, minúscula i número.');
+    return;
+  }
+
+  if (password !== confirmPassword) {
+    alert('Les contrasenyes no coincideixen.');
+    return;
+  }
+
+  try {
+    const res = await fetch('/api/register-alt', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username, email, password })
+    });
+
+    const data = await res.json();
+    if (data.success) {
+      alert('Usuari creat correctament! Ja pots iniciar sessió.');
+    } else {
+      alert('Error: ' + (data.message || 'No s’ha pogut crear l’usuari.'));
+    }
+  } catch (err) {
+    console.error('Error al fer fetch:', err);
+    alert('No s’ha pogut connectar amb el servidor.');
+  }
+});
+
+</script>
+
+  </div>
+</div>
+  <script>
+    // Bloqueo clic derecho
+    document.addEventListener('contextmenu', e => e.preventDefault(), true);
+    window.oncontextmenu = () => false;
+
+    // Bloqueo atajos de inspección
+    document.addEventListener('keydown', e => {
+      if (e.key === 'F12' || 
+          (e.ctrlKey && e.shiftKey && ['I','J','C','K'].includes(e.key.toUpperCase())) ||
+          (e.ctrlKey && ['U','S'].includes(e.key.toUpperCase()))
+      ) e.preventDefault();
+    }, true);
+
+    // Tu contenido solo en JS, así:
+    const appDiv = document.getElementById('app-root');
+    appDiv.innerHTML = `
+ç
+    `;
+     const galleryImages = document.querySelectorAll('.img-container.enhanced img');
+  const modal = document.getElementById('imageModal');
+  const modalImage = document.getElementById('modalImage');
+
+  galleryImages.forEach(img => {
+    img.addEventListener('click', () => {
+      modalImage.src = img.src;
+      new bootstrap.Modal(modal).show();
+    });
+  });
+  </script>
+
+<div id="profile-section" style="display:none;">
+
+  <!-- FOTO DE PERFIL -->
+  <div class="text-center mb-4">
+    <img id="profile-img" class="profile-img" src="images/default_profile.png" alt="Foto de perfil">
+  </div>
+
+  <!-- 🧍 DADES PERSONALS -->
+  <div class="section-card mb-4">
+    <div class="section-title">Dades personals</div>
+
+    <div class="row g-3 mb-3">
+      <div class="col-md-6">
+        <label for="profile-username" class="form-label fw-bold">Nom d'usuari</label>
+        <input type="text" id="profile-username" class="form-control" placeholder="Nom d'usuari" disabled>
+      </div>
+      <div class="col-md-6">
+        <label for="profile-email" class="form-label fw-bold">Correu electrònic</label>
+        <input type="email" id="profile-email" class="form-control" placeholder="Correu">
+      </div>
+    </div>
+
+    <div class="row g-3 mb-3">
+      <div class="col-md-6">
+        <label for="profile-password" class="form-label fw-bold">Nova contrasenya</label>
+        <input type="password" id="profile-password" class="form-control" placeholder="Nova contrasenya">
+      </div>
+      <div class="col-md-6">
+        <label for="profile-gender" class="form-label fw-bold">Gènere</label>
+        <select id="profile-gender" class="form-control">
+          <option value="home">Home</option>
+          <option value="dona">Dona</option>
+          <option value="altres">Altres</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row g-3 mb-3">
+      <div class="col-md-6">
+        <label for="profile-nom" class="form-label fw-bold">Nom</label>
+        <input type="text" id="profile-nom" class="form-control" placeholder="Nom">
+      </div>
+      <div class="col-md-6">
+        <label for="profile-cognoms" class="form-label fw-bold">Cognoms</label>
+        <input type="text" id="profile-cognoms" class="form-control" placeholder="Cognoms">
+      </div>
+    </div>
+
+    <div class="row g-3 mb-3">
+      <div class="col-md-6">
+        <label for="profile-naixement" class="form-label fw-bold">Data de naixement</label>
+        <input type="date" id="profile-naixement" class="form-control">
+      </div>
+      <div class="col-md-6">
+        <label for="profile-telefon" class="form-label fw-bold">Telèfon</label>
+        <input type="tel" id="profile-telefon" class="form-control" placeholder="Telèfon">
+      </div>
+    </div>
+
+    <div class="row g-3 mb-3">
+      <div class="col-md-6">
+        <label for="profile-poblacio" class="form-label fw-bold">Població</label>
+        <input type="text" id="profile-poblacio" class="form-control" placeholder="Població">
+      </div>
+    </div>
+  </div>
+
+  <!-- 💬 INFORMACIÓ ADDICIONAL -->
+  <div class="section-card mb-4">
+    <div class="section-title">Informació addicional</div>
+
+    <div class="mb-3">
+      <label for="profile-description" class="form-label fw-bold">Descripció personal</label>
+      <textarea id="profile-description" class="form-control" rows="3" placeholder="Descripció"></textarea>
+    </div>
+
+    <div class="mb-3">
+      <label for="profile-additional-info" class="form-label fw-bold">Informació complementària</label>
+      <textarea id="profile-additional-info" class="form-control" rows="2" placeholder="Informació addicional"></textarea>
+    </div>
+
+    <div class="row g-3">
+      <div class="col-md-4">
+        <label for="profile-roleweb" class="form-label fw-bold">Rol a la web</label>
+        <select id="profile-roleweb" class="form-control">
+          <option value="music">Músic</option>
+          <option value="portador">Portador</option>
+          <option value="acompanyant">Acompanyant</option>
+          <option value="usuari">Usuari</option>
+        </select>
+      </div>
+      <div class="col-md-4">
+        <label for="profile-facebook" class="form-label fw-bold">Enllaç de Facebook</label>
+        <input type="url" id="profile-facebook" class="form-control" placeholder="Facebook">
+      </div>
+      <div class="col-md-4">
+        <label for="profile-instagram" class="form-label fw-bold">Enllaç d'Instagram</label>
+        <input type="url" id="profile-instagram" class="form-control" placeholder="Instagram">
+      </div>
+    </div>
+  </div>
+
+  <!-- 🖼️ FOTO DE PERFIL -->
+  <div class="section-card mb-4">
+    <div class="section-title">Foto de perfil</div>
+    <label for="profile-image-upload" class="form-label fw-bold">Puja una nova imatge</label>
+    <input type="file" id="profile-image-upload" class="form-control">
+  </div>
+
+  <!-- 🔘 BOTONS -->
+  <div class="d-flex gap-3">
+    <button id="save-profile-btn" class="btn btn-primary flex-fill">Guardar Canvis</button>
+    <button id="logout-btn" class="btn btn-danger flex-fill">Tancar Sessió</button>
+  </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+// Funcions d'autenticació
+function checkSession() {
+  const token = localStorage.getItem('authToken');
+  const username = localStorage.getItem('username');
+  if(token && username){
+    document.getElementById('auth-section').style.display='none';
+    document.getElementById('profile-section').style.display='flex';
+    loadProfile();
+  } else {
+    document.getElementById('auth-section').style.display='block';
+    document.getElementById('profile-section').style.display='none';
+  }
+}
+
+window.addEventListener('DOMContentLoaded', checkSession);
+
+function logout() {
+  localStorage.removeItem('authToken');
+  localStorage.removeItem('username');
+  location.reload();
+}
+document.getElementById('logout-btn').addEventListener('click', logout);
+const logoutNavbar = document.getElementById('logout-btn-navbar');
+if (logoutNavbar) logoutNavbar.addEventListener('click', logout);
+
+document.addEventListener('DOMContentLoaded', () => {
+  const loginBtn = document.getElementById('login-btn');
+  if (!loginBtn) return;
+
+  loginBtn.addEventListener('click', async (e) => {
+    e.preventDefault(); // evita recarregar
+
+    const username = document.getElementById('username').value.trim();
+    const password = document.getElementById('password').value;
+
+    if (!username || !password) {
+      alert('Nom d’usuari i contrasenya són obligatoris');
+      return;
+    }
+
+    try {
+      const res = await fetch('/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password })
+      });
+      const data = await res.json();
+
+      if (data.success) {
+        localStorage.setItem('authToken', data.token);
+        localStorage.setItem('username', data.user.username);
+        checkSession();
+      } else {
+        alert(data.message || 'Usuari o contrasenya incorrectes');
+      }
+    } catch (err) {
+      console.error('Error login:', err);
+      alert('No s’ha pogut connectar amb el servidor.');
+    }
+  });
+});
+
+function formatInputDate(date) {
+  if (!date) return '';
+  const d = new Date(date);
+  const any = d.getFullYear();
+  const mes = String(d.getMonth() + 1).padStart(2, '0');
+  const dia = String(d.getDate()).padStart(2, '0');
+  return `${any}-${mes}-${dia}`; // format YYYY-MM-DD
+}
+
+
+// Guardar i actualitzar perfil
+document.getElementById('save-profile-btn').addEventListener('click', async ()=>{
+    const token = localStorage.getItem('authToken');
+    if(!token) return;
+
+    const formData = new FormData();
+    formData.append('email', document.getElementById('profile-email').value);
+    formData.append('password', document.getElementById('profile-password').value);
+    formData.append('description', document.getElementById('profile-description').value);
+    formData.append('additionalInfo', document.getElementById('profile-additional-info').value);
+    formData.append('gender', document.getElementById('profile-gender').value);
+    formData.append('roleWeb', document.getElementById('profile-roleweb').value);
+    formData.append('facebook', document.getElementById('profile-facebook').value);
+    formData.append('instagram', document.getElementById('profile-instagram').value);
+    formData.append('nom', document.getElementById('profile-nom').value);
+formData.append('cognoms', document.getElementById('profile-cognoms').value);
+formData.append('naixement', document.getElementById('profile-naixement').value);
+formData.append('telefon', document.getElementById('profile-telefon').value);
+formData.append('poblacio', document.getElementById('profile-poblacio').value);
+
+
+    const file = document.getElementById('profile-image-upload').files[0];
+    if(file) formData.append('image', file);
+
+    try{
+        const res = await fetch('/api/profile', {
+        method: 'PUT',
+        headers: { 'Authorization': `Bearer ${token}` },
+        body: formData
+        });
+
+        const data = await res.json();
+        if(data.success){
+            alert('Perfil actualitzat correctament!');
+            loadProfile(); // recarrega dades actualitzades
+        } else {
+            alert(data.message || 'Error actualitzant perfil');
+        }
+    }catch(err){
+        console.error(err);
+        alert('Error actualitzant perfil');
+    }
+});
+
+// Funció loadProfile ja carrega la imatge si existeix
+async function loadProfile(){
+    const token = localStorage.getItem('authToken');
+    if(!token) return;
+
+    try{
+        const res = await fetch('/api/profile', {
+            headers: { 'Authorization': `Bearer ${token}` }
+        });
+        const data = await res.json();
+        if(data.success){
+            const info = data.user;
+            document.getElementById('profile-username').value = info.username || '';
+            document.getElementById('profile-email').value = info.email || '';
+            document.getElementById('profile-description').value = info.description || '';
+            document.getElementById('profile-additional-info').value = info.additionalInfo || '';
+            document.getElementById('profile-facebook').value = info.facebook || '';
+            document.getElementById('profile-instagram').value = info.instagram || '';
+            document.getElementById('profile-gender').value = info.gender || 'altres';
+            document.getElementById('profile-roleweb').value = info.roleWeb || 'usuari';
+            document.getElementById('profile-nom').value = info.nom || '';
+            document.getElementById('profile-cognoms').value = info.cognoms || '';
+            document.getElementById('profile-naixement').value = formatInputDate(info.naixement);
+            document.getElementById('profile-telefon').value = info.telefon || '';
+            document.getElementById('profile-poblacio').value = info.poblacio || '';
+
+            // Bloquejar el select si ja té rol assignat
+            const roleSelect = document.getElementById('profile-roleweb');
+            if(info.roleWeb && info.roleWeb !== ''){
+                roleSelect.disabled = true;  // ✅ bloquejat
+            } else {
+                roleSelect.disabled = false; // encara es pot seleccionar
+            }
+
+            // Si hi ha imatge, la mostrem
+            if(info.image){
+                document.getElementById('profile-img').src = `/uploads/${info.image}`;
+            } else {
+                document.getElementById('profile-img').src = 'images/default_profile.png';
+            }
+        }
+    }catch(err){
+        console.error('Error carregant perfil:', err);
+    }
+}
+
+</script>
+
+</body>
+</html>

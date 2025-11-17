@@ -1,0 +1,1226 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home - Colla Gegantera Cor de Maria</title>
+  <link rel="icon" href="images/favicon.jpeg" type="image/jpeg">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/menu.css" rel="stylesheet">
+  <script src="js/proteger.js"></script>
+  <script src="js/search.js"></script>
+
+  <style>
+    * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html, body {
+  overflow-x: hidden; /* Solo bloquea horizontal */
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+/* Mobile */
+@media (max-width: 768px) {
+  .navbar .container {
+    flex-direction: column;      /* todo en columna */
+    align-items: center;         /* centra los elementos */
+  }
+
+  .navbar-brand {
+    order: 1;                    /* logo primero */
+    margin-bottom: 10px;         /* separa del siguiente */
+  }
+
+  .search-bar {
+    order: 2;                    /* buscador después del logo */
+    width: 90%;                  /* ocupa casi todo el ancho */
+    margin-bottom: 10px;
+    left: 0 !important;          /* quitar cualquier desplazamiento previo */
+  }
+
+  .navbar-toggler {
+    order: 3;                    /* botón del menú abajo del buscador */
+    margin-bottom: 10px;
+  }
+
+  .collapse.navbar-collapse {
+    order: 4;                    /* menú desplegable al final */
+    width: 100%;
+  }
+
+  .navbar-nav {
+    flex-direction: column;       /* enlaces en columna */
+    align-items: center;          /* centrado horizontal */
+  }
+
+  .navbar-nav .nav-link {
+    padding: 10px 0;              /* espacio entre links */
+    text-align: center;           /* centrado del texto */
+  }
+}
+
+section, .inicio-box, .img-container {
+  max-width: 100%;
+  overflow: hidden; /* Bloquea cualquier “overflow” interno que cause scroll extra */
+  box-sizing: border-box;
+}
+
+.inicio-box::before {
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  position: absolute;
+  border-radius: 15px;
+  overflow: hidden; /* Evita que el pseudo-elemento genere scroll extra */
+}
+
+.img-container img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+
+.top-video {
+  width: 100vw;
+  height: 100vh;       /* Ajusta segons necessitis */
+  overflow: hidden;
+  margin-top: 87px !important;   /* Espai del menú */
+}
+
+.top-video video.top-video-element {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.inicio-box {
+  position: relative;
+  width: 100vw;
+  height: 40vh;       /* Alçada de la caixa vermella */
+  background-color: #D52B1E;
+  color: #fff;
+  text-align: center;
+  padding: 40px 20px;
+  overflow: hidden;
+  border-radius: 0;
+  box-shadow: none;
+  margin: 0;
+}
+
+
+
+/* Afegir un degradat al fons per a un efecte més modern */
+.inicio-box::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, rgba(213, 43, 30, 0.7), rgba(0, 0, 0, 0.6));
+  z-index: -1;
+  border-radius: 15px; /* Mantenir la coherència amb el border-radius */
+}
+
+/* Millorar la tipografia del text */
+.inicio-box p {
+  font-family: 'Montserrat', sans-serif; /* Tipografia moderna i neta */
+  font-weight: 700; /* Pes fort per destacar */
+  font-size: 1.8rem; /* Augmentar la mida de la font */
+  letter-spacing: 1px; /* Espai entre lletres per donar més aire */
+  line-height: 1.6; /* Augmentar l'alçada de la línia per a més legibilitat */
+  margin: 0; /* Eliminar marge */
+  padding: 10px 0; /* Padding addicional per espaiar millor */
+}
+
+/* Afegir un efecte animat al text */
+.inicio-box p span {
+  display: inline-block;
+  position: relative;
+  color: #fff;
+  animation: textAnimation 3s ease-in-out infinite;
+}
+
+@keyframes textAnimation {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+/* Contenedor de las imágenes */
+.img-container {
+  position: relative;
+  width: 100vw;         /* Ocupa todo el ancho de la ventana */
+  max-width: 100vw;     /* Asegura que no sobresalga */
+  overflow: hidden;     /* Evita scroll extra por transformaciones */
+  margin: 0;            /* Elimina márgenes automáticos */
+  padding: 0;           /* Sin padding que genere scroll */
+}
+
+/* Imagen dentro del contenedor */
+.img-container img {
+  display: block;
+  width: 100vw;         /* Ocupa todo el ancho de la ventana */
+  max-width: 100vw;     /* Nunca más grande que la ventana */
+  height: auto;
+  object-fit: cover;
+}
+
+/* Asegura que los pseudo-elementos no creen scroll */
+.inicio-box::before {
+  width: 100vw;
+  height: 100%;
+  left: 0;
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+/* Fins i tot afegim un estil extra per les pantalles petites */
+@media (max-width: 768px) {
+  .inicio-box {
+    font-size: 1.3rem; /* Mida de font més petita per a pantalles més petites */
+    padding: 20px;
+    margin-top: 100px; /* Menys marge a la part superior */
+  }
+
+  .inicio-box p {
+    font-size: 1.5rem; /* Ajustem la mida de la tipografia */
+  }
+}
+
+/* Contenedor de las columnas */
+#caps-colla .row {
+  justify-content: center; /* Centra las columnas horizontalmente */
+  gap: 30px; /* Espacio entre columnas */
+}
+
+/* Las columnas */
+#caps-colla .col-md-4 {
+  flex: 0 0 30%; /* Ocupa aproximadamente un tercio del row */
+  max-width: 30%;
+  display: flex;
+  justify-content: center; /* Centra la card dentro de la columna */
+  margin-bottom: 30px;
+}
+
+/* Tarjetas */
+#caps-colla .card {
+  padding-left: 20px;
+  width: 100%; /* Ocupa todo el ancho de la columna */
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Imagen de la tarjeta */
+#caps-colla .card-img-top {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease-in-out;
+}
+
+/* Zoom al pasar el cursor */
+#caps-colla .card-img-top:hover {
+  transform: scale(1.05);
+}
+
+/* Card body */
+#caps-colla .card-body {
+  padding: 20px;
+  background-color: #fff;
+  border-top: 2px solid #D52B1E;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  #caps-colla .col-md-4 {
+    flex: 0 0 45%; /* Dos columnas en pantallas medianas */
+    max-width: 45%;
+  }
+}
+
+@media (max-width: 768px) {
+  #caps-colla .col-md-4 {
+    flex: 0 0 80%; /* Una columna en móvil */
+    max-width: 80%;
+  }
+
+  #caps-colla .card-img-top {
+    height: 250px;
+  }
+}
+
+/* Efecto de transición de opacidad */
+.fade-enter {
+  opacity: 0;
+}
+
+.fade-enter-active {
+  opacity: 1;
+  transition: opacity 300ms ease-in-out;
+}
+
+.fade-exit {
+  opacity: 1;
+}
+
+.fade-exit-active {
+  opacity: 0;
+  transition: opacity 300ms ease-in-out;
+}
+.loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* Iniciar els elements com invisibles i afegir transicions */
+[data-aos] {
+  opacity: 0;
+  transform: translateY(50px);  /* Els elements es desplaçaran cap avall fora de la vista */
+  transition-property: opacity, transform;
+  transition-duration: 1s;
+  transition-timing-function: ease-out;
+}
+
+/* Quan l'element té l'atribut 'aos-animate', es mostra */
+[data-aos].aos-animate {
+  opacity: 1;
+  transform: translateY(0); /* L'element es mou a la posició original */
+}
+/* Loader full screen */
+#loader {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  z-index: 9999;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+/* L'spinner animat */
+.spinner {
+  width: 60px;
+  height: 60px;
+  border: 6px solid #d32f2f;
+  border-top: 6px solid transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+/* Animació de gir */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+/* Estils generals per a la secció */
+#info {
+  padding-top: 50px;
+  padding-bottom: 50px;
+  text-align: center;
+}
+
+/* Estil per al títol de la secció */
+#info .section-title {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+/* Estil per al text de la secció */
+#info .section-text {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 30px;
+}
+
+/* Estils per al contenidor de la imatge */
+.img-container {
+  position: relative;
+  max-width: 100%;
+  overflow: hidden; /* Assegura que la imatge no surti fora del contenidor */
+  border-radius: 10px; /* Opcional: afegeix cantonades arrodonides */
+}
+
+/* Estils per a la imatge */
+.img-container img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover; /* Assegura que la imatge cobreixi tot el contenidor */
+  transition: transform 0.3s ease; /* Efet de transició per augmentar la mida de la imatge al passar per sobre */
+}
+
+/* Efecte al passar el cursor sobre la imatge */
+.img-container img:hover {
+  transform: scale(1.1); /* Ampliarà la imatge una mica quan es passi el cursor per sobre */
+}
+
+/* Estils per a la capció de la imatge */
+.img-container .caption {
+  position: absolute;
+  bottom: 10px; /* Posiciona la capció a la part inferior */
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.6); /* Fons negre translúcid per a la capció */
+  color: #fff;
+  padding: 10px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border-radius: 5px;
+}
+@media (max-width: 768px) {
+  .navbar .container {
+    flex-direction: column;      /* todo en columna */
+    align-items: center;         /* centra los elementos */
+  }
+
+  .navbar-brand {
+    order: 1;                    /* logo primero */
+    margin-bottom: 10px;         /* separa del siguiente */
+  }
+
+  .search-bar {
+    order: 2;                    /* buscador después del logo */
+    width: 90%;                  /* ocupa casi todo el ancho */
+    margin-bottom: 10px;
+    left: 0 !important;          /* quitar cualquier desplazamiento previo */
+  }
+
+  .navbar-toggler {
+    order: 3;                    /* botón del menú abajo del buscador */
+    margin-bottom: 10px;
+  }
+
+  .collapse.navbar-collapse {
+    order: 4;                    /* menú desplegable al final */
+    width: 100%;
+  }
+
+  .navbar-nav {
+    flex-direction: column;       /* enlaces en columna */
+    align-items: center;          /* centrado horizontal */
+  }
+
+  .navbar-nav .nav-link {
+    padding: 10px 0;              /* espacio entre links */
+    text-align: center;           /* centrado del texto */
+  }
+}
+
+/* --- Els Nostres Caps: full width sin perder tamaño --- */
+#caps-colla {
+  position: relative;
+  width: 100vw;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  padding: 0 !important;
+  overflow: hidden;
+  background-color: #fff;
+}
+
+/* Quita márgenes y paddings extra */
+#caps-colla .row {
+  margin: 0 !important;
+  padding: 0 !important;
+  justify-content: center;
+  gap: 30px;
+}
+
+#caps-colla .col-md-4 {
+  padding: 0 !important;
+  margin: 0 !important;
+  flex: 0 0 30%;
+  max-width: 30%;
+  display: flex;
+  justify-content: center;
+}
+
+#caps-colla .card {
+  width: 100%;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  overflow: hidden;
+  padding: 0; /* quita el padding izquierdo que desplazaba las imágenes */
+}
+
+#caps-colla .card-img-top {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease-in-out;
+}
+
+/* Hover */
+#caps-colla .card-img-top:hover {
+  transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+  #caps-colla .col-md-4 {
+    flex: 0 0 80%;
+    max-width: 80%;
+  }
+
+  #caps-colla .card-img-top {
+    width: 100%;      /* Ocupa todo el ancho de la columna */
+    height: auto;     /* Mantiene la proporción original */
+    object-fit: contain; /* No recorta la imagen */
+  }
+}
+
+/* 🔧 Redueix l'espai entre opcions del menú */
+.navbar-nav .nav-item {
+  margin-left: 4px !important;
+  margin-right: 4px !important;
+}
+
+/* 🔧 Redueix el padding intern dels enllaços */
+.navbar-nav .nav-link {
+  padding-left: 6px !important;
+  padding-right: 6px !important;
+  font-size: 15px; /* opcional: més compacte */
+}
+
+/* 🔧 Ajusta també els desplegables si vols */
+.navbar .dropdown-menu {
+  min-width: 160px;
+}
+/* ======== ESTIL GENERAL ======== */
+.timeline-section {
+  margin-top: -30px !important;
+  padding: 100px 0;
+  position: relative;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.section-title {
+  text-align: center;
+  color: #D52B1E;
+  font-size: 2.4rem;
+  font-weight: 800;
+  margin-bottom: 80px;
+  text-shadow: 0 2px 10px rgba(213,43,30,0.2);
+}
+/* ======== CONTENEDOR ======== */
+.timeline {
+  position: relative;
+  max-width: 1200px; /* augmentat de 900px a 1200px */
+  width: 95%; /* més flexible segons pantalla */
+  margin: 0 auto;
+  padding-left: 80px; /* ajust per a ample més gran */
+}
+
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: 50px; /* ajustat per separar més el punt */
+  top: 0;
+  width: 6px;
+  height: 100%;
+  background: linear-gradient(to bottom, #D52B1E, #ff8888);
+  border-radius: 4px;
+}
+
+/* ======== ITEM ======== */
+.timeline-item {
+  position: relative;
+  margin-bottom: 60px;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.8s ease;
+}
+
+.timeline-item.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ======== DOT ======== */
+.timeline-dot {
+  position: absolute;
+  left: 0;
+  background: #D52B1E;
+  color: #fff;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  font-weight: 700;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 0 5px #fff, 0 0 15px rgba(213,43,30,0.3);
+}
+
+/* ======== CONTENIDO ======== */
+.timeline-content {
+  background: #fff;
+  border-radius: 12px;
+  padding: 25px 30px;
+  margin-left: 150px; /* augmentat de 120px a 150px per adaptar-se a ample més gran */
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.timeline-content:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 25px rgba(213,43,30,0.3);
+}
+
+.timeline-content h3 {
+  color: #D52B1E;
+  font-size: 1.4rem;
+  margin-bottom: 10px;
+}
+
+.timeline-content p {
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+/* ======== BOTÓN ======== */
+.timeline-btn {
+  display: inline-block;
+  background: #D52B1E;
+  color: #fff;
+  text-decoration: none;
+  padding: 12px 28px;
+  border-radius: 40px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.timeline-btn:hover {
+  background: #a91812;
+  box-shadow: 0 8px 18px rgba(213,43,30,0.3);
+  transform: translateY(-2px);
+}
+
+/* ======== RESPONSIVE ======== */
+@media (max-width: 1024px) {
+  .timeline {
+    padding-left: 60px;
+  }
+  .timeline::before {
+    left: 40px;
+  }
+  .timeline-content {
+    margin-left: 130px;
+  }
+}
+
+@media (max-width: 768px) {
+  .timeline {
+    padding-left: 40px;
+  }
+  .timeline::before {
+    left: 25px;
+  }
+  .timeline-dot {
+    width: 60px;
+    height: 60px;
+    font-size: 1.2rem;
+  }
+  .timeline-content {
+    margin-left: 100px;
+    padding: 20px;
+  }
+}
+
+
+  </style>
+</head>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const steps = document.querySelectorAll(".progress-steps .step");
+  const contents = document.querySelectorAll(".step-content .content");
+
+  steps.forEach((step, index) => {
+    step.addEventListener("click", () => {
+      steps.forEach(s => s.classList.remove("active"));
+      contents.forEach(c => c.classList.remove("active"));
+      step.classList.add("active");
+      contents[index].classList.add("active");
+    });
+  });
+
+  // Inicia en el primer pas
+  steps[0].classList.add("active");
+  contents[0].classList.add("active");
+});
+
+</script>
+    <link rel="stylesheet" href="css/search.css">
+
+<link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+<script src="https://unpkg.com/react-router-dom@6.4.1/umd/react-router-dom.min.js"></script>
+
+<body>
+  <body style="background: #fff;">
+  <div id="app-root"></div>
+  <script>
+    // Bloqueo clic derecho
+    document.addEventListener('contextmenu', e => e.preventDefault(), true);
+    window.oncontextmenu = () => false;
+
+    // Bloqueo atajos de inspección
+    document.addEventListener('keydown', e => {
+      if (e.key === 'F12' || 
+          (e.ctrlKey && e.shiftKey && ['I','J','C','K'].includes(e.key.toUpperCase())) ||
+          (e.ctrlKey && ['U','S'].includes(e.key.toUpperCase()))
+      ) e.preventDefault();
+    }, true);
+
+    // Tu contenido solo en JS, así:
+    const appDiv = document.getElementById('app-root');
+    appDiv.innerHTML = `
+
+    `;
+  </script>
+</body>
+
+  <!-- Loader (animació de càrrega) -->
+<div id="loader">
+  <div class="spinner"></div>
+</div>
+
+
+<nav class="navbar navbar-expand-lg navbar-light fixed-top">
+  <div class="container d-flex align-items-center">
+    <form class="d-flex me-3 search-bar" role="search" onsubmit="return handleSearch(event)">
+      <input id="searchInput" class="form-control search-input" type="search" placeholder="Buscar..." aria-label="Buscar">
+    </form>
+
+    <a class="navbar-brand" href="https://www.cordemariamataro.cat/">
+      <img src="images/logo_corazon_de_maria.png" alt="Logo Cor de Maria" style="height: 60px;">
+    </a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link text-danger" href="http://localhost:3000/home">Inici</a></li>
+        <li class="nav-item"><a class="nav-link text-danger" href="http://localhost:3000/cercavila">Cercaviles</a></li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-danger" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Festes especials</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item text-danger" href="http://localhost:3000/carnaval">Rua Carnaval</a></li>
+            <li><a class="dropdown-item text-danger" href="http://localhost:3000/sant-jordi">Sant Jordi</a></li>
+            <li><a class="dropdown-item text-danger" href="http://localhost:3000/cursa">Cursa de l'escola</a></li>
+            <li><a class="dropdown-item text-danger" href="http://localhost:3000/festa-Major">Festa Major</a></li>
+            <li><a class="dropdown-item text-danger" href="http://localhost:3000/festa-tardor">Festa de Tardor</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-danger" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Colla</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item text-danger" href="http://localhost:3000/membres">Músics i portadors</a></li>
+            <li><a class="dropdown-item text-danger" href="http://localhost:3000/experiencies">Experiències dels membres</a></li>
+            <li><a class="dropdown-item text-danger" href="http://localhost:3000/uneixte">T'hi vols unir?</a></li>
+            <li><a class="dropdown-item text-danger" href="http://localhost:3000/chat">Chat i comentaris</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item"><a class="nav-link text-danger" href="http://localhost:3000/contacte">Contacte</a></li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-danger" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Socials</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item text-danger" href="https://www.instagram.com/collageganteracordemariamataro?igsh=eGhpazQyNHNqdnQx">Instagram</a></li>
+          </ul>
+        </li>
+<li class="nav-item dropdown" id="user-menu">
+  <a href="http://localhost:3000/perfil" class="nav-link dropdown-toggle text-danger" href="http://localhost:3000/perfil" role="button" data-bs-toggle="dropdown" aria-expanded="false" id="user-menu-link">
+    Login
+  </a>
+  <ul class="dropdown-menu" id="user-dropdown-menu">
+    <li><a class="dropdown-item text-danger" id="profile" href="http://localhost:3000/perfil">Perfil</a></li>
+    <!-- Aquí afegirem dinàmicament els enllaços de secció -->
+    <li><a class="dropdown-item text-danger" href="#" id="logout-link">Tancar Sessió</a></li>
+  </ul>
+</li>
+
+<script>
+document.addEventListener('DOMContentLoaded', async () => {
+  const token = localStorage.getItem('authToken');
+  const userMenuLink = document.getElementById('user-menu-link');
+  const userDropdownMenu = document.getElementById('user-dropdown-menu');
+  
+  const userPerfil = document.getElementById("profile")
+  // Si no hi ha token, mostra "Login"
+  if (!token) {
+    userMenuLink.textContent = 'Login';
+    userPerfil.textContent = 'Login';
+    const tancar = document.getElementById("logout-link").style.display = "none";
+
+    return;
+  }
+
+  try {
+    const res = await fetch('/api/profile', {
+      headers: { 'Authorization': `Bearer ${token}` }
+    });
+    const data = await res.json();
+
+    if (!data.success || !data.user) {
+      userMenuLink.textContent = 'Login';
+      return;
+    }
+
+    const user = data.user;
+    userMenuLink.textContent = user.username || 'Perfil';
+
+    // --- Afegim enllaços segons rol i validació ---
+    if (user.roleWeb === 'portador' && user.roleWebValidat === true) {
+      const li = document.createElement('li');
+      li.innerHTML = `<a class="dropdown-item text-danger" href="http://localhost:3000/seccio-portadors">Secció Portadors</a>`;
+      userDropdownMenu.insertBefore(li, document.getElementById('logout-link').parentElement);
+    }
+
+    if (user.roleWeb === 'music' && user.roleWebValidat === true) {
+      const li = document.createElement('li');
+      li.innerHTML = `<a class="dropdown-item text-danger" href="http://localhost:3000/seccio-musics">Secció Músics</a>`;
+      userDropdownMenu.insertBefore(li, document.getElementById('logout-link').parentElement);
+    }
+
+    // (opcional) Si vols que també surti per altres rols validats (ex: acompanyant):
+    // if (user.roleWeb === 'acompanyant' && user.roleWebValidat) { ... }
+
+  } catch (err) {
+    console.error('Error carregant perfil:', err);
+    userMenuLink.textContent = 'Login';
+  }
+});
+</script>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+<script>
+window.addEventListener('load', async () => {
+  const token = localStorage.getItem('authToken');
+  const userMenuLink = document.getElementById('user-menu-link');
+
+  // Si no hi ha token, mostrar Login i netejar localStorage
+  if (!token) {
+    localStorage.removeItem('username');
+    userMenuLink.textContent = 'Login';
+    return;
+  }
+
+  try {
+    const res = await fetch('/api/profile', {
+      headers: { 'Authorization': `Bearer ${token}` }
+    });
+    const data = await res.json();
+    console.log('Perfil carregat:', data);
+
+    if (data.success && data.user) {
+      const username = data.user.username || 'Perfil';
+      const profileImg = data.user.image
+        ? `/uploads/${data.user.image}`
+        : '/images/default_profile.png';
+
+      userMenuLink.innerHTML = `
+        <img src="${profileImg}" 
+             alt="Perfil" 
+             style="width:32px;height:32px;border-radius:50%;object-fit:cover;margin-right:8px;">
+        ${username}
+      `;
+    } else {
+      // Token invàlid o perfil no carregat: mostrar Login i netejar localStorage
+      localStorage.removeItem('authToken');
+      localStorage.removeItem('username');
+      userMenuLink.textContent = 'Login';
+    }
+
+  } catch (err) {
+    console.error('Error carregant perfil:', err);
+    localStorage.removeItem('authToken');
+    localStorage.removeItem('username');
+    userMenuLink.textContent = 'Login';
+  }
+
+  const logoutLink = document.getElementById('logout-link');
+  if (logoutLink) {
+    logoutLink.addEventListener('click', () => {
+      localStorage.removeItem('authToken');
+      localStorage.removeItem('username');
+      window.location.href = '/';
+    });
+  }
+});
+</script>
+
+
+  
+
+
+<link href="css/bot.css" rel="stylesheet">
+<!-- Botó d'icona de Pau -->
+<div id="bot-icon" class="bot-icon" onclick="toggleChat()">
+  <img src="images/pau.png" alt="Pau" class="pau-img"/>
+</div>
+
+<!-- Caixa de xat -->
+<div id="chat-box" class="chat-box">
+  <div id="close-btn" class="close-btn">X</div> <!-- Botó per tancar -->
+  <div id="chat-log" class="chat-log">
+      <!-- Missatges del xat aquí -->
+  </div>
+  <input type="text" id="user-input" class="user-input" placeholder="Escriu un missatge..." />
+  <button id="send-btn" class="send-btn">Enviar</button>
+</div>
+
+<script src="js/bot.js"></script>
+
+  
+
+<!-- Vídeo a dalt, sota el menú -->
+<div class="top-video">
+  <video autoplay muted loop playsinline class="top-video-element">
+    <source src="images/video-home.mp4" type="video/mp4">
+    El teu navegador no suporta vídeo HTML5.
+  </video>
+</div>
+
+<!-- Caixa vermella de benvinguda -->
+<section class="inicio-box">
+  <div class="inicio-content">
+    <p data-aos="fade-up">Toquem Bé, toquem fluix</p>
+    <p data-aos="fade-up" data-aos-delay="100">Colla Gegantera del Cor de Maria</p>
+  </div>
+</section>
+
+
+<section id="info" class="py-5" data-aos="fade-up">
+  <h2 class="section-title text-center" data-aos="fade-up" data-aos-duration="1500">Qui Som?</h2>
+  <p class="section-text" data-aos="fade-up" data-aos-duration="1500">Som la Colla Gegantera Cor de Maria, un grup apassionat per les tradicions populars. Ens dediquem a preservar la cultura dels gegants i capgrossos, portant aquestes tradicions a les noves generacions.</p>
+  <div class="img-container" data-aos="fade-up" data-aos-duration="1500">
+      <img src="images/favicon.jpeg" alt="Gegants Cor de Maria">
+      <div class="caption">Gegants del Cor de Maria</div>
+  </div>
+</section>
+
+<section id="galeria" class="py-5" data-aos="fade-up">
+  <h2 class="section-title text-center" data-aos="fade-up" data-aos-duration="1500">Som Família!</h2>
+  <p class="section-text" data-aos="fade-up" data-aos-duration="1500">A la Colla Gegantera Cor de Maria ens sentim com una gran família. Junts, compartim la passió per la cultura popular i les nostres festes.</p>
+  <div class="img-container" data-aos="fade-up" data-aos-duration="1500">
+      <img src="images/familia.jpg" alt="Gegants en Festa">
+      <div class="caption">¡Som colla, som família!</div>
+  </div>
+</section>
+
+<section id="caps-colla" class="py-5" data-aos="fade-up" style="">
+  <h2 class="section-title text-center" data-aos="fade-up" data-aos-duration="1500">Els Nostres Caps!</h2>
+  <div class="row justify-content-center">
+      <!-- Primera caixa -->
+      <div class="col-md-4 mb-4 d-flex align-items-stretch" style="padding-left: 10px;">
+          <div class="card shadow-lg" data-aos="fade-right" data-aos-duration="1500">
+              <img src="images/Screenshot_20250306_170100_Gallery.jpg" alt="Cap de Colla" class="card-img-top">
+              <div class="card-body">
+                  <h5 class="card-title">Carles Rigat - Cap de Músics</h5>
+                  <p class="card-text">Un gran cap de músics i diseñador del poster de la festa de tardor del curs 2024!</p>
+              </div>
+          </div>
+      </div>
+      <!-- Segona caixa -->
+      <div class="col-md-4 mb-4 d-flex align-items-stretch">
+          <div class="card shadow-lg" data-aos="fade-up" data-aos-duration="1500">
+              <img src="images/pedro.jpg" alt="Cap de Colla" class="card-img-top">
+              <div class="card-body">
+                  <h5 class="card-title">Pedro Matallana - Cap de Colla</h5>
+                  <p class="card-text">El nou i actual cap de la colla gegantera, amb nous plans i idees innovadores!</p>
+              </div>
+          </div>
+      </div>
+      <!-- Tercera caixa -->
+      <div class="col-md-4 mb-4 d-flex align-items-stretch">
+          <div class="card shadow-lg" data-aos="fade-left" data-aos-duration="1500">
+              <img src="images/Screenshot_20250306_010844_Gallery.jpg" alt="Cap de Colla" class="card-img-top">
+              <div class="card-body">
+                  <h5 class="card-title">Aleix Gironès - Cap de portadors</h5>
+                  <p class="card-text">El nou cap de portadors i dedicat a ballar amb els gegants com mai!</p>
+              </div>
+          </div>
+      </div>
+      <div></div>
+    </section>
+
+
+
+
+
+<section id="galeria" class="py-5">
+  <h2 class="section-title text-center" data-aos="fade-up" data-aos-duration="1500">Padrins de Colla!</h2>
+  <p class="section-text" data-aos="fade-up" data-aos-duration="1500">A més de la nostra gran família, compartim moments amb altres colles amigues. Junts, preservem les tradicions i celebrem la festa popular.</p>
+  <div class="img-container" data-aos="fade-up" data-aos-duration="1500">
+      <img src="images/cosins.jpg" alt="Gegants en Festa">
+      <div class="caption">Els nostres padrins</div>
+  </div>
+</section>
+
+<section id="timeline" class="timeline-section">
+  <h2 class="section-title">Preguntes que et fas!</h2>
+
+  <div class="timeline">
+    <!-- Item 1 -->
+    <div class="timeline-item">
+      <div class="timeline-dot"><span>1</span></div>
+      <div class="timeline-content">
+        <h3>Vols unir-te a la colla?</h3>
+        <p>Forma part de la nostra gran família gegantera i viu la festa des de dins! Gaudeix d’una experiència única plena de tradició i diversió.</p>
+        <a href="/accedeix" class="timeline-btn">Accedeix</a>
+      </div>
+    </div>
+
+    <!-- Item 2 -->
+    <div class="timeline-item">
+      <div class="timeline-dot"><span>2</span></div>
+      <div class="timeline-content">
+        <h3>Vols contactar amb nosaltres?</h3>
+        <p>Tens dubtes o vols més informació sobre la colla? Estarem encantats d’ajudar-te.</p>
+        <a href="/contacte" class="timeline-btn">Contacta</a>
+      </div>
+    </div>
+
+    <!-- Item 3 -->
+    <div class="timeline-item">
+      <div class="timeline-dot"><span>3</span></div>
+      <div class="timeline-content">
+        <h3>Cerques cercaviles?</h3>
+        <p>Vols que els nostres gegants participin en la teva festa? Consulta el calendari i fes la teva reserva!</p>
+        <a href="/cercaviles" class="timeline-btn">Consulta</a>
+      </div>
+    </div>
+
+    <!-- Item 4 -->
+    <div class="timeline-item">
+      <div class="timeline-dot"><span>4</span></div>
+      <div class="timeline-content">
+        <h3>Vols veure opinions?</h3>
+        <p>Explica’ns què t’ha agradat, comparteix fotos i moments inoblidables amb la colla!</p>
+        <a href="/experiencies" class="timeline-btn">Explica-ho</a>
+      </div>
+    </div>
+
+    <!-- Item 5 -->
+    <div class="timeline-item">
+      <div class="timeline-dot"><span>5</span></div>
+      <div class="timeline-content">
+        <h3>Vols saber quan son les cercaviles?</h3>
+        <p>Busca en el calendari les cercaviles per saber quan n'hi han!</p>
+        <a href="/cercaviles" class="timeline-btn">Explora-ho</a>
+      </div>
+    </div>
+
+    <!-- Item 6 -->
+    <div class="timeline-item">
+      <div class="timeline-dot"><span>6</span></div>
+      <div class="timeline-content">
+        <h3>Vols veure’ns tocar a la FM?</h3>
+        <p>Mira com toquem a la cercavila més important del curs!</p>
+        <a href="/festa-major" class="timeline-btn">Mira-ho</a>
+      </div>
+    </div>
+    
+  </div>
+</section>
+
+
+
+<script>
+  // Animació: apareix al fer scroll
+  const timelineItems = document.querySelectorAll('.timeline-item');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.3 });
+
+  timelineItems.forEach(item => observer.observe(item));
+</script>
+
+
+
+<footer class="footer">
+  <p>&copy; 2025 Colla Gegantera Cor de Maria. Tots els drets reservats.</p>
+</footer>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<script>
+    AOS.init({
+        duration: 1000,
+        easing: 'ease-in-out',
+        once: true
+    });
+    window.addEventListener('scroll', function() {
+        let sections = document.querySelectorAll('section');
+        let navLinks = document.querySelectorAll('.navbar-nav .nav-link');
+      
+        sections.forEach((section, index) => {
+          let top = section.offsetTop;
+          let height = section.offsetHeight;
+          if (window.scrollY >= top && window.scrollY <= top + height) {
+            navLinks[index].classList.add('active');
+          } else {
+            navLinks[index].classList.remove('active');
+          }
+        });
+      });
+      document.getElementById("bot-icon").addEventListener("click", function() {
+        document.getElementById("chat-box").style.display = "block";
+    });
+    
+    document.getElementById("send-btn").addEventListener("click", function() {
+        let userInput = document.getElementById("user-input").value;
+        if (userInput.trim() !== "") {
+            let chatLog = document.getElementById("chat-log");
+            let newMessage = document.createElement("div");
+            newMessage.textContent = "Tu: " + userInput;
+            chatLog.appendChild(newMessage);
+    
+            // Resposta del bot segons el que ha escrit l'usuari
+            let botResponse = document.createElement("div");
+            botResponse.textContent = getBotResponse(userInput);
+            chatLog.appendChild(botResponse);
+            
+            // Neteja el camp d'entrada
+            document.getElementById("user-input").value = "";
+            chatLog.scrollTop = chatLog.scrollHeight;
+        }
+    });
+    
+   
+
+      
+</script>
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<script>
+  AOS.init({
+    duration: 1000,           // Durada de l'animació en mil·lisegons
+    delay: 200,               // Afegir un retard de 200ms per a l'animació
+    once: false,              // L'animació es fa cada cop que l'element entra a la vista
+    easing: 'ease-out',       // Tipus d'easing per a l'animació (pot ser 'ease', 'ease-out', etc.)
+    offset: 100,              // Desplaçament per iniciar l'animació (quant l'element s'ha de desplaçar per aparèixer)
+    anchorPlacement: 'top-bottom', // Controla el punt d'anclatge per activar les animacions (p.ex. 'top-center')
+  });
+</script>
+<script>
+  window.addEventListener("load", function () {
+    const loader = document.getElementById("loader");
+    loader.style.opacity = "0";
+    loader.style.visibility = "hidden";
+  });
+</script>
+
+  <!-- Cookies -->
+<div id="cookie-banner" style="display: none; position: fixed; bottom: 0; width: 100%; background: #D52B1E; color: white; padding: 15px; z-index: 9999; text-align: center; font-family: 'Montserrat', sans-serif;">
+  <p style="margin-bottom: 10px; font-size: 1rem;">
+    Utilitzem cookies per millorar la teva experiència i analitzar el trànsit.
+    Consulta la nostra <a href="/privacy.html" style="color: #fff; text-decoration: underline;">Política de Privacitat</a> i
+    la <a href="/cookies.html" style="color: #fff; text-decoration: underline;">Política de Cookies</a>.
+  </p>
+  <button id="accept-cookies" style="background: white; color: #D52B1E; border: none; padding: 8px 15px; margin-right: 10px; border-radius: 5px; cursor: pointer;">Acceptar totes</button>
+  <button id="reject-cookies" style="background: transparent; color: white; border: 1px solid white; padding: 8px 15px; border-radius: 5px; cursor: pointer;">Només essencials</button>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const banner = document.getElementById("cookie-banner");
+  const acceptBtn = document.getElementById("accept-cookies");
+  const rejectBtn = document.getElementById("reject-cookies");
+
+  // Comprova si l'usuari ja va donar consentiment
+  const consent = localStorage.getItem("cookieConsent");
+
+  if (!consent) {
+    banner.style.display = "block";
+  }
+
+  function hideBanner() {
+    banner.style.transition = "opacity 0.5s ease";
+    banner.style.opacity = "0";
+    setTimeout(() => banner.style.display = "none", 500);
+  }
+
+  function habilitarCookies() {
+    // Exemple: activa Google Analytics o altres serveis no essencials
+    console.log("Cookies no essencials activades.");
+  }
+
+  acceptBtn.addEventListener("click", () => {
+    localStorage.setItem("cookieConsent", "all");
+    hideBanner();
+    habilitarCookies();
+  });
+
+  rejectBtn.addEventListener("click", () => {
+    localStorage.setItem("cookieConsent", "essential");
+    hideBanner();
+    console.log("Només cookies essencials habilitades.");
+  });
+});
+</script>
+
+
+
+
+  <!-- Connectar arxius CSS de Bootstrap -->
+  <link href="css/bootstrap.css" rel="stylesheet">
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/bootstrap-grid.css" rel="stylesheet">
+  <link href="css/bootstrap-grid.min.css" rel="stylesheet">
+  <link href="css/bootstrap-reboot.css" rel="stylesheet">
+  <link href="css/bootstrap-reboot.min.css" rel="stylesheet">
+
+  <!-- (Opcional) Connectar mapes de fonts (només per depuració) -->
+  <link href="css/bootstrap.css.map" rel="stylesheet" type="text/css" />
+  <link href="css/bootstrap.min.css.map" rel="stylesheet" type="text/css" />
+  <link href="css/bootstrap-grid.css.map" rel="stylesheet" type="text/css" />
+  <link href="css/bootstrap-grid.min.css.map" rel="stylesheet" type="text/css" />
+  <link href="css/bootstrap-reboot.css.map" rel="stylesheet" type="text/css" />
+  <link href="css/bootstrap-reboot.min.css.map" rel="stylesheet" type="text/css" />
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+</body>
+</html>

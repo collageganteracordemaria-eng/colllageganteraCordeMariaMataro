@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Recuperar Contraseña</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="icon" href="images/favicon.jpeg" type="image/jpeg">
+
+<style>
+  body {
+    background-color: #fff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  .container {
+    max-width: 450px;
+    margin: 50px auto;
+    padding: 30px;
+    border-radius: 15px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    border: 2px solid #ff4d4d;
+  }
+
+  h2 {
+    text-align: center;
+    color: #b30000;
+    margin-bottom: 30px;
+    font-weight: bold;
+  }
+
+  label {
+    font-weight: 600;
+    color: #800000;
+  }
+
+  .btn-primary {
+    background-color: #b30000;
+    border-color: #b30000;
+  }
+
+  .btn-primary:hover {
+    background-color: #ff1a1a;
+    border-color: #ff1a1a;
+  }
+
+  .btn-success {
+    background-color: #ff4d4d;
+    border-color: #ff4d4d;
+  }
+
+  .btn-success:hover {
+    background-color: #ff1a1a;
+    border-color: #ff1a1a;
+  }
+
+  .btn-warning {
+    background-color: #b30000;
+    border-color: #b30000;
+    color: #fff;
+  }
+
+  .btn-warning:hover {
+    background-color: #ff1a1a;
+    border-color: #ff1a1a;
+  }
+
+  #message {
+    font-weight: 600;
+    text-align: center;
+  }
+
+  .logo {
+    display: block;
+    margin: 0 auto 20px auto;
+    width: 120px;
+    height: 80px;
+  }
+
+  input.form-control {
+    border-radius: 10px;
+    border: 1px solid #ff4d4d;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <!-- Logo del Cor de Maria -->
+<img src="/images/logo_corazon_de_maria.png" alt="Logo Cor de Maria" class="logo">
+
+  <h2>Recuperar Contraseña</h2>
+
+  <!-- Formulario 1: Usuario y correo -->
+  <form id="form-email">
+    <div class="mb-3">
+      <label>Username:</label>
+      <input type="text" id="username" class="form-control" required>
+    </div>
+    <div class="mb-3">
+      <label>Email:</label>
+      <input type="email" id="email" class="form-control" required>
+    </div>
+    <button type="submit" class="btn btn-primary w-100">Enviar codi</button>
+  </form>
+
+  <!-- Formulario 2: Código -->
+  <form id="form-code" class="mt-3" style="display:none;">
+    <div class="mb-3">
+      <label>Código recibido en el correo:</label>
+      <input type="text" id="code" class="form-control" required>
+    </div>
+    <button type="submit" class="btn btn-success w-100">Verificar codi</button>
+  </form>
+
+  <!-- Formulario 3: Nueva contraseña -->
+  <form id="form-new-password" class="mt-3" style="display:none;">
+    <div class="mb-3">
+      <label>Nueva contraseña:</label>
+      <input type="password" id="new-password" class="form-control" required>
+      <small class="form-text text-muted">
+        La contrasenya ha de tenir mínim 8 caràcters, incloure majúscules, minúscules, números i un caràcter especial.
+      </small>
+    </div>
+    <button type="submit" class="btn btn-warning w-100">Cambiar contrasenya</button>
+  </form>
+
+  <div id="message" class="mt-3 text-danger"></div>
+</div>
+
+<script>
+let currentUsername = '';
+
+/** ENVIAR CODI **/
+document.getElementById('form-email').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const username = document.getElementById('username').value;
+  const email = document.getElementById('email').value;
+  currentUsername = username;
+
+  try {
+    const res = await fetch('/api/send-recovery-code', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({username, email})
+    });
+    const data = await res.json();
+
+    if(data.success){
+      document.getElementById('form-email').style.display = 'none';
+      document.getElementById('form-code').style.display = 'block';
+      document.getElementById('message').textContent = '';
+    } else {
+      document.getElementById('message').textContent = data.message;
+    }
+  } catch(err) {
+    console.error(err);
+    document.getElementById('message').textContent = 'Error en la connexió amb el servidor.';
+  }
+});
+
+/** VALIDAR CODI **/
+document.getElementById('form-code').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const code = document.getElementById('code').value;
+
+  try {
+    const res = await fetch('/api/verify-recovery-code', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({username: currentUsername, code})
+    });
+    const data = await res.json();
+
+    if(data.success){
+      document.getElementById('form-code').style.display = 'none';
+      document.getElementById('form-new-password').style.display = 'block';
+      document.getElementById('message').textContent = '';
+    } else {
+      document.getElementById('message').textContent = data.message;
+    }
+  } catch(err) {
+    console.error(err);
+    document.getElementById('message').textContent = 'Error en la connexió amb el servidor.';
+  }
+});
+
+/** CANVIAR CONTRASENYA **/
+document.getElementById('form-new-password').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const newPassword = document.getElementById('new-password').value;
+
+  // Validació estricta al frontend
+  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&()_\-+])[A-Za-z\d@$!%*?&()_\-+]{8,}$/;
+  if(!passwordRegex.test(newPassword)){
+    document.getElementById('message').textContent = 'La contrasenya no compleix les regles de seguretat.';
+    return;
+  }
+
+  try {
+    const res = await fetch('/api/reset-password', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({username: currentUsername, newPassword})
+    });
+    const data = await res.json();
+
+    if(data.success){
+      // Mostrem missatge d'èxit
+      document.getElementById('message').textContent = 'Contrasenya canviada correctament. Redirigint a l\'inici...';
+      document.getElementById('message').classList.remove('text-danger');
+      document.getElementById('message').classList.add('text-success');
+
+      // Esperem 2 segons abans de redirigir
+      setTimeout(() => {
+        window.location.href = 'http://localhost:3000/home';
+      }, 2000);
+    } else {
+      document.getElementById('message').textContent = data.message;
+      document.getElementById('message').classList.remove('text-success');
+      document.getElementById('message').classList.add('text-danger');
+    }
+  } catch(err) {
+    console.error(err);
+    document.getElementById('message').textContent = 'Error en la connexió amb el servidor.';
+    document.getElementById('message').classList.remove('text-success');
+    document.getElementById('message').classList.add('text-danger');
+  }
+});
+
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,218 @@
+/* === Buscador rojo, blanco y negro (alineado más a la izquierda) === */
+.search-bar {
+  display: flex;
+  align-items: center;
+  margin-right: auto;   /* Empuja los demás elementos a la derecha */
+  margin-left: -200px !important;   /* Mueve el buscador más a la izquierda (ajusta este valor a tu gusto) */
+}
+
+.search-bar input {
+  border: 2px solid #b30000;
+  border-radius: 20px;
+  padding: 6px 12px;
+  background-color: white;
+  color: black;
+  outline: none;
+  width: 390px;          /* Mantiene la longitud original */
+  transition: all 0.3s ease;
+}
+
+.search-bar input::placeholder {
+  color: #555;
+}
+
+.search-bar input:focus {
+  border-color: black;
+  width: 420px;          /* Pequeño efecto al enfocar, opcional */
+}
+
+/* === Laptop (pantallas medianas, hasta 1200px) === */
+@media (max-width: 1200px) {
+  .search-bar {
+    margin-left: -100px !important;
+  }
+
+  .search-bar input {
+    width: 350px;
+  }
+
+  .search-bar input:focus {
+    width: 370px;
+  }
+}
+
+/* === Tablet (hasta 992px) === */
+@media (max-width: 992px) {
+  .search-bar {
+    margin-left: 0 !important;
+    justify-content: center;
+  }
+
+  .search-bar input {
+    width: 70%;
+    max-width: 320px;
+  }
+
+  .search-bar input:focus {
+    width: 75%;
+  }
+}
+
+/* === Móvil (hasta 768px) === */
+@media (max-width: 768px) {
+  .search-bar {
+    margin-left: 0 !important;
+    justify-content: center;
+  }
+
+  .search-bar input {
+    width: 80%;
+    max-width: 300px;
+    padding: 6px 10px;
+  }
+
+  .search-bar input:focus {
+    width: 85%;
+  }
+}
+
+/* === Móvil pequeño (hasta 480px) === */
+@media (max-width: 480px) {
+  .search-bar {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .search-bar input {
+    width: 90%;
+    max-width: none;
+    font-size: 14px;
+    padding: 5px 10px;
+  }
+
+  .search-bar input:focus {
+    width: 95%;
+  }
+}
+
+/* === Móvil muy pequeño (hasta 360px, por ejemplo teléfonos antiguos o compactos) === */
+@media (max-width: 360px) {
+  .search-bar input {
+    width: 95%;
+    font-size: 13px;
+    padding: 4px 8px;
+  }
+}
+/* === Móvil y tablet (hasta 992px) === */
+@media (max-width: 992px) {
+  /* Centrar buscador debajo del logo */
+  .search-bar {
+    margin-left: 0 !important;
+    justify-content: center;
+    width: 100%;
+    order: 2;          /* Aparece después del logo */
+    margin: 10px 0;    /* Separación vertical */
+  }
+
+  .search-bar input {
+    width: 80%;
+    max-width: 320px;
+    padding: 6px 10px;
+  }
+
+  .search-bar input:focus {
+    width: 85%;
+  }
+}
+
+/* === Móvil pequeño (hasta 480px) === */
+@media (max-width: 480px) {
+  .search-bar {
+    flex-direction: column;
+    gap: 8px;
+    width: 90%;
+  }
+
+  .search-bar input {
+    width: 100%;
+    max-width: none;
+    font-size: 14px;
+    padding: 5px 10px;
+  }
+
+  .search-bar input:focus {
+    width: 100%;
+  }
+}
+
+/* === Móvil muy pequeño (hasta 360px) === */
+@media (max-width: 360px) {
+  .search-bar input {
+    width: 100%;
+    font-size: 13px;
+    padding: 4px 8px;
+  }
+}
+/* === Navbar móvil === */
+@media (max-width: 992px) {
+  /* Contenedor vertical */
+  .navbar .container {
+    flex-direction: column;
+    align-items: flex-start; /* alinear menú a la izquierda */
+  }
+
+  /* Logo en la parte superior */
+  .navbar-brand {
+    order: 1;
+    margin-bottom: 10px;
+  }
+
+  /* Botón hamburguesa debajo del logo */
+  .navbar-toggler {
+    order: 2;
+    align-self: flex-end; /* botón a la derecha */
+    margin-bottom: 10px;
+  }
+
+  /* Menú colapsado */
+  .navbar-collapse {
+    order: 3;
+    width: 100%;
+  }
+
+  /* Buscador debajo del menú */
+  .search-bar {
+    order: 4;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin: 10px 0;
+  }
+
+  .search-bar input {
+    width: 90%;
+    max-width: none;
+    padding: 8px 12px;
+    border: 2px solid #b30000;
+    border-radius: 30px;
+    outline: none;
+  }
+
+  .search-bar input::placeholder {
+    color: #555;
+  }
+
+  .search-bar input:focus {
+    border-color: black;
+    width: 95%;
+  }
+}
+
+/* Muy pequeño (360px) */
+@media (max-width: 360px) {
+  .search-bar input {
+    width: 95%;
+    padding: 6px 10px;
+    font-size: 13px;
+  }
+}

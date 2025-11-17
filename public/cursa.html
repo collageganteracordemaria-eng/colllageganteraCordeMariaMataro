@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cursa de l'Escola - Colla Gegantera Cor de Maria</title>
+  <link rel="icon" href="images/favicon.jpeg" type="image/jpeg">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/menu.css" rel="stylesheet">
+  <link href="css/search.css" rel="stylesheet">
+  <script src="js/proteger.js"></script>
+  <script src="js/search.js"></script>
+
+  <style>
+/* Animació de "fade-in" personalitzada */
+    .fade-in {
+      opacity: 0;
+      transition: opacity 1s ease-out;
+    }
+
+    /* Quan l'element es mostra, es fa visible */
+    .fade-in.aos-animate {
+      opacity: 1;
+    }
+
+  /* Estilos generales */
+body {
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f9f9f9;
+  background-repeat: no-repeat;
+  background-size: cover;
+  animation: confetiMove 20s linear infinite;
+  overflow-x: hidden;
+
+}
+
+
+    /* Estils per la caixa de benvinguda */
+.inicio-box {
+  background-color: #D52B1E; /* Vermell distintiu */
+  color: #fff; /* Text blanc per contrast */
+  padding: 40px;
+  margin-top: 120px; /* Per evitar que es sobreposi al menú fixat */
+  text-align: center;
+  font-size: 1.5rem;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); /* Una ombra suau per donar profunditat */
+  max-width: 90%; /* Limitar l'amplada de la caixa */
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  overflow: hidden;
+}
+
+
+/* Efecto de transición de opacidad */
+.fade-enter {
+  opacity: 0;
+}
+
+.fade-enter-active {
+  opacity: 1;
+  transition: opacity 300ms ease-in-out;
+}
+
+.fade-exit {
+  opacity: 1;
+}
+
+.fade-exit-active {
+  opacity: 0;
+  transition: opacity 300ms ease-in-out;
+}
+.loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* Iniciar els elements com invisibles i afegir transicions */
+[data-aos] {
+  opacity: 0;
+  transform: translateY(50px);  /* Els elements es desplaçaran cap avall fora de la vista */
+  transition-property: opacity, transform;
+  transition-duration: 1s;
+  transition-timing-function: ease-out;
+}
+
+/* Quan l'element té l'atribut 'aos-animate', es mostra */
+[data-aos].aos-animate {
+  opacity: 1;
+  transform: translateY(0); /* L'element es mou a la posició original */
+}
+[data-aos].aos-hide-up {
+  opacity: 0 !important;
+  transform: translateY(50px) !important;
+  transition: all 0.6s ease !important;
+}
+
+/* Loader full screen */
+#loader {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  z-index: 9999;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+/* L'spinner animat */
+.spinner {
+  width: 60px;
+  height: 60px;
+  border: 6px solid #d32f2f;
+  border-top: 6px solid transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+/* Animació de gir */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+    /* Header */
+    header {
+        background-color: #b30000;
+        color: white;
+        padding: 150px 0 60px 0;
+        text-align: center;
+        border-bottom: 5px solid #D52B1E;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        height: 400px !important;
+      }
+  
+      header h1 {
+        font-family: 'Russo One', sans-serif;
+        font-size: 4.5rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.4);
+        margin-bottom: 20px;
+      }
+  
+      header p {
+        font-size: 1.5rem;
+        font-weight: 500;
+      }
+  
+      /* Secció de vídeo i imatges */
+      .video-section, .image-section {
+        padding: 60px 0;
+        text-align: center;
+        background-color: #f1f1f1;
+      }
+  
+      .video-container {
+        position: relative;
+        width: 100%;
+        padding-bottom: 56.25%;
+        height: 0;
+        overflow: hidden;
+        background-color: #000;
+        border-radius: 10px;
+      }
+  
+      .video-container video {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 10px;
+      }
+      .pluja-de-roses img.rosa-flotant {
+        position: fixed;
+        top: -80px;
+        width: 60px;
+        opacity: 0.9;
+        z-index: 5;
+        pointer-events: none;
+        animation-name: caure;
+        animation-timing-function: linear;
+        animation-iteration-count: infinite;
+      }
+      
+      @keyframes caure {
+        0% {
+          transform: translateY(0px) rotate(0deg);
+          opacity: 0.9;
+        }
+        100% {
+          transform: translateY(120vh) rotate(360deg);
+          opacity: 0;
+        }
+      }
+      /* Estil uniforme per a totes les imatges de la secció */
+.video-section img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover; /* Retalla i centra la imatge */
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Efecte hover per fer-les més atractives */
+.video-section img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.25);
+}
+.running-bg-section {
+    position: relative;
+    height: 80vh;
+    overflow: hidden;
+  }
+  
+  .running-video-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .running-video-container video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+  }
+  
+  .text-overlay {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    color: white;
+    padding-top: 25vh;
+    font-size: 2rem;
+    background-color: rgba(0, 0, 0, 0.3);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+.navbar .container {
+  max-width: 1200px;
+  display: flex;
+  justify-content: flex-end; /* tot cap a la dreta */
+  align-items: center;
+}
+
+.search-bar {
+  display: flex;
+  margin-left: 25px;
+  max-width: 600px !important; /* petit */
+}
+
+.search-bar input {
+  flex: 1;
+  padding: 4px 8px;
+  border: 2px solid #b30000;
+  border-radius: 30px;
+  font-size: 0.9rem;
+}
+
+.navbar-brand {
+  margin-left: 20px;
+}
+/* Títol i subtítol per a mòbils */
+@media (max-width: 768px) {
+  .header-title {
+    position: relative;
+    top: 100px; /* Sota la posició normal, més cap a baix */
+    font-size: 1.8rem;
+    text-align: center;
+  }
+
+  .header-subtitle {
+    position: relative;
+    top: 60px; /* Subtítol una mica més baix */
+    font-size: 1rem;
+    text-align: center;
+  }
+}
+
+
+
+@media (max-width: 768px) {
+  .navbar .container {
+    flex-direction: column;      /* todo en columna */
+    align-items: center;         /* centra los elementos */
+  }
+
+  .navbar-brand {
+    order: 1;                    /* logo primero */
+    margin-bottom: 10px;         /* separa del siguiente */
+  }
+
+  .search-bar {
+    order: 2;                    /* buscador después del logo */
+    width: 90%;                  /* ocupa casi todo el ancho */
+    margin-bottom: 10px;
+    left: 0 !important;          /* quitar cualquier desplazamiento previo */
+  }
+
+  .navbar-toggler {
+    order: 3;                    /* botón del menú abajo del buscador */
+    margin-bottom: 10px;
+  }
+
+  .collapse.navbar-collapse {
+    order: 4;                    /* menú desplegable al final */
+    width: 100%;
+  }
+
+  .navbar-nav {
+    flex-direction: column;       /* enlaces en columna */
+    align-items: center;          /* centrado horizontal */
+  }
+
+  .navbar-nav .nav-link {
+    padding: 10px 0;              /* espacio entre links */
+    text-align: center;           /* centrado del texto */
+  }
+}
+@media (min-width: 992px) {
+  .navbar .container {
+    justify-content: flex-start;
+    align-items: center;
+    padding-left: 40px;
+  }
+
+  .navbar-brand {
+    margin-left: 0;
+    margin-right: 10px;
+  }
+
+  .search-bar {
+    margin-left: 0;
+    max-width: 380px;
+  }
+
+  .navbar-collapse {
+    margin-left: 50px;  /* 🔹 antes -30px → ahora hay más espacio entre logo/buscador y el menú */
+  }
+
+  .navbar-nav .nav-link {
+    padding: 8px 18px;  /* 🔹 un poco más de aire entre las opciones del menú */
+  }
+}
+/* 🔧 Redueix l'espai entre opcions del menú */
+.navbar-nav .nav-item {
+  margin-left: 4px !important;
+  margin-right: 4px !important;
+}
+
+/* 🔧 Redueix el padding intern dels enllaços */
+.navbar-nav .nav-link {
+  padding-left: 6px !important;
+  padding-right: 6px !important;
+  font-size: 15px; /* opcional: més compacte */
+}
+
+/* 🔧 Ajusta també els desplegables si vols */
+.navbar .dropdown-menu {
+  min-width: 160px;
+}
+.search-input{
+  width: 320px !important;
+}
+  </style>
+</head>
+<link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+<script src="https://unpkg.com/react-router-dom@6.4.1/umd/react-router-dom.min.js"></script>
+
+<body>
+
+
+<body style="background: #fff;">
+  <div id="app-root"></div>
+  <script>
+    // Bloqueo clic derecho
+    document.addEventListener('contextmenu', e => e.preventDefault(), true);
+    window.oncontextmenu = () => false;
+
+    // Bloqueo atajos de inspección
+    document.addEventListener('keydown', e => {
+      if (e.key === 'F12' || 
+          (e.ctrlKey && e.shiftKey && ['I','J','C','K'].includes(e.key.toUpperCase())) ||
+          (e.ctrlKey && ['U','S'].includes(e.key.toUpperCase()))
+      ) e.preventDefault();
+    }, true);
+
+    // Tu contenido solo en JS, así:
+    const appDiv = document.getElementById('app-root');
+    appDiv.innerHTML = `
+
+    `;
+  </script>
+</body>
+
+
+
+  <!-- Loader (animació de càrrega) -->
+<div id="loader">
+  <div class="spinner"></div>
+</div>
+
+
+<nav class="navbar navbar-expand-lg navbar-light fixed-top">
+  <div class="container d-flex align-items-center">
+    <form class="d-flex me-3 search-bar" role="search" onsubmit="return handleSearch(event)">
+      <input id="searchInput" class="form-control search-input" type="search" placeholder="Buscar..." aria-label="Buscar">
+    </form>
+
+    <a class="navbar-brand" href="https://www.cordemariamataro.cat/">
+      <img src="images/logo_corazon_de_maria.png" alt="Logo Cor de Maria" style="height: 60px;">
+    </a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link text-danger" href="http://localhost:3000/home">Inici</a></li>
+        <li class="nav-item"><a class="nav-link text-danger" href="http://localhost:3000/cercavila">Cercaviles</a></li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-danger" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Festes especials</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item text-danger" href="http://localhost:3000/carnaval">Rua Carnaval</a></li>
+            <li><a class="dropdown-item text-danger" href="http://localhost:3000/sant-jordi">Sant Jordi</a></li>
+            <li><a class="dropdown-item text-danger" href="http://localhost:3000/cursa">Cursa de l'escola</a></li>
+            <li><a class="dropdown-item text-danger" href="http://localhost:3000/festa-Major">Festa Major</a></li>
+            <li><a class="dropdown-item text-danger" href="http://localhost:3000/festa-tardor">Festa de Tardor</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-danger" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Colla</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item text-danger" href="http://localhost:3000/membres">Músics i portadors</a></li>
+            <li><a class="dropdown-item text-danger" href="http://localhost:3000/experiencies">Experiències dels membres</a></li>
+            <li><a class="dropdown-item text-danger" href="http://localhost:3000/uneixte">T'hi vols unir?</a></li>
+            <li><a class="dropdown-item text-danger" href="http://localhost:3000/chat">Chat i comentaris</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item"><a class="nav-link text-danger" href="http://localhost:3000/contacte">Contacte</a></li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-danger" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Socials</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item text-danger" href="https://www.instagram.com/collageganteracordemariamataro?igsh=eGhpazQyNHNqdnQx">Instagram</a></li>
+          </ul>
+        </li>
+      <li class="nav-item dropdown" id="user-menu">
+          <a class="nav-link dropdown-toggle text-danger" href="http://localhost:3000/perfil" role="button" data-bs-toggle="dropdown" aria-expanded="false" id="user-menu-link">
+            Login
+          </a>
+          <ul class="dropdown-menu" id="user-dropdown-menu">
+            <li><a class="dropdown-item text-danger" href="http://localhost:3000/perfil">Perfil</a></li>
+            <li><a class="dropdown-item text-danger" href="#" id="logout-link">Tancar Sessió</a></li>
+          </ul>
+        </li>
+
+
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+
+<script>
+document.addEventListener('DOMContentLoaded', async () => {
+  const token = localStorage.getItem('authToken');
+  const userMenuLink = document.getElementById('user-menu-link');
+  const userDropdownMenu = document.getElementById('user-dropdown-menu');
+
+  // Si no hi ha token, mostra "Login"
+  if (!token) {
+    userMenuLink.textContent = 'Login';
+    userPerfil.textContent = 'Login';
+    const tancar = document.getElementById("logout-link").style.display = "none";
+    return;
+  }
+
+  try {
+    const res = await fetch('/api/profile', {
+      headers: { 'Authorization': `Bearer ${token}` }
+    });
+    const data = await res.json();
+
+    if (!data.success || !data.user) {
+      userMenuLink.textContent = 'Login';
+      return;
+    }
+
+    const user = data.user;
+    userMenuLink.textContent = user.username || 'Perfil';
+
+    // --- Afegim enllaços segons rol i validació ---
+    if (user.roleWeb === 'portador' && user.roleWebValidat === true) {
+      const li = document.createElement('li');
+      li.innerHTML = `<a class="dropdown-item text-danger" href="http://localhost:3000/seccio-portadors">Secció Portadors</a>`;
+      userDropdownMenu.insertBefore(li, document.getElementById('logout-link').parentElement);
+    }
+
+    if (user.roleWeb === 'music' && user.roleWebValidat === true) {
+      const li = document.createElement('li');
+      li.innerHTML = `<a class="dropdown-item text-danger" href="http://localhost:3000/seccio-musics">Secció Músics</a>`;
+      userDropdownMenu.insertBefore(li, document.getElementById('logout-link').parentElement);
+    }
+
+    // (opcional) Si vols que també surti per altres rols validats (ex: acompanyant):
+    // if (user.roleWeb === 'acompanyant' && user.roleWebValidat) { ... }
+
+  } catch (err) {
+    console.error('Error carregant perfil:', err);
+    userMenuLink.textContent = 'Login';
+  }
+});
+</script>
+<script>
+window.addEventListener('load', async () => {
+  const token = localStorage.getItem('authToken');
+  const username = localStorage.getItem('username');
+  const userMenuLink = document.getElementById('user-menu-link');
+
+  if (token && username) {
+    try {
+      const res = await fetch('/api/profile', {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      const data = await res.json();
+      console.log('Perfil carregat:', data);
+
+      if (data.success) {
+        const profileImg = data.user.image
+          ? `/uploads/${data.user.image}`
+          : '/images/default_profile.png';
+
+        userMenuLink.innerHTML = `
+          <img src="${profileImg}" 
+               alt="Perfil" 
+               style="width:32px;height:32px;border-radius:50%;object-fit:cover;margin-right:8px;">
+          ${username}
+        `;
+      } else {
+        userMenuLink.textContent = username;
+      }
+
+      // No mostrar el dropdown por defecto
+    } catch (err) {
+      console.error('Error carregant perfil:', err);
+      userMenuLink.textContent = username;
+    }
+  } else {
+    userMenuLink.textContent = 'Login';
+  }
+
+  const logoutLink = document.getElementById('logout-link');
+  if (logoutLink) {
+    logoutLink.addEventListener('click', () => {
+      localStorage.removeItem('authToken');
+      localStorage.removeItem('username');
+      window.location.href = '/';
+    });
+  }
+});
+
+</script>
+
+  
+
+
+<link href="css/bot.css" rel="stylesheet">
+<!-- Botó d'icona de Pau -->
+<div id="bot-icon" class="bot-icon" onclick="toggleChat()">
+  <img src="images/pau.png" alt="Pau" class="pau-img"/>
+</div>
+
+<!-- Caixa de xat -->
+<div id="chat-box" class="chat-box">
+  <div id="close-btn" class="close-btn">X</div> <!-- Botó per tancar -->
+  <div id="chat-log" class="chat-log">
+      <!-- Missatges del xat aquí -->
+  </div>
+  <input type="text" id="user-input" class="user-input" placeholder="Escriu un missatge..." />
+  <button id="send-btn" class="send-btn">Enviar</button>
+</div>
+
+
+
+<header id="home" class="video-header" data-aos="fade-up">
+    <div class="overlay"></div>
+    <video autoplay muted loop playsinline class="bg-video">
+      <source src="" type="video/mp4">
+      El teu navegador no suporta el vídeo.
+    </video>
+    <div class="header-content text-center">
+<h1 class="display-4 text-white" style="position: relative; top: -200px;">Cursa de l'Escola 2024 - Cor de Maria</h1>
+<p class="lead text-white" style="position: relative; top: -180px;">Un dia ple d'emoció, esport i companyonia!</p>
+
+    </div>
+  </header>
+  <!-- Vídeo de gent corrent com a fons -->
+<section class="running-bg-section">
+    <div class="running-video-container">
+      <video autoplay muted loop playsinline>
+        <source src="images/VID-20240616-WA0007.mp4" type="video/mp4">
+        El teu navegador no suporta el vídeo.
+      </video>
+      <div class="text-overlay">
+        <h2>Corrent per una bona causa!</h2>
+        <p>Gràcies a tothom per participar!</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="about-cursa-section py-5" data-aos="fade-up">
+    <div class="row justify-content-center">
+      <div class="col-lg-10">
+        <div class="card border-0 shadow-lg p-4 rounded-4">
+          <h2 class="text-center text-danger fw-bold mb-4">Què és la Cursa de l’Escola?</h2>
+          <p class="fs-5 text-muted" style="text-align: justify;">
+            La <strong>Cursa de l’Escola del Cor de Maria</strong> és molt més que una activitat esportiva: 
+            és una jornada de <strong>companyonia, esforç i solidaritat</strong> que uneix alumnes, famílies, 
+            professors i membres de la colla gegantera i alumnes del Cor de Maria en un mateix esperit de comunitat.
+          </p>
+          <p class="fs-5 text-muted" style="text-align: justify;">
+            Cada any, un dia posat els alumnes inicien un circuit en que aportant un incentiu tens un número de la carrera,
+            i al acabar obtens un bocata i beguda, el gegant Joaquim també participa a la carrera, i al entrar dins del centre
+            com a últim participant de la carrera, els músics es disposen a tocar mentre's que el gegant valla animadament!
+            I tots junts disfrutem de la cursa fins l'hora de acabada.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+  
+
+<section class="gallery-section py-5" data-aos="fade-left">
+  <div class="container">
+    <h2 class="text-center mb-5 text-danger fw-bold">Moments de la Cursa 2024</h2>
+
+    <!-- 🎥 Galeria de Vídeos -->
+    <div class="row">
+      <div class="col-md-4 mb-4">
+        <div class="video-container">
+          <video controls class="img-fluid scroll-sensitive rounded shadow-sm" data-aos="fade-up">
+            <source src="images/VID-20240616-WA0009.mp4" type="video/mp4">
+            El teu navegador no suporta el vídeo.
+          </video>
+        </div>
+      </div>
+
+      <div class="col-md-4 mb-4">
+        <div class="video-container">
+          <video controls class="img-fluid scroll-sensitive rounded shadow-sm" data-aos="fade-up">
+            <source src="images/VID-20240616-WA0024.mp4" type="video/mp4">
+            El teu navegador no suporta el vídeo.
+          </video>
+        </div>
+      </div>
+
+      <div class="col-md-4 mb-4">
+        <div class="video-container">
+          <video controls class="img-fluid scroll-sensitive rounded shadow-sm" data-aos="fade-up">
+            <source src="images/VID-20240616-WA0009.mp4" type="video/mp4">
+            El teu navegador no suporta el vídeo.
+          </video>
+        </div>
+      </div>
+    </div>
+
+    <!-- 🖼️ Més Imatges de la Cursa -->
+    <div class="row">
+      <div class="col-md-4 mb-4">
+        <img src="images/IMG-20240616-WA0017.jpg" alt="Cursa 5" class="img-fluid rounded shadow-sm scroll-sensitive" data-aos="fade-up">
+      </div>
+      <div class="col-md-4 mb-4">
+        <img src="images/IMG-20240616-WA0018 (1).jpg" alt="Cursa 6" class="img-fluid rounded shadow-sm scroll-sensitive" data-aos="fade-up">
+      </div>
+       <div class="col-md-4 mb-4">
+        <img src="images/IMG-20240616-WA0025.jpg" alt="Cursa 7" class="img-fluid rounded shadow-sm scroll-sensitive" data-aos="fade-up">
+      </div>
+    </div>
+
+
+</section>
+
+
+<section class="cursa-form-section py-5" data-aos="fade-up">
+  <div class="row justify-content-center">
+    <div class="col-lg-6">
+      <div class="card border-0 shadow-lg p-4 rounded-4">
+        <h2 class="text-center text-danger fw-bold mb-4">Inscripció i Pagament</h2>
+        <form id="cursaForm">
+          <div class="mb-3">
+            <label for="nom" class="form-label">Nom complet</label>
+            <input type="text" class="form-control" id="nom" name="nom" required>
+          </div>
+          <div class="mb-3">
+            <label for="edat" class="form-label">Edat</label>
+            <input type="number" class="form-control" id="edat" name="edat" required>
+          </div>
+          <div class="mb-3">
+            <label for="correu" class="form-label">Correu electrònic</label>
+            <input type="email" class="form-control" id="correu" name="correu" required>
+          </div>
+          <div class="mb-3">
+            <label for="telefon" class="form-label">Telèfon</label>
+            <input 
+              type="tel"
+              class="form-control"
+              id="telefon"
+              name="telefon"
+              required
+              pattern="[0-9]{9}"
+              maxlength="9"
+              inputmode="numeric"
+              placeholder="Exemple: 612345678"
+            >
+          </div>
+          <div class="mb-3">
+            <label for="entrades" class="form-label">Nombre d'entrades / números</label>
+            <input type="number" class="form-control" id="entrades" name="entrades" min="1" required>
+          </div>
+          <div class="mb-3">
+            <label for="pagament" class="form-label">Tipus de pagament</label>
+            <select class="form-select" id="pagament" name="pagament" required>
+              <option value="">Selecciona...</option>
+              <option value="targeta">Targeta de crèdit</option>
+              <option value="transferencia">Transferència</option>
+              <option value="efectiu">Efectiu</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-danger w-100">Enviar Inscripció</button>
+        </form>
+        <div id="cursaMessage" class="mt-3"></div>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+  // Genera una ruta aleatòria
+  function generarRutaAleatoria(longitud = 10) {
+    const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    let resultat = '';
+    for (let i = 0; i < longitud; i++) {
+      resultat += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return '/' + resultat + '/';
+  }
+
+  // Redirigeix al pagament amb ruta aleatòria
+// Redirigeix a una ruta aleatòria que CARREGA pagament.html
+function redirigirPagament() {
+  const aleatori = generarRutaAleatoria();
+  window.location.href = aleatori + "pagament";
+}
+
+
+
+  // Botó del formulari per pagament amb targeta
+  document.getElementById('cursaForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const pagament = document.getElementById('pagament').value;
+
+    // Validació bàsica abans de redirigir
+    if (!pagament) {
+      alert('Si us plau, selecciona un tipus de pagament.');
+      return;
+    }
+
+    if (pagament === 'targeta') {
+      // Redirigeix després d'1 segon (per animació o missatge)
+      setTimeout(() => {
+        redirigirPagament();
+      }, 1000);
+    } else {
+      alert('El formulari s\'ha enviat amb èxit. Segueix les instruccions per a pagament.');
+    }
+  });
+</script>
+
+
+
+
+
+<script>
+
+
+(function () {
+  const form = document.getElementById('cursaForm');
+  const messageDiv = document.getElementById('cursaMessage');
+  const submitBtn = form.querySelector('button[type="submit"]');
+
+  function showMessage(html, type = 'info') {
+    const cls =
+      type === 'success'
+        ? 'alert-success'
+        : type === 'error'
+        ? 'alert-danger'
+        : 'alert-info';
+    messageDiv.innerHTML = `<div class="alert ${cls}">${html}</div>`;
+  }
+
+  form.addEventListener('submit', async function (e) {
+    e.preventDefault();
+    messageDiv.innerHTML = '';
+    submitBtn.disabled = true;
+
+    const nom = document.getElementById('nom').value.trim();
+    const edat = document.getElementById('edat').value.trim();
+    const correu = document.getElementById('correu').value.trim();
+    const telefon = document.getElementById('telefon').value.trim();
+    const pagament = document.getElementById('pagament').value;
+    const entrades = document.getElementById('entrades').value.trim();
+
+    // Validació bàsica
+    if (!nom || !edat || !correu || !telefon || !pagament || !entrades) {
+      showMessage('Si us plau, completa tots els camps.', 'error');
+      submitBtn.disabled = false;
+      return;
+    }
+
+    // Si és EFECTIU → només guardar i redirigir a ruta aleatòria
+    if (pagament === 'efectiu') {
+      localStorage.setItem(
+        'cursaFormData',
+        JSON.stringify({ nom, edat, correu, telefon, pagament, entrades })
+      );
+      return;
+    }
+
+    // PREPARA DADES
+    const payload = { nom, edat, correu, telefon, pagament, entrades };
+
+    showMessage('Processant el teu pagament...', 'info');
+
+    try {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 15000); // timeout 15s
+
+      const res = await fetch('/submit-cursa', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+        signal: controller.signal,
+      });
+
+      clearTimeout(timeoutId);
+
+      // Intentem parsejar JSON
+      let data = null;
+      const text = await res.text();
+      try {
+        data = text ? JSON.parse(text) : null;
+      } catch {
+        console.warn('Resposta no JSON del servidor:', text);
+      }
+
+      if (!res.ok) {
+        const serverMsg =
+          data && data.message
+            ? data.message
+            : `Servidor respon amb codi ${res.status}`;
+        showMessage(`Error del servidor: ${serverMsg}`, 'error');
+        submitBtn.disabled = false;
+        return;
+      }
+
+      // Si el servidor ha contestat amb success
+      if (data && data.success) {
+        showMessage(
+          data.message || 'Inscripció realitzada correctament! 🎉',
+          'success'
+        );
+        form.reset();
+
+        // NOMÉS TARGETA → ruta aleatòria + pagament.html
+        if (pagament === 'targeta') {
+          setTimeout(() => {
+          window.location.href =
+            'http://localhost:3000' + generarRutaAleatoria();
+
+          }, 1000);
+        }
+
+        // Transferència → no redirigim enlloc
+        return;
+      }
+
+      // Si arriba aquí, data.success és false o inexistent
+      const serverMsg =
+        data && data.message
+          ? data.message
+          : 'Resposta inesperada del servidor.';
+      showMessage(serverMsg, 'error');
+      console.warn('Resposta inesperada:', data);
+    } catch (err) {
+      if (err.name === 'AbortError') {
+        showMessage("Temps d'espera superat. Torna-ho a intentar.", 'error');
+      } else {
+        console.error('Error en fetch:', err);
+        showMessage(
+          'Error inesperat. Torna-ho a intentar. Mira la consola per més detalls.',
+          'error'
+        );
+      }
+    } finally {
+      submitBtn.disabled = false;
+    }
+  });
+})();
+</script>
+
+
+
+<script src="js/bot.js"></script>
+
+  <!-- Script per animació en desplaçament -->
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init();
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Script per l'efecte de desaparèixer en pujar -->
+  <script>
+    let lastScrollTop = window.scrollY;
+
+    window.addEventListener("scroll", function () {
+      const currentScroll = window.scrollY;
+      const goingDown = currentScroll > lastScrollTop;
+
+      document.querySelectorAll(".scroll-sensitive[data-aos]").forEach(el => {
+        const rect = el.getBoundingClientRect();
+        const inViewport = rect.top < window.innerHeight && rect.bottom > 0;
+
+        if (inViewport) {
+          if (goingDown) {
+            el.classList.remove("aos-hide-up");
+          } else {
+            el.classList.add("aos-hide-up");
+          }
+        }
+      });
+
+      lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+    });
+  </script>
+  <script>
+    window.onload = function () {
+      const loader = document.getElementById("loader");
+      loader.style.display = "none";  // Hide the loader once the page is loaded
+    };
+  </script>
+  
+</body>
+</html>
