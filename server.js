@@ -48,7 +48,7 @@ const storageAudios = multer.diskStorage({
 app.use(cors());
 
 // Connexió a MongoDB
-mongoose.connect(process.env.URLMONGO)
+mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log("Connexió a MongoDB establerta"))
   .catch((err) => {
     console.error("Error a l'establir la connexió amb MongoDB", err);
@@ -2263,7 +2263,8 @@ app.use((req, res) => {
 
 
 // Iniciar servidor
-app.listen(port, () => {
+app.listen(port, '0.0.0.0', () => {
   console.log(`Servidor en ejecución en http://localhost:${port}`);
 });
+
 
