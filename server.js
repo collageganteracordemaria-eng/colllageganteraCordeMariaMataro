@@ -15,7 +15,7 @@ dotenv.config();
 
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, 'uploads/'); // Carpeta on es guarden els fitxers
@@ -2262,9 +2262,7 @@ app.use((req, res) => {
 });
 
 
-// Iniciar servidor
-app.listen(port, '0.0.0.0', () => {
-  console.log(`Servidor en ejecución en http://localhost:${port}`);
+app.listen(port, () => {
+  console.log(`Servidor en ejecución en el port ${port}`);
 });
-
 
