@@ -1029,7 +1029,7 @@ const recoveryCodes = {};
 
 // --- Rutas amigables ---
 const rutas = [
-  { url: '/', file: 'index.html' },
+  { url: 'https://collageganteracordemaria-eng.github.io/colllageganteraCordeMariaMataro', file: 'index.html' },
   { url: '/cercavila', file: 'public/cercaviles.html' },
   { url: '/chat', file: 'chat.html' },
   { url: '/cursa', file: 'cursa.html' },
