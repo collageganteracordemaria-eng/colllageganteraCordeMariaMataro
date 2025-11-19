@@ -410,7 +410,7 @@ async function enviarBenvinguda(email, username) {
           Esperem que gaudeixis de totes les activitats i experiències de la colla.
         </p>
         <div style="text-align:center; margin:30px 0;">
-          <a href="http://localhost:3000" style="
+          <a href="https://collageganteracordemaria-eng.github.io/colllageganteraCordeMariaMataro/" style="
             display:inline-block;
             background:#D52B1E;
             color:#fff;
