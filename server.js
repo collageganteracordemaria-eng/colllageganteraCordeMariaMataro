@@ -1030,7 +1030,7 @@ const recoveryCodes = {};
 // --- Rutas amigables ---
 const rutas = [
   { url: '/', file: 'index.html' },
-  { url: '/cercavila', file: 'cercaviles.html' },
+  { url: '/cercavila', file: 'public/cercaviles.html' },
   { url: '/chat', file: 'chat.html' },
   { url: '/cursa', file: 'cursa.html' },
   { url: '/contacte', file: 'contacte.html' },
@@ -1041,7 +1041,7 @@ const rutas = [
   { url: '/festa-tardor', file: 'festatar.html' },
   { url: '/formulari-musica', file: 'formulari-musica.html' },
   { url: '/formulari-portador', file: 'formulari-portador.html' },
-  { url: '/home', file: 'menu.html' },
+  { url: '/home', file: 'public/menu.html' },
   { url: '/sant-jordi', file: 'sant_jordi.html' },
   { url: '/uneixte', file: 'uneixte.html' },
   { url: '/admin', file: 'admin.html' },
@@ -1222,7 +1222,7 @@ app.post('/api/reset-password', async (req, res) => {
     delete recoveryCodes[username];
 
     // Retornem JSON amb informació de redirecció
-    res.json({ success: true, message: 'Contrasenya canviada correctament.', redirect: 'http://localhost:3000/home' });
+    res.json({ success: true, message: 'Contrasenya canviada correctament.', redirect: 'https://collageganteracordemaria-eng.github.io/colllageganteraCordeMariaMataro/home' });
 
   } catch (err) {
     console.error('Error al canviar la contrasenya:', err);
