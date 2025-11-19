@@ -410,7 +410,7 @@ async function enviarBenvinguda(email, username) {
           Esperem que gaudeixis de totes les activitats i experiències de la colla.
         </p>
         <div style="text-align:center; margin:30px 0;">
-          <a href="https://collageganteracordemaria-eng.github.io/colllageganteraCordeMariaMataro/" style="
+          <a href="http://localhost:3000" style="
             display:inline-block;
             background:#D52B1E;
             color:#fff;
@@ -1029,8 +1029,8 @@ const recoveryCodes = {};
 
 // --- Rutas amigables ---
 const rutas = [
-  { url: 'https://collageganteracordemaria-eng.github.io/colllageganteraCordeMariaMataro', file: 'index.html' },
-  { url: '/cercavila', file: 'public/cercaviles.html' },
+  { url: '/', file: 'index.html' },
+  { url: '/cercavila', file: 'cercaviles.html' },
   { url: '/chat', file: 'chat.html' },
   { url: '/cursa', file: 'cursa.html' },
   { url: '/contacte', file: 'contacte.html' },
@@ -1041,7 +1041,7 @@ const rutas = [
   { url: '/festa-tardor', file: 'festatar.html' },
   { url: '/formulari-musica', file: 'formulari-musica.html' },
   { url: '/formulari-portador', file: 'formulari-portador.html' },
-  { url: '/home', file: 'public/menu.html' },
+  { url: '/home', file: 'menu.html' },
   { url: '/sant-jordi', file: 'sant_jordi.html' },
   { url: '/uneixte', file: 'uneixte.html' },
   { url: '/admin', file: 'admin.html' },
@@ -1222,7 +1222,7 @@ app.post('/api/reset-password', async (req, res) => {
     delete recoveryCodes[username];
 
     // Retornem JSON amb informació de redirecció
-    res.json({ success: true, message: 'Contrasenya canviada correctament.', redirect: 'https://collageganteracordemaria-eng.github.io/colllageganteraCordeMariaMataro/home' });
+    res.json({ success: true, message: 'Contrasenya canviada correctament.', redirect: 'http://localhost:3000/home' });
 
   } catch (err) {
     console.error('Error al canviar la contrasenya:', err);
