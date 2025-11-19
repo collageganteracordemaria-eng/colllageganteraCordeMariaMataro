@@ -12,7 +12,7 @@ document.getElementById("contacte-form").addEventListener("submit", function(eve
   
     const data = { nom, correu, message: missatge };
   
-    fetch('http://localhost:3000/submit-contacte', {
+    fetch('https://collageganteracordemaria-eng.github.io/colllageganteraCordeMariaMataro/submit-contacte', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -23,7 +23,7 @@ document.getElementById("contacte-form").addEventListener("submit", function(eve
     .then(data => {
       if (data.success) {
         alert("Missatge enviat correctament!");
-        window.location.href = 'http://localhost:3000/home'; // Redirigeix a 'menu.html'
+        window.location.href = 'https://collageganteracordemaria-eng.github.io/colllageganteraCordeMariaMataro/home'; // Redirigeix a 'menu.html'
       } else {
         alert(data.message || "Error en l'enviament del missatge.");
       }
